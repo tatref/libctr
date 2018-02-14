@@ -1,0 +1,104 @@
+digraph {
+	rankdir=LR;
+	node [shape=plaintext];
+	subgraph cluster__ctr_model {
+		label="CtrModel";
+		graph[style=dotted];
+
+		ctr_model__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="header_pos">0</TD><TD PORT="header_size">56</TD><TD>Header</TD><TD PORT="header_type">header</TD></TR>
+		</TABLE>>];
+		ctr_model__inst__info_header [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="info_header_pos">header.ptr_info_header</TD><TD PORT="info_header_size">36</TD><TD>InfoHeader</TD><TD PORT="info_header_type">info_header</TD></TR>
+		</TABLE>>];
+		subgraph cluster__header {
+			label="CtrModel::Header";
+			graph[style=dotted];
+
+			header__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="size_pos">0</TD><TD PORT="size_size">4</TD><TD>u4le</TD><TD PORT="size_type">size</TD></TR>
+				<TR><TD PORT="ptr_info_header_pos">4</TD><TD PORT="ptr_info_header_size">4</TD><TD>u4le</TD><TD PORT="ptr_info_header_type">ptr_info_header</TD></TR>
+				<TR><TD PORT="unknown1_pos">8</TD><TD PORT="unknown1_size">4</TD><TD>u4le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
+				<TR><TD PORT="unknown2_pos">12</TD><TD PORT="unknown2_size">4</TD><TD>u4le</TD><TD PORT="unknown2_type">unknown2</TD></TR>
+				<TR><TD PORT="num_pickup_headers_pos">16</TD><TD PORT="num_pickup_headers_size">4</TD><TD>s4le</TD><TD PORT="num_pickup_headers_type">num_pickup_headers</TD></TR>
+				<TR><TD PORT="ptr_pickup_headers_pos">20</TD><TD PORT="ptr_pickup_headers_size">4</TD><TD>u4le</TD><TD PORT="ptr_pickup_headers_type">ptr_pickup_headers</TD></TR>
+				<TR><TD PORT="num_pickup_models_pos">24</TD><TD PORT="num_pickup_models_size">4</TD><TD>s4le</TD><TD PORT="num_pickup_models_type">num_pickup_models</TD></TR>
+				<TR><TD PORT="ptr_faces_array_pos">28</TD><TD PORT="ptr_faces_array_size">4</TD><TD>u4le</TD><TD PORT="ptr_faces_array_type">ptr_faces_array</TD></TR>
+				<TR><TD PORT="unknown3_pos">32</TD><TD PORT="unknown3_size">4</TD><TD>u4le</TD><TD PORT="unknown3_type">unknown3</TD></TR>
+				<TR><TD PORT="unknown4_pos">36</TD><TD PORT="unknown4_size">4</TD><TD>u4le</TD><TD PORT="unknown4_type">unknown4</TD></TR>
+				<TR><TD PORT="ptr_pickup_headers_ptr_array_pos">40</TD><TD PORT="ptr_pickup_headers_ptr_array_size">4</TD><TD>u4le</TD><TD PORT="ptr_pickup_headers_ptr_array_type">ptr_pickup_headers_ptr_array</TD></TR>
+				<TR><TD PORT="unknown5_pos">44</TD><TD PORT="unknown5_size">4</TD><TD>u4le</TD><TD PORT="unknown5_type">unknown5</TD></TR>
+				<TR><TD PORT="magic1_pos">48</TD><TD PORT="magic1_size">8</TD><TD>00 00 00 00 00 00 00 00</TD><TD PORT="magic1_type">magic1</TD></TR>
+			</TABLE>>];
+		}
+		subgraph cluster__info_header {
+			label="CtrModel::InfoHeader";
+			graph[style=dotted];
+
+			info_header__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="unknown1_pos">0</TD><TD PORT="unknown1_size">4</TD><TD>u4le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
+				<TR><TD PORT="faces_num_pos">4</TD><TD PORT="faces_num_size">4</TD><TD>s4le</TD><TD PORT="faces_num_type">faces_num</TD></TR>
+				<TR><TD PORT="vertex_num_pos">8</TD><TD PORT="vertex_num_size">4</TD><TD>s4le</TD><TD PORT="vertex_num_type">vertex_num</TD></TR>
+				<TR><TD PORT="unknown2_pos">12</TD><TD PORT="unknown2_size">4</TD><TD>u4le</TD><TD PORT="unknown2_type">unknown2</TD></TR>
+				<TR><TD PORT="ptr_ngon_array_pos">16</TD><TD PORT="ptr_ngon_array_size">4</TD><TD>s4le</TD><TD PORT="ptr_ngon_array_type">ptr_ngon_array</TD></TR>
+				<TR><TD PORT="ptr_vert_array_pos">20</TD><TD PORT="ptr_vert_array_size">4</TD><TD>u4le</TD><TD PORT="ptr_vert_array_type">ptr_vert_array</TD></TR>
+				<TR><TD PORT="unknown3_pos">24</TD><TD PORT="unknown3_size">4</TD><TD>u4le</TD><TD PORT="unknown3_type">unknown3</TD></TR>
+				<TR><TD PORT="ptr_face_array_pos">28</TD><TD PORT="ptr_face_array_size">4</TD><TD>u4le</TD><TD PORT="ptr_face_array_type">ptr_face_array</TD></TR>
+				<TR><TD PORT="face_num_pos">32</TD><TD PORT="face_num_size">4</TD><TD>s4le</TD><TD PORT="face_num_type">face_num</TD></TR>
+			</TABLE>>];
+			info_header__inst__vertices [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="vertices_pos">ptr_vert_array</TD><TD PORT="vertices_size">16</TD><TD>Vertex</TD><TD PORT="vertices_type">vertices</TD></TR>
+				<TR><TD COLSPAN="4" PORT="vertices__repeat">repeat vertex_num times</TD></TR>
+			</TABLE>>];
+			subgraph cluster__vertex {
+				label="CtrModel::InfoHeader::Vertex";
+				graph[style=dotted];
+
+				vertex__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+					<TR><TD PORT="coordinates_pos">0</TD><TD PORT="coordinates_size">8</TD><TD>Vector4u2</TD><TD PORT="coordinates_type">coordinates</TD></TR>
+					<TR><TD PORT="color1_pos">8</TD><TD PORT="color1_size">4</TD><TD>Vector4u1</TD><TD PORT="color1_type">color1</TD></TR>
+					<TR><TD PORT="color2_pos">12</TD><TD PORT="color2_size">4</TD><TD>Vector4u1</TD><TD PORT="color2_type">color2</TD></TR>
+				</TABLE>>];
+				subgraph cluster__vector4u2 {
+					label="CtrModel::InfoHeader::Vertex::Vector4u2";
+					graph[style=dotted];
+
+					vector4u2__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+						<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">2</TD><TD>u2le</TD><TD PORT="x_type">x</TD></TR>
+						<TR><TD PORT="y_pos">2</TD><TD PORT="y_size">2</TD><TD>u2le</TD><TD PORT="y_type">y</TD></TR>
+						<TR><TD PORT="z_pos">4</TD><TD PORT="z_size">2</TD><TD>u2le</TD><TD PORT="z_type">z</TD></TR>
+						<TR><TD PORT="w_pos">6</TD><TD PORT="w_size">2</TD><TD>u2le</TD><TD PORT="w_type">w</TD></TR>
+					</TABLE>>];
+				}
+				subgraph cluster__vector4u1 {
+					label="CtrModel::InfoHeader::Vertex::Vector4u1";
+					graph[style=dotted];
+
+					vector4u1__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+						<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">1</TD><TD>u1</TD><TD PORT="x_type">x</TD></TR>
+						<TR><TD PORT="y_pos">1</TD><TD PORT="y_size">1</TD><TD>u1</TD><TD PORT="y_type">y</TD></TR>
+						<TR><TD PORT="z_pos">2</TD><TD PORT="z_size">1</TD><TD>u1</TD><TD PORT="z_type">z</TD></TR>
+						<TR><TD PORT="w_pos">3</TD><TD PORT="w_size">1</TD><TD>u1</TD><TD PORT="w_type">w</TD></TR>
+					</TABLE>>];
+				}
+			}
+		}
+	}
+	ctr_model__seq:header_type -> header__seq [style=bold];
+	header__seq:ptr_info_header_type -> ctr_model__inst__info_header:info_header_pos [color="#404040"];
+	ctr_model__inst__info_header:info_header_type -> info_header__seq [style=bold];
+	info_header__seq:ptr_vert_array_type -> info_header__inst__vertices:vertices_pos [color="#404040"];
+	info_header__inst__vertices:vertices_type -> vertex__seq [style=bold];
+	info_header__seq:vertex_num_type -> info_header__inst__vertices:vertices__repeat [color="#404040"];
+	vertex__seq:coordinates_type -> vector4u2__seq [style=bold];
+	vertex__seq:color1_type -> vector4u1__seq [style=bold];
+	vertex__seq:color2_type -> vector4u1__seq [style=bold];
+}

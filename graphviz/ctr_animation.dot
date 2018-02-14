@@ -1,0 +1,41 @@
+digraph {
+	rankdir=LR;
+	node [shape=plaintext];
+	subgraph cluster__ctr_animation {
+		label="CtrAnimation";
+		graph[style=dotted];
+
+		ctr_animation__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="header_pos">0</TD><TD PORT="header_size">96</TD><TD>Header</TD><TD PORT="header_type">header</TD></TR>
+		</TABLE>>];
+		subgraph cluster__header {
+			label="CtrAnimation::Header";
+			graph[style=dotted];
+
+			header__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="content_size_pos">0</TD><TD PORT="content_size_size">4</TD><TD>u4le</TD><TD PORT="content_size_type">content_size</TD></TR>
+				<TR><TD PORT="name_pos">4</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
+				<TR><TD PORT="unknown1_pos">20</TD><TD PORT="unknown1_size">2</TD><TD>u2le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
+				<TR><TD PORT="magic_pos">22</TD><TD PORT="magic_size">2</TD><TD>01 00</TD><TD PORT="magic_type">magic</TD></TR>
+				<TR><TD PORT="magic1_pos">24</TD><TD PORT="magic1_size">4</TD><TD>18 00 00 00</TD><TD PORT="magic1_type">magic1</TD></TR>
+				<TR><TD PORT="name2_pos">28</TD><TD PORT="name2_size">16</TD><TD>str(ASCII)</TD><TD PORT="name2_type">name2</TD></TR>
+				<TR><TD PORT="magic2_pos">44</TD><TD PORT="magic2_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic2_type">magic2</TD></TR>
+				<TR><TD PORT="magic3_pos">48</TD><TD PORT="magic3_size">4</TD><TD>20 4E 00 00</TD><TD PORT="magic3_type">magic3</TD></TR>
+				<TR><TD PORT="unknown2_pos">52</TD><TD PORT="unknown2_size">4</TD><TD>u4le</TD><TD PORT="unknown2_type">unknown2</TD></TR>
+				<TR><TD PORT="unknown3_pos">56</TD><TD PORT="unknown3_size">4</TD><TD>u4le</TD><TD PORT="unknown3_type">unknown3</TD></TR>
+				<TR><TD PORT="unknown4_pos">60</TD><TD PORT="unknown4_size">4</TD><TD>u4le</TD><TD PORT="unknown4_type">unknown4</TD></TR>
+				<TR><TD PORT="magic4_pos">64</TD><TD PORT="magic4_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic4_type">magic4</TD></TR>
+				<TR><TD PORT="wx8_header_end_pos">68</TD><TD PORT="wx8_header_end_size">4</TD><TD>u4le</TD><TD PORT="wx8_header_end_type">wx8_header_end</TD></TR>
+				<TR><TD PORT="unknown6_pos">72</TD><TD PORT="unknown6_size">4</TD><TD>u4le</TD><TD PORT="unknown6_type">unknown6</TD></TR>
+				<TR><TD PORT="magic5_pos">76</TD><TD PORT="magic5_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic5_type">magic5</TD></TR>
+				<TR><TD PORT="unknown7_pos">80</TD><TD PORT="unknown7_size">4</TD><TD>u4le</TD><TD PORT="unknown7_type">unknown7</TD></TR>
+				<TR><TD PORT="unknown8_pos">84</TD><TD PORT="unknown8_size">4</TD><TD>u4le</TD><TD PORT="unknown8_type">unknown8</TD></TR>
+				<TR><TD PORT="magic6_pos">88</TD><TD PORT="magic6_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic6_type">magic6</TD></TR>
+				<TR><TD PORT="unknown9_pos">92</TD><TD PORT="unknown9_size">4</TD><TD>u4le</TD><TD PORT="unknown9_type">unknown9</TD></TR>
+			</TABLE>>];
+		}
+	}
+	ctr_animation__seq:header_type -> header__seq [style=bold];
+}

@@ -1,0 +1,19 @@
+digraph {
+	rankdir=LR;
+	node [shape=plaintext];
+	subgraph cluster__ctr_tim2x {
+		label="CtrTim2x";
+		graph[style=dotted];
+
+		ctr_tim2x__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="magic_pos">0</TD><TD PORT="magic_size">4</TD><TD>20 00 00 00</TD><TD PORT="magic_type">magic</TD></TR>
+			<TR><TD PORT="tim1_size_pos">4</TD><TD PORT="tim1_size_size">4</TD><TD>u4le</TD><TD PORT="tim1_size_type">tim1_size</TD></TR>
+			<TR><TD PORT="tim1_pos">8</TD><TD PORT="tim1_size">...</TD><TD>PsxTim</TD><TD PORT="tim1_type">tim1</TD></TR>
+			<TR><TD PORT="tim2_size_pos">...</TD><TD PORT="tim2_size_size">4</TD><TD>u4le</TD><TD PORT="tim2_size_type">tim2_size</TD></TR>
+			<TR><TD PORT="tim2_pos">...</TD><TD PORT="tim2_size">...</TD><TD>PsxTim</TD><TD PORT="tim2_type">tim2</TD></TR>
+		</TABLE>>];
+	}
+	ctr_tim2x__seq:tim1_type -> psx_tim__seq [style=bold];
+	ctr_tim2x__seq:tim2_type -> psx_tim__seq [style=bold];
+}

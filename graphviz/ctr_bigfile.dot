@@ -1,0 +1,37 @@
+digraph {
+	rankdir=LR;
+	node [shape=plaintext];
+	subgraph cluster__ctr_bigfile {
+		label="CtrBigfile";
+		graph[style=dotted];
+
+		ctr_bigfile__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="magic_pos">0</TD><TD PORT="magic_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic_type">magic</TD></TR>
+			<TR><TD PORT="files_count_pos">4</TD><TD PORT="files_count_size">4</TD><TD>u4le</TD><TD PORT="files_count_type">files_count</TD></TR>
+		</TABLE>>];
+		ctr_bigfile__inst__index [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="index_pos">8</TD><TD PORT="index_size">8</TD><TD>IndexEntry</TD><TD PORT="index_type">index</TD></TR>
+			<TR><TD COLSPAN="4" PORT="index__repeat">repeat files_count times</TD></TR>
+		</TABLE>>];
+		subgraph cluster__index_entry {
+			label="CtrBigfile::IndexEntry";
+			graph[style=dotted];
+
+			index_entry__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="offset_pos">0</TD><TD PORT="offset_size">4</TD><TD>u4le</TD><TD PORT="offset_type">offset</TD></TR>
+				<TR><TD PORT="size_pos">4</TD><TD PORT="size_size">4</TD><TD>u4le</TD><TD PORT="size_type">size</TD></TR>
+			</TABLE>>];
+			index_entry__inst__file_content [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="file_content_pos">(offset * 2048)</TD><TD PORT="file_content_size">size</TD><TD></TD><TD PORT="file_content_type">file_content</TD></TR>
+			</TABLE>>];
+		}
+	}
+	ctr_bigfile__inst__index:index_type -> index_entry__seq [style=bold];
+	ctr_bigfile__seq:files_count_type -> ctr_bigfile__inst__index:index__repeat [color="#404040"];
+	index_entry__seq:offset_type -> index_entry__inst__file_content:file_content_pos [color="#404040"];
+	index_entry__seq:size_type -> index_entry__inst__file_content:file_content_size [color="#404040"];
+}

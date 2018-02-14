@@ -1,0 +1,25 @@
+digraph {
+	rankdir=LR;
+	node [shape=plaintext];
+	subgraph cluster__ctr_lang {
+		label="CtrLang";
+		graph[style=dotted];
+
+		ctr_lang__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="strings_count_pos">0</TD><TD PORT="strings_count_size">4</TD><TD>u4le</TD><TD PORT="strings_count_type">strings_count</TD></TR>
+			<TR><TD PORT="offset_pos">4</TD><TD PORT="offset_size">4</TD><TD>u4le</TD><TD PORT="offset_type">offset</TD></TR>
+		</TABLE>>];
+		ctr_lang__inst__strings [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="strings_pos">8</TD><TD PORT="strings_size">...</TD><TD>str(ascii)</TD><TD PORT="strings_type">strings</TD></TR>
+			<TR><TD COLSPAN="4" PORT="strings__repeat">repeat strings_count times</TD></TR>
+		</TABLE>>];
+		ctr_lang__inst__something [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="something_pos">offset</TD><TD PORT="something_size">4</TD><TD>u4le</TD><TD PORT="something_type">something</TD></TR>
+		</TABLE>>];
+	}
+	ctr_lang__seq:strings_count_type -> ctr_lang__inst__strings:strings__repeat [color="#404040"];
+	ctr_lang__seq:offset_type -> ctr_lang__inst__something:something_pos [color="#404040"];
+}
