@@ -46,6 +46,67 @@ types:
         type: u4
       - id: magic1
         contents: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+    instances:
+      objects_index:
+        pos: ptr_pickup_headers_ptr_array + 4
+        type: object_entry
+        repeat: expr
+        repeat-expr: num_pickup_headers
+    types:
+      object_entry:
+        seq:
+          - id: object_ptr
+            type: u4
+        instances:
+          obj:
+            type: obj
+            pos: object_ptr + 4
+            repeat: expr
+            repeat-expr: 1
+        types:
+          obj:
+            seq:
+              - id: name
+                type: str
+                encoding: ASCII
+                size: 16
+              - id: ptr_model
+                type: u4
+              - id: px
+                type: s2
+              - id: py
+                type: s2
+              - id: pz
+                type: s2
+              - id: p0
+                type: s2
+              - id: magic1
+                contents: [0x00, 0x00, 0x00, 0x00]
+              - id: unknown1
+                type: u4
+              - id: unknown2
+                type: u4
+              - id: unknown3
+                type: u4
+              - id: unknown4
+                type: u4
+              - id: ax
+                type: s2
+              - id: ay
+                type: s2
+              - id: az
+                type: s2
+              - id: bx
+                type: s2
+              - id: by
+                type: s2
+              - id: bz
+                type: s2
+              - id: unknown5
+                type: u4
+
+
+
   info_header:
       seq:
         - id: unknown1
