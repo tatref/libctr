@@ -14,11 +14,11 @@ fi
 echo "graphviz..."
 
 mkdir -p graphviz
-for ksy in formats_specifications/*.ksy
+for ksy in kaitai-struct/*.ksy
 do
   ksc $ksy \
     --target graphviz \
-    --import-path formats_specifications/ \
+    --import-path kaitai-struct/ \
     --outdir graphviz
 done
 if type dot > /dev/null 2>&1
@@ -49,7 +49,7 @@ echo "python..."
 mkdir -p python/ctr
 touch python/ctr/__init__.py
 
-for ksy in formats_specifications/*.ksy
+for ksy in kaitai-struct/*.ksy
 do
   ksc $ksy \
 	  --target python \
