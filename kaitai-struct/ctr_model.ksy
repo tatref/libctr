@@ -104,6 +104,19 @@ types:
                 type: s2
               - id: unknown5
                 type: u4
+            instances:
+              xxx:
+                pos: ptr_model
+                type: the_model
+            types:
+              the_model:
+                seq:
+                  - id: size
+                    type: u4
+                  - id: name
+                    type: str
+                    size: 16
+                    encoding: ASCII
 
 
 
