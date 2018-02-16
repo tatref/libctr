@@ -32,15 +32,19 @@ else
 fi
 
 
-# TODO: csharp
-# TODO: perl
-# TODO: java
-# TODO: go
-# TODO: cpp_stl
-# TODO: php
-# TODO: lua
-# TODO: ruby
-# TODO: javascript
+# csharp
+echo "csharp..."
+
+mkdir -p csharp/ctr
+
+for ksy in kaitai-struct/*.ksy
+do
+  ksc $ksy \
+	  --target csharp \
+	  --import-path kaitai-struct/ \
+	  --outdir csharp/ctr \
+	  --dotnet-namespace ctr
+done
 
 
 # python
@@ -53,8 +57,18 @@ for ksy in kaitai-struct/*.ksy
 do
   ksc $ksy \
 	  --target python \
-	  --import-path formats_specifications/ \
+	  --import-path kaitai-struct/ \
 	  --outdir python/ctr \
 	  --python-package ctr
 done
+
+
+# TODO: perl
+# TODO: java
+# TODO: go
+# TODO: cpp_stl
+# TODO: php
+# TODO: lua
+# TODO: ruby
+# TODO: javascript
 
