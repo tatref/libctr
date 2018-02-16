@@ -40,6 +40,7 @@ namespace ctr
             {
                 m_parent = p__parent;
                 m_root = p__root;
+                f_objectsIndex = false;
                 _read();
             }
             private void _read()
@@ -57,6 +58,186 @@ namespace ctr
                 _ptrPickupHeadersPtrArray = m_io.ReadU4le();
                 _unknown5 = m_io.ReadU4le();
                 _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0 });
+            }
+            public partial class ObjectEntry : KaitaiStruct
+            {
+                public static ObjectEntry FromFile(string fileName)
+                {
+                    return new ObjectEntry(new KaitaiStream(fileName));
+                }
+
+                public ObjectEntry(KaitaiStream p__io, CtrModel.Header p__parent = null, CtrModel p__root = null) : base(p__io)
+                {
+                    m_parent = p__parent;
+                    m_root = p__root;
+                    f_obj = false;
+                    _read();
+                }
+                private void _read()
+                {
+                    _objectPtr = m_io.ReadU4le();
+                }
+                public partial class Obj : KaitaiStruct
+                {
+                    public static Obj FromFile(string fileName)
+                    {
+                        return new Obj(new KaitaiStream(fileName));
+                    }
+
+                    public Obj(KaitaiStream p__io, CtrModel.Header.ObjectEntry p__parent = null, CtrModel p__root = null) : base(p__io)
+                    {
+                        m_parent = p__parent;
+                        m_root = p__root;
+                        f_xxx = false;
+                        _read();
+                    }
+                    private void _read()
+                    {
+                        _name = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
+                        _ptrModel = m_io.ReadU4le();
+                        _px = m_io.ReadS2le();
+                        _py = m_io.ReadS2le();
+                        _pz = m_io.ReadS2le();
+                        _p0 = m_io.ReadS2le();
+                        _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
+                        _unknown1 = m_io.ReadU4le();
+                        _unknown2 = m_io.ReadU4le();
+                        _unknown3 = m_io.ReadU4le();
+                        _unknown4 = m_io.ReadU4le();
+                        _ax = m_io.ReadS2le();
+                        _ay = m_io.ReadS2le();
+                        _az = m_io.ReadS2le();
+                        _bx = m_io.ReadS2le();
+                        _by = m_io.ReadS2le();
+                        _bz = m_io.ReadS2le();
+                        _unknown5 = m_io.ReadU4le();
+                    }
+                    public partial class TheModel : KaitaiStruct
+                    {
+                        public static TheModel FromFile(string fileName)
+                        {
+                            return new TheModel(new KaitaiStream(fileName));
+                        }
+
+                        public TheModel(KaitaiStream p__io, CtrModel.Header.ObjectEntry.Obj p__parent = null, CtrModel p__root = null) : base(p__io)
+                        {
+                            m_parent = p__parent;
+                            m_root = p__root;
+                            _read();
+                        }
+                        private void _read()
+                        {
+                            _size = m_io.ReadU4le();
+                            _name = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
+                        }
+                        private uint _size;
+                        private string _name;
+                        private CtrModel m_root;
+                        private CtrModel.Header.ObjectEntry.Obj m_parent;
+                        public uint Size { get { return _size; } }
+                        public string Name { get { return _name; } }
+                        public CtrModel M_Root { get { return m_root; } }
+                        public CtrModel.Header.ObjectEntry.Obj M_Parent { get { return m_parent; } }
+                    }
+                    private bool f_xxx;
+                    private TheModel _xxx;
+                    public TheModel Xxx
+                    {
+                        get
+                        {
+                            if (f_xxx)
+                                return _xxx;
+                            long _pos = m_io.Pos;
+                            m_io.Seek(PtrModel);
+                            _xxx = new TheModel(m_io, this, m_root);
+                            m_io.Seek(_pos);
+                            f_xxx = true;
+                            return _xxx;
+                        }
+                    }
+                    private string _name;
+                    private uint _ptrModel;
+                    private short _px;
+                    private short _py;
+                    private short _pz;
+                    private short _p0;
+                    private byte[] _magic1;
+                    private uint _unknown1;
+                    private uint _unknown2;
+                    private uint _unknown3;
+                    private uint _unknown4;
+                    private short _ax;
+                    private short _ay;
+                    private short _az;
+                    private short _bx;
+                    private short _by;
+                    private short _bz;
+                    private uint _unknown5;
+                    private CtrModel m_root;
+                    private CtrModel.Header.ObjectEntry m_parent;
+                    public string Name { get { return _name; } }
+                    public uint PtrModel { get { return _ptrModel; } }
+                    public short Px { get { return _px; } }
+                    public short Py { get { return _py; } }
+                    public short Pz { get { return _pz; } }
+                    public short P0 { get { return _p0; } }
+                    public byte[] Magic1 { get { return _magic1; } }
+                    public uint Unknown1 { get { return _unknown1; } }
+                    public uint Unknown2 { get { return _unknown2; } }
+                    public uint Unknown3 { get { return _unknown3; } }
+                    public uint Unknown4 { get { return _unknown4; } }
+                    public short Ax { get { return _ax; } }
+                    public short Ay { get { return _ay; } }
+                    public short Az { get { return _az; } }
+                    public short Bx { get { return _bx; } }
+                    public short By { get { return _by; } }
+                    public short Bz { get { return _bz; } }
+                    public uint Unknown5 { get { return _unknown5; } }
+                    public CtrModel M_Root { get { return m_root; } }
+                    public CtrModel.Header.ObjectEntry M_Parent { get { return m_parent; } }
+                }
+                private bool f_obj;
+                private Obj _obj;
+                public Obj Obj
+                {
+                    get
+                    {
+                        if (f_obj)
+                            return _obj;
+                        long _pos = m_io.Pos;
+                        m_io.Seek((ObjectPtr + 4));
+                        _obj = new Obj(m_io, this, m_root);
+                        m_io.Seek(_pos);
+                        f_obj = true;
+                        return _obj;
+                    }
+                }
+                private uint _objectPtr;
+                private CtrModel m_root;
+                private CtrModel.Header m_parent;
+                public uint ObjectPtr { get { return _objectPtr; } }
+                public CtrModel M_Root { get { return m_root; } }
+                public CtrModel.Header M_Parent { get { return m_parent; } }
+            }
+            private bool f_objectsIndex;
+            private List<ObjectEntry> _objectsIndex;
+            public List<ObjectEntry> ObjectsIndex
+            {
+                get
+                {
+                    if (f_objectsIndex)
+                        return _objectsIndex;
+                    long _pos = m_io.Pos;
+                    m_io.Seek((PtrPickupHeadersPtrArray + 4));
+                    _objectsIndex = new List<ObjectEntry>((int) (NumPickupHeaders));
+                    for (var i = 0; i < NumPickupHeaders; i++)
+                    {
+                        _objectsIndex.Add(new ObjectEntry(m_io, this, m_root));
+                    }
+                    m_io.Seek(_pos);
+                    f_objectsIndex = true;
+                    return _objectsIndex;
+                }
             }
             private uint _size;
             private uint _ptrInfoHeader;

@@ -43,6 +43,93 @@ class CtrModel(KaitaiStruct):
             self.unknown5 = self._io.read_u4le()
             self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00\x00\x00\x00\x00")
 
+        class ObjectEntry(KaitaiStruct):
+            def __init__(self, _io, _parent=None, _root=None):
+                self._io = _io
+                self._parent = _parent
+                self._root = _root if _root else self
+                self._read()
+
+            def _read(self):
+                self.object_ptr = self._io.read_u4le()
+
+            class Obj(KaitaiStruct):
+                def __init__(self, _io, _parent=None, _root=None):
+                    self._io = _io
+                    self._parent = _parent
+                    self._root = _root if _root else self
+                    self._read()
+
+                def _read(self):
+                    self.name = (self._io.read_bytes(16)).decode(u"ASCII")
+                    self.ptr_model = self._io.read_u4le()
+                    self.px = self._io.read_s2le()
+                    self.py = self._io.read_s2le()
+                    self.pz = self._io.read_s2le()
+                    self.p0 = self._io.read_s2le()
+                    self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00")
+                    self.unknown1 = self._io.read_u4le()
+                    self.unknown2 = self._io.read_u4le()
+                    self.unknown3 = self._io.read_u4le()
+                    self.unknown4 = self._io.read_u4le()
+                    self.ax = self._io.read_s2le()
+                    self.ay = self._io.read_s2le()
+                    self.az = self._io.read_s2le()
+                    self.bx = self._io.read_s2le()
+                    self.by = self._io.read_s2le()
+                    self.bz = self._io.read_s2le()
+                    self.unknown5 = self._io.read_u4le()
+
+                class TheModel(KaitaiStruct):
+                    def __init__(self, _io, _parent=None, _root=None):
+                        self._io = _io
+                        self._parent = _parent
+                        self._root = _root if _root else self
+                        self._read()
+
+                    def _read(self):
+                        self.size = self._io.read_u4le()
+                        self.name = (self._io.read_bytes(16)).decode(u"ASCII")
+
+
+                @property
+                def xxx(self):
+                    if hasattr(self, '_m_xxx'):
+                        return self._m_xxx if hasattr(self, '_m_xxx') else None
+
+                    _pos = self._io.pos()
+                    self._io.seek(self.ptr_model)
+                    self._m_xxx = self._root.Header.ObjectEntry.Obj.TheModel(self._io, self, self._root)
+                    self._io.seek(_pos)
+                    return self._m_xxx if hasattr(self, '_m_xxx') else None
+
+
+            @property
+            def obj(self):
+                if hasattr(self, '_m_obj'):
+                    return self._m_obj if hasattr(self, '_m_obj') else None
+
+                _pos = self._io.pos()
+                self._io.seek((self.object_ptr + 4))
+                self._m_obj = self._root.Header.ObjectEntry.Obj(self._io, self, self._root)
+                self._io.seek(_pos)
+                return self._m_obj if hasattr(self, '_m_obj') else None
+
+
+        @property
+        def objects_index(self):
+            if hasattr(self, '_m_objects_index'):
+                return self._m_objects_index if hasattr(self, '_m_objects_index') else None
+
+            _pos = self._io.pos()
+            self._io.seek((self.ptr_pickup_headers_ptr_array + 4))
+            self._m_objects_index = [None] * (self.num_pickup_headers)
+            for i in range(self.num_pickup_headers):
+                self._m_objects_index[i] = self._root.Header.ObjectEntry(self._io, self, self._root)
+
+            self._io.seek(_pos)
+            return self._m_objects_index if hasattr(self, '_m_objects_index') else None
+
 
     class InfoHeader(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):

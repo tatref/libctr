@@ -33,6 +33,64 @@ digraph {
 				<TR><TD PORT="unknown5_pos">44</TD><TD PORT="unknown5_size">4</TD><TD>u4le</TD><TD PORT="unknown5_type">unknown5</TD></TR>
 				<TR><TD PORT="magic1_pos">48</TD><TD PORT="magic1_size">8</TD><TD>00 00 00 00 00 00 00 00</TD><TD PORT="magic1_type">magic1</TD></TR>
 			</TABLE>>];
+			header__inst__objects_index [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="objects_index_pos">(ptr_pickup_headers_ptr_array + 4)</TD><TD PORT="objects_index_size">4</TD><TD>ObjectEntry</TD><TD PORT="objects_index_type">objects_index</TD></TR>
+				<TR><TD COLSPAN="4" PORT="objects_index__repeat">repeat num_pickup_headers times</TD></TR>
+			</TABLE>>];
+			subgraph cluster__object_entry {
+				label="CtrModel::Header::ObjectEntry";
+				graph[style=dotted];
+
+				object_entry__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+					<TR><TD PORT="object_ptr_pos">0</TD><TD PORT="object_ptr_size">4</TD><TD>u4le</TD><TD PORT="object_ptr_type">object_ptr</TD></TR>
+				</TABLE>>];
+				object_entry__inst__obj [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+					<TR><TD PORT="obj_pos">(object_ptr + 4)</TD><TD PORT="obj_size">64</TD><TD>Obj</TD><TD PORT="obj_type">obj</TD></TR>
+				</TABLE>>];
+				subgraph cluster__obj {
+					label="CtrModel::Header::ObjectEntry::Obj";
+					graph[style=dotted];
+
+					obj__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+						<TR><TD PORT="name_pos">0</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
+						<TR><TD PORT="ptr_model_pos">16</TD><TD PORT="ptr_model_size">4</TD><TD>u4le</TD><TD PORT="ptr_model_type">ptr_model</TD></TR>
+						<TR><TD PORT="px_pos">20</TD><TD PORT="px_size">2</TD><TD>s2le</TD><TD PORT="px_type">px</TD></TR>
+						<TR><TD PORT="py_pos">22</TD><TD PORT="py_size">2</TD><TD>s2le</TD><TD PORT="py_type">py</TD></TR>
+						<TR><TD PORT="pz_pos">24</TD><TD PORT="pz_size">2</TD><TD>s2le</TD><TD PORT="pz_type">pz</TD></TR>
+						<TR><TD PORT="p0_pos">26</TD><TD PORT="p0_size">2</TD><TD>s2le</TD><TD PORT="p0_type">p0</TD></TR>
+						<TR><TD PORT="magic1_pos">28</TD><TD PORT="magic1_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic1_type">magic1</TD></TR>
+						<TR><TD PORT="unknown1_pos">32</TD><TD PORT="unknown1_size">4</TD><TD>u4le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
+						<TR><TD PORT="unknown2_pos">36</TD><TD PORT="unknown2_size">4</TD><TD>u4le</TD><TD PORT="unknown2_type">unknown2</TD></TR>
+						<TR><TD PORT="unknown3_pos">40</TD><TD PORT="unknown3_size">4</TD><TD>u4le</TD><TD PORT="unknown3_type">unknown3</TD></TR>
+						<TR><TD PORT="unknown4_pos">44</TD><TD PORT="unknown4_size">4</TD><TD>u4le</TD><TD PORT="unknown4_type">unknown4</TD></TR>
+						<TR><TD PORT="ax_pos">48</TD><TD PORT="ax_size">2</TD><TD>s2le</TD><TD PORT="ax_type">ax</TD></TR>
+						<TR><TD PORT="ay_pos">50</TD><TD PORT="ay_size">2</TD><TD>s2le</TD><TD PORT="ay_type">ay</TD></TR>
+						<TR><TD PORT="az_pos">52</TD><TD PORT="az_size">2</TD><TD>s2le</TD><TD PORT="az_type">az</TD></TR>
+						<TR><TD PORT="bx_pos">54</TD><TD PORT="bx_size">2</TD><TD>s2le</TD><TD PORT="bx_type">bx</TD></TR>
+						<TR><TD PORT="by_pos">56</TD><TD PORT="by_size">2</TD><TD>s2le</TD><TD PORT="by_type">by</TD></TR>
+						<TR><TD PORT="bz_pos">58</TD><TD PORT="bz_size">2</TD><TD>s2le</TD><TD PORT="bz_type">bz</TD></TR>
+						<TR><TD PORT="unknown5_pos">60</TD><TD PORT="unknown5_size">4</TD><TD>u4le</TD><TD PORT="unknown5_type">unknown5</TD></TR>
+					</TABLE>>];
+					obj__inst__xxx [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+						<TR><TD PORT="xxx_pos">ptr_model</TD><TD PORT="xxx_size">20</TD><TD>TheModel</TD><TD PORT="xxx_type">xxx</TD></TR>
+					</TABLE>>];
+					subgraph cluster__the_model {
+						label="CtrModel::Header::ObjectEntry::Obj::TheModel";
+						graph[style=dotted];
+
+						the_model__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+							<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+							<TR><TD PORT="size_pos">0</TD><TD PORT="size_size">4</TD><TD>u4le</TD><TD PORT="size_type">size</TD></TR>
+							<TR><TD PORT="name_pos">4</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
+						</TABLE>>];
+					}
+				}
+			}
 		}
 		subgraph cluster__info_header {
 			label="CtrModel::InfoHeader";
@@ -95,6 +153,13 @@ digraph {
 	ctr_model__seq:header_type -> header__seq [style=bold];
 	header__seq:ptr_info_header_type -> ctr_model__inst__info_header:info_header_pos [color="#404040"];
 	ctr_model__inst__info_header:info_header_type -> info_header__seq [style=bold];
+	header__seq:ptr_pickup_headers_ptr_array_type -> header__inst__objects_index:objects_index_pos [color="#404040"];
+	header__inst__objects_index:objects_index_type -> object_entry__seq [style=bold];
+	header__seq:num_pickup_headers_type -> header__inst__objects_index:objects_index__repeat [color="#404040"];
+	object_entry__seq:object_ptr_type -> object_entry__inst__obj:obj_pos [color="#404040"];
+	object_entry__inst__obj:obj_type -> obj__seq [style=bold];
+	obj__seq:ptr_model_type -> obj__inst__xxx:xxx_pos [color="#404040"];
+	obj__inst__xxx:xxx_type -> the_model__seq [style=bold];
 	info_header__seq:ptr_vert_array_type -> info_header__inst__vertices:vertices_pos [color="#404040"];
 	info_header__inst__vertices:vertices_type -> vertex__seq [style=bold];
 	info_header__seq:vertex_num_type -> info_header__inst__vertices:vertices__repeat [color="#404040"];

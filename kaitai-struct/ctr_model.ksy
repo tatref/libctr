@@ -61,8 +61,7 @@ types:
           obj:
             type: obj
             pos: object_ptr + 4
-            repeat: expr
-            repeat-expr: 1
+
         types:
           obj:
             seq:
