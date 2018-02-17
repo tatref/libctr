@@ -70,31 +70,31 @@ namespace ctr
                 {
                     m_parent = p__parent;
                     m_root = p__root;
-                    f_obj = false;
+                    f_objectInstance = false;
                     _read();
                 }
                 private void _read()
                 {
-                    _objectPtr = m_io.ReadU4le();
+                    _objectInstancePtr = m_io.ReadU4le();
                 }
-                public partial class Obj : KaitaiStruct
+                public partial class ObjectInstance : KaitaiStruct
                 {
-                    public static Obj FromFile(string fileName)
+                    public static ObjectInstance FromFile(string fileName)
                     {
-                        return new Obj(new KaitaiStream(fileName));
+                        return new ObjectInstance(new KaitaiStream(fileName));
                     }
 
-                    public Obj(KaitaiStream p__io, CtrModel.Header.ObjectEntry p__parent = null, CtrModel p__root = null) : base(p__io)
+                    public ObjectInstance(KaitaiStream p__io, CtrModel.Header.ObjectEntry p__parent = null, CtrModel p__root = null) : base(p__io)
                     {
                         m_parent = p__parent;
                         m_root = p__root;
-                        f_xxx = false;
+                        f_objectMesh = false;
                         _read();
                     }
                     private void _read()
                     {
                         _name = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
-                        _ptrModel = m_io.ReadU4le();
+                        _ptrMesh = m_io.ReadU4le();
                         _px = m_io.ReadS2le();
                         _py = m_io.ReadS2le();
                         _pz = m_io.ReadS2le();
@@ -112,14 +112,14 @@ namespace ctr
                         _bz = m_io.ReadS2le();
                         _unknown5 = m_io.ReadU4le();
                     }
-                    public partial class TheModel : KaitaiStruct
+                    public partial class ObjectMesh : KaitaiStruct
                     {
-                        public static TheModel FromFile(string fileName)
+                        public static ObjectMesh FromFile(string fileName)
                         {
-                            return new TheModel(new KaitaiStream(fileName));
+                            return new ObjectMesh(new KaitaiStream(fileName));
                         }
 
-                        public TheModel(KaitaiStream p__io, CtrModel.Header.ObjectEntry.Obj p__parent = null, CtrModel p__root = null) : base(p__io)
+                        public ObjectMesh(KaitaiStream p__io, CtrModel.Header.ObjectEntry.ObjectInstance p__parent = null, CtrModel p__root = null) : base(p__io)
                         {
                             m_parent = p__parent;
                             m_root = p__root;
@@ -127,36 +127,48 @@ namespace ctr
                         }
                         private void _read()
                         {
-                            _size = m_io.ReadU4le();
+                            _unknown1 = m_io.ReadU4le();
                             _name = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
+                            _unknown2 = m_io.ReadU4le();
+                            _unknown3 = m_io.ReadU4le();
+                            _name2 = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
+                            _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
                         }
-                        private uint _size;
+                        private uint _unknown1;
                         private string _name;
+                        private uint _unknown2;
+                        private uint _unknown3;
+                        private string _name2;
+                        private byte[] _magic1;
                         private CtrModel m_root;
-                        private CtrModel.Header.ObjectEntry.Obj m_parent;
-                        public uint Size { get { return _size; } }
+                        private CtrModel.Header.ObjectEntry.ObjectInstance m_parent;
+                        public uint Unknown1 { get { return _unknown1; } }
                         public string Name { get { return _name; } }
+                        public uint Unknown2 { get { return _unknown2; } }
+                        public uint Unknown3 { get { return _unknown3; } }
+                        public string Name2 { get { return _name2; } }
+                        public byte[] Magic1 { get { return _magic1; } }
                         public CtrModel M_Root { get { return m_root; } }
-                        public CtrModel.Header.ObjectEntry.Obj M_Parent { get { return m_parent; } }
+                        public CtrModel.Header.ObjectEntry.ObjectInstance M_Parent { get { return m_parent; } }
                     }
-                    private bool f_xxx;
-                    private TheModel _xxx;
-                    public TheModel Xxx
+                    private bool f_objectMesh;
+                    private ObjectMesh _objectMesh;
+                    public ObjectMesh ObjectMesh
                     {
                         get
                         {
-                            if (f_xxx)
-                                return _xxx;
+                            if (f_objectMesh)
+                                return _objectMesh;
                             long _pos = m_io.Pos;
-                            m_io.Seek(PtrModel);
-                            _xxx = new TheModel(m_io, this, m_root);
+                            m_io.Seek(PtrMesh);
+                            _objectMesh = new ObjectMesh(m_io, this, m_root);
                             m_io.Seek(_pos);
-                            f_xxx = true;
-                            return _xxx;
+                            f_objectMesh = true;
+                            return _objectMesh;
                         }
                     }
                     private string _name;
-                    private uint _ptrModel;
+                    private uint _ptrMesh;
                     private short _px;
                     private short _py;
                     private short _pz;
@@ -176,7 +188,7 @@ namespace ctr
                     private CtrModel m_root;
                     private CtrModel.Header.ObjectEntry m_parent;
                     public string Name { get { return _name; } }
-                    public uint PtrModel { get { return _ptrModel; } }
+                    public uint PtrMesh { get { return _ptrMesh; } }
                     public short Px { get { return _px; } }
                     public short Py { get { return _py; } }
                     public short Pz { get { return _pz; } }
@@ -196,26 +208,26 @@ namespace ctr
                     public CtrModel M_Root { get { return m_root; } }
                     public CtrModel.Header.ObjectEntry M_Parent { get { return m_parent; } }
                 }
-                private bool f_obj;
-                private Obj _obj;
-                public Obj Obj
+                private bool f_objectInstance;
+                private ObjectInstance _objectInstance;
+                public ObjectInstance ObjectInstance
                 {
                     get
                     {
-                        if (f_obj)
-                            return _obj;
+                        if (f_objectInstance)
+                            return _objectInstance;
                         long _pos = m_io.Pos;
-                        m_io.Seek((ObjectPtr + 4));
-                        _obj = new Obj(m_io, this, m_root);
+                        m_io.Seek((ObjectInstancePtr + 4));
+                        _objectInstance = new ObjectInstance(m_io, this, m_root);
                         m_io.Seek(_pos);
-                        f_obj = true;
-                        return _obj;
+                        f_objectInstance = true;
+                        return _objectInstance;
                     }
                 }
-                private uint _objectPtr;
+                private uint _objectInstancePtr;
                 private CtrModel m_root;
                 private CtrModel.Header m_parent;
-                public uint ObjectPtr { get { return _objectPtr; } }
+                public uint ObjectInstancePtr { get { return _objectInstancePtr; } }
                 public CtrModel M_Root { get { return m_root; } }
                 public CtrModel.Header M_Parent { get { return m_parent; } }
             }

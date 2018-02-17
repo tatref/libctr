@@ -58,7 +58,7 @@ types:
           - id: object_instance_ptr
             type: u4
         instances:
-          obj:
+          object_instance:
             type: object_instance
             pos: object_instance_ptr + 4
 
@@ -116,6 +116,17 @@ types:
                     type: str
                     size: 16
                     encoding: ASCII
+                  - id: unknown2
+                    type: u4
+                  - id: unknown3
+                    type: u4
+                  - id: name2
+                    type: str
+                    size: 16
+                    encoding: ASCII
+                  - id: magic1
+                    contents: [0x00, 0x00, 0x00, 0x00]
+
 
 
 
@@ -177,4 +188,5 @@ types:
                   type: u1
                 - id: w
                   type: u1
+
 

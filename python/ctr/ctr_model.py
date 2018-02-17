@@ -51,9 +51,9 @@ class CtrModel(KaitaiStruct):
                 self._read()
 
             def _read(self):
-                self.object_ptr = self._io.read_u4le()
+                self.object_instance_ptr = self._io.read_u4le()
 
-            class Obj(KaitaiStruct):
+            class ObjectInstance(KaitaiStruct):
                 def __init__(self, _io, _parent=None, _root=None):
                     self._io = _io
                     self._parent = _parent
@@ -62,7 +62,7 @@ class CtrModel(KaitaiStruct):
 
                 def _read(self):
                     self.name = (self._io.read_bytes(16)).decode(u"ASCII")
-                    self.ptr_model = self._io.read_u4le()
+                    self.ptr_mesh = self._io.read_u4le()
                     self.px = self._io.read_s2le()
                     self.py = self._io.read_s2le()
                     self.pz = self._io.read_s2le()
@@ -80,7 +80,7 @@ class CtrModel(KaitaiStruct):
                     self.bz = self._io.read_s2le()
                     self.unknown5 = self._io.read_u4le()
 
-                class TheModel(KaitaiStruct):
+                class ObjectMesh(KaitaiStruct):
                     def __init__(self, _io, _parent=None, _root=None):
                         self._io = _io
                         self._parent = _parent
@@ -88,32 +88,36 @@ class CtrModel(KaitaiStruct):
                         self._read()
 
                     def _read(self):
-                        self.size = self._io.read_u4le()
+                        self.unknown1 = self._io.read_u4le()
                         self.name = (self._io.read_bytes(16)).decode(u"ASCII")
+                        self.unknown2 = self._io.read_u4le()
+                        self.unknown3 = self._io.read_u4le()
+                        self.name2 = (self._io.read_bytes(16)).decode(u"ASCII")
+                        self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00")
 
 
                 @property
-                def xxx(self):
-                    if hasattr(self, '_m_xxx'):
-                        return self._m_xxx if hasattr(self, '_m_xxx') else None
+                def object_mesh(self):
+                    if hasattr(self, '_m_object_mesh'):
+                        return self._m_object_mesh if hasattr(self, '_m_object_mesh') else None
 
                     _pos = self._io.pos()
-                    self._io.seek(self.ptr_model)
-                    self._m_xxx = self._root.Header.ObjectEntry.Obj.TheModel(self._io, self, self._root)
+                    self._io.seek(self.ptr_mesh)
+                    self._m_object_mesh = self._root.Header.ObjectEntry.ObjectInstance.ObjectMesh(self._io, self, self._root)
                     self._io.seek(_pos)
-                    return self._m_xxx if hasattr(self, '_m_xxx') else None
+                    return self._m_object_mesh if hasattr(self, '_m_object_mesh') else None
 
 
             @property
-            def obj(self):
-                if hasattr(self, '_m_obj'):
-                    return self._m_obj if hasattr(self, '_m_obj') else None
+            def object_instance(self):
+                if hasattr(self, '_m_object_instance'):
+                    return self._m_object_instance if hasattr(self, '_m_object_instance') else None
 
                 _pos = self._io.pos()
-                self._io.seek((self.object_ptr + 4))
-                self._m_obj = self._root.Header.ObjectEntry.Obj(self._io, self, self._root)
+                self._io.seek((self.object_instance_ptr + 4))
+                self._m_object_instance = self._root.Header.ObjectEntry.ObjectInstance(self._io, self, self._root)
                 self._io.seek(_pos)
-                return self._m_obj if hasattr(self, '_m_obj') else None
+                return self._m_object_instance if hasattr(self, '_m_object_instance') else None
 
 
         @property
