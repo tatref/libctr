@@ -14,6 +14,7 @@ fi
 echo "graphviz..."
 
 mkdir -p graphviz
+rm -rf graphviz/*
 for ksy in kaitai-struct/*.ksy
 do
   ksc $ksy \
@@ -36,6 +37,7 @@ fi
 echo "csharp..."
 
 mkdir -p csharp/ctr
+rm -rf csharp/ctr/*
 
 for ksy in kaitai-struct/*.ksy
 do
@@ -51,6 +53,7 @@ done
 echo "python..."
 
 mkdir -p python/ctr
+rm -rf python/ctr/*
 touch python/ctr/__init__.py
 
 for ksy in kaitai-struct/*.ksy

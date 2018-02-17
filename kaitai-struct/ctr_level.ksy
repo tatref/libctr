@@ -1,9 +1,9 @@
 meta:
-  id: ctr_model
+  id: ctr_level
   file-extension: lev
   endian: le
 doc: |
-  Parser for the CTR models
+  Parser for the CTR levels
   version 0
   Original code https://github.com/DCxDemo/CTR-tools
 
