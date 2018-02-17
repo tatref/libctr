@@ -55,21 +55,21 @@ types:
     types:
       object_entry:
         seq:
-          - id: object_ptr
+          - id: object_instance_ptr
             type: u4
         instances:
           obj:
-            type: obj
-            pos: object_ptr + 4
+            type: object_instance
+            pos: object_instance_ptr + 4
 
         types:
-          obj:
+          object_instance:
             seq:
               - id: name
                 type: str
                 encoding: ASCII
                 size: 16
-              - id: ptr_model
+              - id: ptr_mesh
                 type: u4
               - id: px
                 type: s2
@@ -104,13 +104,13 @@ types:
               - id: unknown5
                 type: u4
             instances:
-              xxx:
-                pos: ptr_model
-                type: the_model
+              object_mesh:
+                pos: ptr_mesh
+                type: object_mesh
             types:
-              the_model:
+              object_mesh:
                 seq:
-                  - id: size
+                  - id: unknown1
                     type: u4
                   - id: name
                     type: str
@@ -177,5 +177,4 @@ types:
                   type: u1
                 - id: w
                   type: u1
-
 
