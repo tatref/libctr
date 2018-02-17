@@ -7,8 +7,8 @@ from kaitaistruct import __version__ as ks_version, KaitaiStruct, KaitaiStream, 
 if parse_version(ks_version) < parse_version('0.7'):
     raise Exception("Incompatible Kaitai Struct Python API: 0.7 or later is required, but you have %s" % (ks_version))
 
-class CtrModel(KaitaiStruct):
-    """Parser for the CTR models
+class CtrLevel(KaitaiStruct):
+    """Parser for the CTR levels
     version 0
     Original code https://github.com/DCxDemo/CTR-tools
     """

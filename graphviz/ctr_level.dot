@@ -1,20 +1,20 @@
 digraph {
 	rankdir=LR;
 	node [shape=plaintext];
-	subgraph cluster__ctr_model {
-		label="CtrModel";
+	subgraph cluster__ctr_level {
+		label="CtrLevel";
 		graph[style=dotted];
 
-		ctr_model__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+		ctr_level__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 			<TR><TD PORT="header_pos">0</TD><TD PORT="header_size">56</TD><TD>Header</TD><TD PORT="header_type">header</TD></TR>
 		</TABLE>>];
-		ctr_model__inst__info_header [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+		ctr_level__inst__info_header [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 			<TR><TD PORT="info_header_pos">header.ptr_info_header</TD><TD PORT="info_header_size">36</TD><TD>InfoHeader</TD><TD PORT="info_header_type">info_header</TD></TR>
 		</TABLE>>];
 		subgraph cluster__header {
-			label="CtrModel::Header";
+			label="CtrLevel::Header";
 			graph[style=dotted];
 
 			header__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -39,7 +39,7 @@ digraph {
 				<TR><TD COLSPAN="4" PORT="objects_index__repeat">repeat num_pickup_headers times</TD></TR>
 			</TABLE>>];
 			subgraph cluster__object_entry {
-				label="CtrModel::Header::ObjectEntry";
+				label="CtrLevel::Header::ObjectEntry";
 				graph[style=dotted];
 
 				object_entry__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -51,7 +51,7 @@ digraph {
 					<TR><TD PORT="object_instance_pos">(object_instance_ptr + 4)</TD><TD PORT="object_instance_size">64</TD><TD>ObjectInstance</TD><TD PORT="object_instance_type">object_instance</TD></TR>
 				</TABLE>>];
 				subgraph cluster__object_instance {
-					label="CtrModel::Header::ObjectEntry::ObjectInstance";
+					label="CtrLevel::Header::ObjectEntry::ObjectInstance";
 					graph[style=dotted];
 
 					object_instance__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -80,7 +80,7 @@ digraph {
 						<TR><TD PORT="object_mesh_pos">ptr_mesh</TD><TD PORT="object_mesh_size">48</TD><TD>ObjectMesh</TD><TD PORT="object_mesh_type">object_mesh</TD></TR>
 					</TABLE>>];
 					subgraph cluster__object_mesh {
-						label="CtrModel::Header::ObjectEntry::ObjectInstance::ObjectMesh";
+						label="CtrLevel::Header::ObjectEntry::ObjectInstance::ObjectMesh";
 						graph[style=dotted];
 
 						object_mesh__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -97,7 +97,7 @@ digraph {
 			}
 		}
 		subgraph cluster__info_header {
-			label="CtrModel::InfoHeader";
+			label="CtrLevel::InfoHeader";
 			graph[style=dotted];
 
 			info_header__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -118,7 +118,7 @@ digraph {
 				<TR><TD COLSPAN="4" PORT="vertices__repeat">repeat vertex_num times</TD></TR>
 			</TABLE>>];
 			subgraph cluster__vertex {
-				label="CtrModel::InfoHeader::Vertex";
+				label="CtrLevel::InfoHeader::Vertex";
 				graph[style=dotted];
 
 				vertex__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -128,7 +128,7 @@ digraph {
 					<TR><TD PORT="color2_pos">12</TD><TD PORT="color2_size">4</TD><TD>Vector4u1</TD><TD PORT="color2_type">color2</TD></TR>
 				</TABLE>>];
 				subgraph cluster__vector4u2 {
-					label="CtrModel::InfoHeader::Vertex::Vector4u2";
+					label="CtrLevel::InfoHeader::Vertex::Vector4u2";
 					graph[style=dotted];
 
 					vector4u2__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -140,7 +140,7 @@ digraph {
 					</TABLE>>];
 				}
 				subgraph cluster__vector4u1 {
-					label="CtrModel::InfoHeader::Vertex::Vector4u1";
+					label="CtrLevel::InfoHeader::Vertex::Vector4u1";
 					graph[style=dotted];
 
 					vector4u1__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
@@ -154,9 +154,9 @@ digraph {
 			}
 		}
 	}
-	ctr_model__seq:header_type -> header__seq [style=bold];
-	header__seq:ptr_info_header_type -> ctr_model__inst__info_header:info_header_pos [color="#404040"];
-	ctr_model__inst__info_header:info_header_type -> info_header__seq [style=bold];
+	ctr_level__seq:header_type -> header__seq [style=bold];
+	header__seq:ptr_info_header_type -> ctr_level__inst__info_header:info_header_pos [color="#404040"];
+	ctr_level__inst__info_header:info_header_type -> info_header__seq [style=bold];
 	header__seq:ptr_pickup_headers_ptr_array_type -> header__inst__objects_index:objects_index_pos [color="#404040"];
 	header__inst__objects_index:objects_index_type -> object_entry__seq [style=bold];
 	header__seq:num_pickup_headers_type -> header__inst__objects_index:objects_index__repeat [color="#404040"];

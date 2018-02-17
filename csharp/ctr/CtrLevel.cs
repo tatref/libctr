@@ -7,18 +7,18 @@ namespace ctr
 {
 
     /// <summary>
-    /// Parser for the CTR models
+    /// Parser for the CTR levels
     /// version 0
     /// Original code https://github.com/DCxDemo/CTR-tools
     /// </summary>
-    public partial class CtrModel : KaitaiStruct
+    public partial class CtrLevel : KaitaiStruct
     {
-        public static CtrModel FromFile(string fileName)
+        public static CtrLevel FromFile(string fileName)
         {
-            return new CtrModel(new KaitaiStream(fileName));
+            return new CtrLevel(new KaitaiStream(fileName));
         }
 
-        public CtrModel(KaitaiStream p__io, KaitaiStruct p__parent = null, CtrModel p__root = null) : base(p__io)
+        public CtrLevel(KaitaiStream p__io, KaitaiStruct p__parent = null, CtrLevel p__root = null) : base(p__io)
         {
             m_parent = p__parent;
             m_root = p__root ?? this;
@@ -36,7 +36,7 @@ namespace ctr
                 return new Header(new KaitaiStream(fileName));
             }
 
-            public Header(KaitaiStream p__io, CtrModel p__parent = null, CtrModel p__root = null) : base(p__io)
+            public Header(KaitaiStream p__io, CtrLevel p__parent = null, CtrLevel p__root = null) : base(p__io)
             {
                 m_parent = p__parent;
                 m_root = p__root;
@@ -66,7 +66,7 @@ namespace ctr
                     return new ObjectEntry(new KaitaiStream(fileName));
                 }
 
-                public ObjectEntry(KaitaiStream p__io, CtrModel.Header p__parent = null, CtrModel p__root = null) : base(p__io)
+                public ObjectEntry(KaitaiStream p__io, CtrLevel.Header p__parent = null, CtrLevel p__root = null) : base(p__io)
                 {
                     m_parent = p__parent;
                     m_root = p__root;
@@ -84,7 +84,7 @@ namespace ctr
                         return new ObjectInstance(new KaitaiStream(fileName));
                     }
 
-                    public ObjectInstance(KaitaiStream p__io, CtrModel.Header.ObjectEntry p__parent = null, CtrModel p__root = null) : base(p__io)
+                    public ObjectInstance(KaitaiStream p__io, CtrLevel.Header.ObjectEntry p__parent = null, CtrLevel p__root = null) : base(p__io)
                     {
                         m_parent = p__parent;
                         m_root = p__root;
@@ -119,7 +119,7 @@ namespace ctr
                             return new ObjectMesh(new KaitaiStream(fileName));
                         }
 
-                        public ObjectMesh(KaitaiStream p__io, CtrModel.Header.ObjectEntry.ObjectInstance p__parent = null, CtrModel p__root = null) : base(p__io)
+                        public ObjectMesh(KaitaiStream p__io, CtrLevel.Header.ObjectEntry.ObjectInstance p__parent = null, CtrLevel p__root = null) : base(p__io)
                         {
                             m_parent = p__parent;
                             m_root = p__root;
@@ -140,16 +140,16 @@ namespace ctr
                         private uint _unknown3;
                         private string _name2;
                         private byte[] _magic1;
-                        private CtrModel m_root;
-                        private CtrModel.Header.ObjectEntry.ObjectInstance m_parent;
+                        private CtrLevel m_root;
+                        private CtrLevel.Header.ObjectEntry.ObjectInstance m_parent;
                         public uint Unknown1 { get { return _unknown1; } }
                         public string Name { get { return _name; } }
                         public uint Unknown2 { get { return _unknown2; } }
                         public uint Unknown3 { get { return _unknown3; } }
                         public string Name2 { get { return _name2; } }
                         public byte[] Magic1 { get { return _magic1; } }
-                        public CtrModel M_Root { get { return m_root; } }
-                        public CtrModel.Header.ObjectEntry.ObjectInstance M_Parent { get { return m_parent; } }
+                        public CtrLevel M_Root { get { return m_root; } }
+                        public CtrLevel.Header.ObjectEntry.ObjectInstance M_Parent { get { return m_parent; } }
                     }
                     private bool f_objectMesh;
                     private ObjectMesh _objectMesh;
@@ -185,8 +185,8 @@ namespace ctr
                     private short _by;
                     private short _bz;
                     private uint _unknown5;
-                    private CtrModel m_root;
-                    private CtrModel.Header.ObjectEntry m_parent;
+                    private CtrLevel m_root;
+                    private CtrLevel.Header.ObjectEntry m_parent;
                     public string Name { get { return _name; } }
                     public uint PtrMesh { get { return _ptrMesh; } }
                     public short Px { get { return _px; } }
@@ -205,8 +205,8 @@ namespace ctr
                     public short By { get { return _by; } }
                     public short Bz { get { return _bz; } }
                     public uint Unknown5 { get { return _unknown5; } }
-                    public CtrModel M_Root { get { return m_root; } }
-                    public CtrModel.Header.ObjectEntry M_Parent { get { return m_parent; } }
+                    public CtrLevel M_Root { get { return m_root; } }
+                    public CtrLevel.Header.ObjectEntry M_Parent { get { return m_parent; } }
                 }
                 private bool f_objectInstance;
                 private ObjectInstance _objectInstance;
@@ -225,11 +225,11 @@ namespace ctr
                     }
                 }
                 private uint _objectInstancePtr;
-                private CtrModel m_root;
-                private CtrModel.Header m_parent;
+                private CtrLevel m_root;
+                private CtrLevel.Header m_parent;
                 public uint ObjectInstancePtr { get { return _objectInstancePtr; } }
-                public CtrModel M_Root { get { return m_root; } }
-                public CtrModel.Header M_Parent { get { return m_parent; } }
+                public CtrLevel M_Root { get { return m_root; } }
+                public CtrLevel.Header M_Parent { get { return m_parent; } }
             }
             private bool f_objectsIndex;
             private List<ObjectEntry> _objectsIndex;
@@ -264,8 +264,8 @@ namespace ctr
             private uint _ptrPickupHeadersPtrArray;
             private uint _unknown5;
             private byte[] _magic1;
-            private CtrModel m_root;
-            private CtrModel m_parent;
+            private CtrLevel m_root;
+            private CtrLevel m_parent;
             public uint Size { get { return _size; } }
             public uint PtrInfoHeader { get { return _ptrInfoHeader; } }
             public uint Unknown1 { get { return _unknown1; } }
@@ -279,8 +279,8 @@ namespace ctr
             public uint PtrPickupHeadersPtrArray { get { return _ptrPickupHeadersPtrArray; } }
             public uint Unknown5 { get { return _unknown5; } }
             public byte[] Magic1 { get { return _magic1; } }
-            public CtrModel M_Root { get { return m_root; } }
-            public CtrModel M_Parent { get { return m_parent; } }
+            public CtrLevel M_Root { get { return m_root; } }
+            public CtrLevel M_Parent { get { return m_parent; } }
         }
         public partial class InfoHeader : KaitaiStruct
         {
@@ -289,7 +289,7 @@ namespace ctr
                 return new InfoHeader(new KaitaiStream(fileName));
             }
 
-            public InfoHeader(KaitaiStream p__io, CtrModel p__parent = null, CtrModel p__root = null) : base(p__io)
+            public InfoHeader(KaitaiStream p__io, CtrLevel p__parent = null, CtrLevel p__root = null) : base(p__io)
             {
                 m_parent = p__parent;
                 m_root = p__root;
@@ -315,7 +315,7 @@ namespace ctr
                     return new Vertex(new KaitaiStream(fileName));
                 }
 
-                public Vertex(KaitaiStream p__io, CtrModel.InfoHeader p__parent = null, CtrModel p__root = null) : base(p__io)
+                public Vertex(KaitaiStream p__io, CtrLevel.InfoHeader p__parent = null, CtrLevel p__root = null) : base(p__io)
                 {
                     m_parent = p__parent;
                     m_root = p__root;
@@ -334,7 +334,7 @@ namespace ctr
                         return new Vector4u2(new KaitaiStream(fileName));
                     }
 
-                    public Vector4u2(KaitaiStream p__io, CtrModel.InfoHeader.Vertex p__parent = null, CtrModel p__root = null) : base(p__io)
+                    public Vector4u2(KaitaiStream p__io, CtrLevel.InfoHeader.Vertex p__parent = null, CtrLevel p__root = null) : base(p__io)
                     {
                         m_parent = p__parent;
                         m_root = p__root;
@@ -351,14 +351,14 @@ namespace ctr
                     private ushort _y;
                     private ushort _z;
                     private ushort _w;
-                    private CtrModel m_root;
-                    private CtrModel.InfoHeader.Vertex m_parent;
+                    private CtrLevel m_root;
+                    private CtrLevel.InfoHeader.Vertex m_parent;
                     public ushort X { get { return _x; } }
                     public ushort Y { get { return _y; } }
                     public ushort Z { get { return _z; } }
                     public ushort W { get { return _w; } }
-                    public CtrModel M_Root { get { return m_root; } }
-                    public CtrModel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
+                    public CtrLevel M_Root { get { return m_root; } }
+                    public CtrLevel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
                 }
                 public partial class Vector4u1 : KaitaiStruct
                 {
@@ -367,7 +367,7 @@ namespace ctr
                         return new Vector4u1(new KaitaiStream(fileName));
                     }
 
-                    public Vector4u1(KaitaiStream p__io, CtrModel.InfoHeader.Vertex p__parent = null, CtrModel p__root = null) : base(p__io)
+                    public Vector4u1(KaitaiStream p__io, CtrLevel.InfoHeader.Vertex p__parent = null, CtrLevel p__root = null) : base(p__io)
                     {
                         m_parent = p__parent;
                         m_root = p__root;
@@ -384,20 +384,20 @@ namespace ctr
                     private byte _y;
                     private byte _z;
                     private byte _w;
-                    private CtrModel m_root;
-                    private CtrModel.InfoHeader.Vertex m_parent;
+                    private CtrLevel m_root;
+                    private CtrLevel.InfoHeader.Vertex m_parent;
                     public byte X { get { return _x; } }
                     public byte Y { get { return _y; } }
                     public byte Z { get { return _z; } }
                     public byte W { get { return _w; } }
-                    public CtrModel M_Root { get { return m_root; } }
-                    public CtrModel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
+                    public CtrLevel M_Root { get { return m_root; } }
+                    public CtrLevel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
                 }
                 private Vector4u2 _coordinates;
                 private Vector4u1 _color1;
                 private Vector4u1 _color2;
-                private CtrModel m_root;
-                private CtrModel.InfoHeader m_parent;
+                private CtrLevel m_root;
+                private CtrLevel.InfoHeader m_parent;
                 public Vector4u2 Coordinates { get { return _coordinates; } }
                 public Vector4u1 Color1 { get { return _color1; } }
 
@@ -405,8 +405,8 @@ namespace ctr
                 /// ???
                 /// </summary>
                 public Vector4u1 Color2 { get { return _color2; } }
-                public CtrModel M_Root { get { return m_root; } }
-                public CtrModel.InfoHeader M_Parent { get { return m_parent; } }
+                public CtrLevel M_Root { get { return m_root; } }
+                public CtrLevel.InfoHeader M_Parent { get { return m_parent; } }
             }
             private bool f_vertices;
             private List<Vertex> _vertices;
@@ -437,8 +437,8 @@ namespace ctr
             private uint _unknown3;
             private uint _ptrFaceArray;
             private int _faceNum;
-            private CtrModel m_root;
-            private CtrModel m_parent;
+            private CtrLevel m_root;
+            private CtrLevel m_parent;
             public uint Unknown1 { get { return _unknown1; } }
             public int FacesNum { get { return _facesNum; } }
             public int VertexNum { get { return _vertexNum; } }
@@ -448,8 +448,8 @@ namespace ctr
             public uint Unknown3 { get { return _unknown3; } }
             public uint PtrFaceArray { get { return _ptrFaceArray; } }
             public int FaceNum { get { return _faceNum; } }
-            public CtrModel M_Root { get { return m_root; } }
-            public CtrModel M_Parent { get { return m_parent; } }
+            public CtrLevel M_Root { get { return m_root; } }
+            public CtrLevel M_Parent { get { return m_parent; } }
         }
         private bool f_infoHeader;
         private InfoHeader _infoHeader;
@@ -468,10 +468,10 @@ namespace ctr
             }
         }
         private Header _header;
-        private CtrModel m_root;
+        private CtrLevel m_root;
         private KaitaiStruct m_parent;
         public Header Header { get { return _header; } }
-        public CtrModel M_Root { get { return m_root; } }
+        public CtrLevel M_Root { get { return m_root; } }
         public KaitaiStruct M_Parent { get { return m_parent; } }
     }
 }
