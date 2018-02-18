@@ -72,6 +72,7 @@ types:
                 type: str
                 encoding: ASCII
                 size: 16
+                terminator: 0
               - id: mesh_ptr
                 type: u4
               - id: px
@@ -119,6 +120,7 @@ types:
                     type: str
                     size: 16
                     encoding: ASCII
+                    terminator: 0
                   - id: unknown2
                     type: u4
                   - id: unknown3
@@ -127,6 +129,7 @@ types:
                     type: str
                     size: 16
                     encoding: ASCII
+                    terminator: 0
                   - id: magic1
                     contents: [0x00, 0x00, 0x00, 0x00]
 

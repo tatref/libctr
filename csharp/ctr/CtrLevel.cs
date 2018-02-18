@@ -93,7 +93,7 @@ namespace ctr
                     }
                     private void _read()
                     {
-                        _name = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
+                        _name = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
                         _meshPtr = m_io.ReadU4le();
                         _px = m_io.ReadS2le();
                         _py = m_io.ReadS2le();
@@ -128,10 +128,10 @@ namespace ctr
                         private void _read()
                         {
                             _unknown1 = m_io.ReadU4le();
-                            _name = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
+                            _name = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
                             _unknown2 = m_io.ReadU4le();
                             _unknown3 = m_io.ReadU4le();
-                            _name2 = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
+                            _name2 = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
                             _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
                         }
                         private uint _unknown1;

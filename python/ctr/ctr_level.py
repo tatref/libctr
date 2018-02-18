@@ -61,7 +61,7 @@ class CtrLevel(KaitaiStruct):
                     self._read()
 
                 def _read(self):
-                    self.name = (self._io.read_bytes(16)).decode(u"ASCII")
+                    self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
                     self.mesh_ptr = self._io.read_u4le()
                     self.px = self._io.read_s2le()
                     self.py = self._io.read_s2le()
@@ -89,10 +89,10 @@ class CtrLevel(KaitaiStruct):
 
                     def _read(self):
                         self.unknown1 = self._io.read_u4le()
-                        self.name = (self._io.read_bytes(16)).decode(u"ASCII")
+                        self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
                         self.unknown2 = self._io.read_u4le()
                         self.unknown3 = self._io.read_u4le()
-                        self.name2 = (self._io.read_bytes(16)).decode(u"ASCII")
+                        self.name2 = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
                         self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00")
 
 
