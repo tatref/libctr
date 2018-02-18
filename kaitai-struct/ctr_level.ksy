@@ -46,6 +46,9 @@ types:
         type: u4
       - id: magic1
         contents: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
+        # works for all except  intro_race_today, intro_pass_tiny, intro_canyon_coco, intro_temple_polar
+        # the value is then [212,0,0,0,224,0,0,0]
+
     instances:
       objects_index:
         pos: ptr_pickup_headers_ptr_array + 4
