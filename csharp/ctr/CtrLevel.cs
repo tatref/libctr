@@ -94,7 +94,7 @@ namespace ctr
                     private void _read()
                     {
                         _name = System.Text.Encoding.GetEncoding("ASCII").GetString(m_io.ReadBytes(16));
-                        _ptrMesh = m_io.ReadU4le();
+                        _meshPtr = m_io.ReadU4le();
                         _px = m_io.ReadS2le();
                         _py = m_io.ReadS2le();
                         _pz = m_io.ReadS2le();
@@ -160,7 +160,7 @@ namespace ctr
                             if (f_objectMesh)
                                 return _objectMesh;
                             long _pos = m_io.Pos;
-                            m_io.Seek(PtrMesh);
+                            m_io.Seek(MeshPtr);
                             _objectMesh = new ObjectMesh(m_io, this, m_root);
                             m_io.Seek(_pos);
                             f_objectMesh = true;
@@ -168,7 +168,7 @@ namespace ctr
                         }
                     }
                     private string _name;
-                    private uint _ptrMesh;
+                    private uint _meshPtr;
                     private short _px;
                     private short _py;
                     private short _pz;
@@ -188,7 +188,7 @@ namespace ctr
                     private CtrLevel m_root;
                     private CtrLevel.Header.ObjectEntry m_parent;
                     public string Name { get { return _name; } }
-                    public uint PtrMesh { get { return _ptrMesh; } }
+                    public uint MeshPtr { get { return _meshPtr; } }
                     public short Px { get { return _px; } }
                     public short Py { get { return _py; } }
                     public short Pz { get { return _pz; } }

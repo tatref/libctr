@@ -62,7 +62,7 @@ class CtrLevel(KaitaiStruct):
 
                 def _read(self):
                     self.name = (self._io.read_bytes(16)).decode(u"ASCII")
-                    self.ptr_mesh = self._io.read_u4le()
+                    self.mesh_ptr = self._io.read_u4le()
                     self.px = self._io.read_s2le()
                     self.py = self._io.read_s2le()
                     self.pz = self._io.read_s2le()
@@ -102,7 +102,7 @@ class CtrLevel(KaitaiStruct):
                         return self._m_object_mesh if hasattr(self, '_m_object_mesh') else None
 
                     _pos = self._io.pos()
-                    self._io.seek(self.ptr_mesh)
+                    self._io.seek(self.mesh_ptr)
                     self._m_object_mesh = self._root.Header.ObjectEntry.ObjectInstance.ObjectMesh(self._io, self, self._root)
                     self._io.seek(_pos)
                     return self._m_object_mesh if hasattr(self, '_m_object_mesh') else None

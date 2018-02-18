@@ -57,7 +57,7 @@ digraph {
 					object_instance__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 						<TR><TD PORT="name_pos">0</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
-						<TR><TD PORT="ptr_mesh_pos">16</TD><TD PORT="ptr_mesh_size">4</TD><TD>u4le</TD><TD PORT="ptr_mesh_type">ptr_mesh</TD></TR>
+						<TR><TD PORT="mesh_ptr_pos">16</TD><TD PORT="mesh_ptr_size">4</TD><TD>u4le</TD><TD PORT="mesh_ptr_type">mesh_ptr</TD></TR>
 						<TR><TD PORT="px_pos">20</TD><TD PORT="px_size">2</TD><TD>s2le</TD><TD PORT="px_type">px</TD></TR>
 						<TR><TD PORT="py_pos">22</TD><TD PORT="py_size">2</TD><TD>s2le</TD><TD PORT="py_type">py</TD></TR>
 						<TR><TD PORT="pz_pos">24</TD><TD PORT="pz_size">2</TD><TD>s2le</TD><TD PORT="pz_type">pz</TD></TR>
@@ -77,7 +77,7 @@ digraph {
 					</TABLE>>];
 					object_instance__inst__object_mesh [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-						<TR><TD PORT="object_mesh_pos">ptr_mesh</TD><TD PORT="object_mesh_size">48</TD><TD>ObjectMesh</TD><TD PORT="object_mesh_type">object_mesh</TD></TR>
+						<TR><TD PORT="object_mesh_pos">mesh_ptr</TD><TD PORT="object_mesh_size">48</TD><TD>ObjectMesh</TD><TD PORT="object_mesh_type">object_mesh</TD></TR>
 					</TABLE>>];
 					subgraph cluster__object_mesh {
 						label="CtrLevel::Header::ObjectEntry::ObjectInstance::ObjectMesh";
@@ -162,7 +162,7 @@ digraph {
 	header__seq:num_pickup_headers_type -> header__inst__objects_index:objects_index__repeat [color="#404040"];
 	object_entry__seq:object_instance_ptr_type -> object_entry__inst__object_instance:object_instance_pos [color="#404040"];
 	object_entry__inst__object_instance:object_instance_type -> object_instance__seq [style=bold];
-	object_instance__seq:ptr_mesh_type -> object_instance__inst__object_mesh:object_mesh_pos [color="#404040"];
+	object_instance__seq:mesh_ptr_type -> object_instance__inst__object_mesh:object_mesh_pos [color="#404040"];
 	object_instance__inst__object_mesh:object_mesh_type -> object_mesh__seq [style=bold];
 	info_header__seq:ptr_vert_array_type -> info_header__inst__vertices:vertices_pos [color="#404040"];
 	info_header__inst__vertices:vertices_type -> vertex__seq [style=bold];

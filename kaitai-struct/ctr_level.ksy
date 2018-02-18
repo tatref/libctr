@@ -72,7 +72,7 @@ types:
                 type: str
                 encoding: ASCII
                 size: 16
-              - id: ptr_mesh
+              - id: mesh_ptr
                 type: u4
               - id: px
                 type: s2
@@ -108,7 +108,7 @@ types:
                 type: u4
             instances:
               object_mesh:
-                pos: ptr_mesh
+                pos: mesh_ptr
                 type: object_mesh
             types:
               object_mesh:
