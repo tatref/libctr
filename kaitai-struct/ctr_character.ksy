@@ -8,53 +8,68 @@ doc: |
 
 
 seq:
-  - id: header
-    type: header
+  - id: size
+    type: u4
+  - id: name
+    type: str
+    encoding: ASCII
+    size: 16
+    terminator: 0
+  - id: unknown1
+    size: 8
+  - id: name2
+    type: str
+    encoding: ASCII
+    size: 16
+    terminator: 0
+  - id: magic1
+    contents: [0x00, 0x00, 0x00, 0x00]
+  - id: unknown2
+    size: 32
+    
+  - id: animations_count
+    type: u4
+  - id: animations_table_ptr
+    type: u4
+
+  - id: unknown3
+    size: 52
+
+
+
+instances:
+  animations_index:
+    pos: animations_table_ptr + 4
+    type: animation_entry
+    repeat: expr
+    repeat-expr: animations_count
+    
+
 
 types:
-  header:
+  animation_entry:
     seq:
-      - id: size
+      - id: animation_ptr
         type: u4
-      - id: name
-        type: str
-        encoding: ASCII
-        size: 16
-        terminator: 0
-      - id: unknown1
-        size: 0x88
-      - id: animation1_ptr
-        type: u4
-      - id: animation2_ptr
-        type: u4
-      - id: animation3_ptr
-        type: u4
-      - id: animation4_ptr
-        type: u4
-
     instances:
-      animation1:
-        pos: animation1_ptr
-        type: animation
-      animation2:
-        pos: animation2_ptr
-        type: animation
-      animation3:
-        pos: animation3_ptr
-        type: animation
-      animation4:
-        pos: animation4_ptr
-        type: animation
-
-    types:
       animation:
+        pos: animation_ptr
+        type: anim
+    types:
+      anim:
         seq:
           - id: unknown1
             type: u4
-          - id: name
+            # maybe this does not belong to the animation?
+          - id: animation_name
             type: str
             encoding: ASCII
             size: 16
             terminator: 0
+          - id: unknown2
+            type: u4
+          - id: unknown3
+            type: u4
+
 
 

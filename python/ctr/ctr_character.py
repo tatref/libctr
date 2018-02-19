@@ -18,9 +18,17 @@ class CtrCharacter(KaitaiStruct):
         self._read()
 
     def _read(self):
-        self.header = self._root.Header(self._io, self, self._root)
+        self.size = self._io.read_u4le()
+        self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
+        self.unknown1 = self._io.read_bytes(8)
+        self.name2 = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
+        self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00")
+        self.unknown2 = self._io.read_bytes(32)
+        self.animations_count = self._io.read_u4le()
+        self.animations_table_ptr = self._io.read_u4le()
+        self.unknown3 = self._io.read_bytes(52)
 
-    class Header(KaitaiStruct):
+    class AnimationEntry(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):
             self._io = _io
             self._parent = _parent
@@ -28,15 +36,9 @@ class CtrCharacter(KaitaiStruct):
             self._read()
 
         def _read(self):
-            self.size = self._io.read_u4le()
-            self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
-            self.unknown1 = self._io.read_bytes(136)
-            self.animation1_ptr = self._io.read_u4le()
-            self.animation2_ptr = self._io.read_u4le()
-            self.animation3_ptr = self._io.read_u4le()
-            self.animation4_ptr = self._io.read_u4le()
+            self.animation_ptr = self._io.read_u4le()
 
-        class Animation(KaitaiStruct):
+        class Anim(KaitaiStruct):
             def __init__(self, _io, _parent=None, _root=None):
                 self._io = _io
                 self._parent = _parent
@@ -45,52 +47,35 @@ class CtrCharacter(KaitaiStruct):
 
             def _read(self):
                 self.unknown1 = self._io.read_u4le()
-                self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
+                self.animation_name = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
+                self.unknown2 = self._io.read_u4le()
+                self.unknown3 = self._io.read_u4le()
 
 
         @property
-        def animation1(self):
-            if hasattr(self, '_m_animation1'):
-                return self._m_animation1 if hasattr(self, '_m_animation1') else None
+        def animation(self):
+            if hasattr(self, '_m_animation'):
+                return self._m_animation if hasattr(self, '_m_animation') else None
 
             _pos = self._io.pos()
-            self._io.seek(self.animation1_ptr)
-            self._m_animation1 = self._root.Header.Animation(self._io, self, self._root)
+            self._io.seek(self.animation_ptr)
+            self._m_animation = self._root.AnimationEntry.Anim(self._io, self, self._root)
             self._io.seek(_pos)
-            return self._m_animation1 if hasattr(self, '_m_animation1') else None
+            return self._m_animation if hasattr(self, '_m_animation') else None
 
-        @property
-        def animation2(self):
-            if hasattr(self, '_m_animation2'):
-                return self._m_animation2 if hasattr(self, '_m_animation2') else None
 
-            _pos = self._io.pos()
-            self._io.seek(self.animation2_ptr)
-            self._m_animation2 = self._root.Header.Animation(self._io, self, self._root)
-            self._io.seek(_pos)
-            return self._m_animation2 if hasattr(self, '_m_animation2') else None
+    @property
+    def animations_index(self):
+        if hasattr(self, '_m_animations_index'):
+            return self._m_animations_index if hasattr(self, '_m_animations_index') else None
 
-        @property
-        def animation3(self):
-            if hasattr(self, '_m_animation3'):
-                return self._m_animation3 if hasattr(self, '_m_animation3') else None
+        _pos = self._io.pos()
+        self._io.seek((self.animations_table_ptr + 4))
+        self._m_animations_index = [None] * (self.animations_count)
+        for i in range(self.animations_count):
+            self._m_animations_index[i] = self._root.AnimationEntry(self._io, self, self._root)
 
-            _pos = self._io.pos()
-            self._io.seek(self.animation3_ptr)
-            self._m_animation3 = self._root.Header.Animation(self._io, self, self._root)
-            self._io.seek(_pos)
-            return self._m_animation3 if hasattr(self, '_m_animation3') else None
-
-        @property
-        def animation4(self):
-            if hasattr(self, '_m_animation4'):
-                return self._m_animation4 if hasattr(self, '_m_animation4') else None
-
-            _pos = self._io.pos()
-            self._io.seek(self.animation4_ptr)
-            self._m_animation4 = self._root.Header.Animation(self._io, self, self._root)
-            self._io.seek(_pos)
-            return self._m_animation4 if hasattr(self, '_m_animation4') else None
-
+        self._io.seek(_pos)
+        return self._m_animations_index if hasattr(self, '_m_animations_index') else None
 
 

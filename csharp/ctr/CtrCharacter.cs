@@ -1,6 +1,7 @@
 // This is a generated file! Please edit source .ksy file and use kaitai-struct-compiler to rebuild
 
 using Kaitai;
+using System.Collections.Generic;
 
 namespace ctr
 {
@@ -20,47 +21,47 @@ namespace ctr
         {
             m_parent = p__parent;
             m_root = p__root ?? this;
+            f_animationsIndex = false;
             _read();
         }
         private void _read()
         {
-            _header = new Header(m_io, this, m_root);
+            _size = m_io.ReadU4le();
+            _name = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
+            _unknown1 = m_io.ReadBytes(8);
+            _name2 = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
+            _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
+            _unknown2 = m_io.ReadBytes(32);
+            _animationsCount = m_io.ReadU4le();
+            _animationsTablePtr = m_io.ReadU4le();
+            _unknown3 = m_io.ReadBytes(52);
         }
-        public partial class Header : KaitaiStruct
+        public partial class AnimationEntry : KaitaiStruct
         {
-            public static Header FromFile(string fileName)
+            public static AnimationEntry FromFile(string fileName)
             {
-                return new Header(new KaitaiStream(fileName));
+                return new AnimationEntry(new KaitaiStream(fileName));
             }
 
-            public Header(KaitaiStream p__io, CtrCharacter p__parent = null, CtrCharacter p__root = null) : base(p__io)
+            public AnimationEntry(KaitaiStream p__io, CtrCharacter p__parent = null, CtrCharacter p__root = null) : base(p__io)
             {
                 m_parent = p__parent;
                 m_root = p__root;
-                f_animation1 = false;
-                f_animation2 = false;
-                f_animation3 = false;
-                f_animation4 = false;
+                f_animation = false;
                 _read();
             }
             private void _read()
             {
-                _size = m_io.ReadU4le();
-                _name = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
-                _unknown1 = m_io.ReadBytes(136);
-                _animation1Ptr = m_io.ReadU4le();
-                _animation2Ptr = m_io.ReadU4le();
-                _animation3Ptr = m_io.ReadU4le();
-                _animation4Ptr = m_io.ReadU4le();
+                _animationPtr = m_io.ReadU4le();
             }
-            public partial class Animation : KaitaiStruct
+            public partial class Anim : KaitaiStruct
             {
-                public static Animation FromFile(string fileName)
+                public static Anim FromFile(string fileName)
                 {
-                    return new Animation(new KaitaiStream(fileName));
+                    return new Anim(new KaitaiStream(fileName));
                 }
 
-                public Animation(KaitaiStream p__io, CtrCharacter.Header p__parent = null, CtrCharacter p__root = null) : base(p__io)
+                public Anim(KaitaiStream p__io, CtrCharacter.AnimationEntry p__parent = null, CtrCharacter p__root = null) : base(p__io)
                 {
                     m_parent = p__parent;
                     m_root = p__root;
@@ -69,104 +70,86 @@ namespace ctr
                 private void _read()
                 {
                     _unknown1 = m_io.ReadU4le();
-                    _name = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
+                    _animationName = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
+                    _unknown2 = m_io.ReadU4le();
+                    _unknown3 = m_io.ReadU4le();
                 }
                 private uint _unknown1;
-                private string _name;
+                private string _animationName;
+                private uint _unknown2;
+                private uint _unknown3;
                 private CtrCharacter m_root;
-                private CtrCharacter.Header m_parent;
+                private CtrCharacter.AnimationEntry m_parent;
                 public uint Unknown1 { get { return _unknown1; } }
-                public string Name { get { return _name; } }
+                public string AnimationName { get { return _animationName; } }
+                public uint Unknown2 { get { return _unknown2; } }
+                public uint Unknown3 { get { return _unknown3; } }
                 public CtrCharacter M_Root { get { return m_root; } }
-                public CtrCharacter.Header M_Parent { get { return m_parent; } }
+                public CtrCharacter.AnimationEntry M_Parent { get { return m_parent; } }
             }
-            private bool f_animation1;
-            private Animation _animation1;
-            public Animation Animation1
+            private bool f_animation;
+            private Anim _animation;
+            public Anim Animation
             {
                 get
                 {
-                    if (f_animation1)
-                        return _animation1;
+                    if (f_animation)
+                        return _animation;
                     long _pos = m_io.Pos;
-                    m_io.Seek(Animation1Ptr);
-                    _animation1 = new Animation(m_io, this, m_root);
+                    m_io.Seek(AnimationPtr);
+                    _animation = new Anim(m_io, this, m_root);
                     m_io.Seek(_pos);
-                    f_animation1 = true;
-                    return _animation1;
+                    f_animation = true;
+                    return _animation;
                 }
             }
-            private bool f_animation2;
-            private Animation _animation2;
-            public Animation Animation2
-            {
-                get
-                {
-                    if (f_animation2)
-                        return _animation2;
-                    long _pos = m_io.Pos;
-                    m_io.Seek(Animation2Ptr);
-                    _animation2 = new Animation(m_io, this, m_root);
-                    m_io.Seek(_pos);
-                    f_animation2 = true;
-                    return _animation2;
-                }
-            }
-            private bool f_animation3;
-            private Animation _animation3;
-            public Animation Animation3
-            {
-                get
-                {
-                    if (f_animation3)
-                        return _animation3;
-                    long _pos = m_io.Pos;
-                    m_io.Seek(Animation3Ptr);
-                    _animation3 = new Animation(m_io, this, m_root);
-                    m_io.Seek(_pos);
-                    f_animation3 = true;
-                    return _animation3;
-                }
-            }
-            private bool f_animation4;
-            private Animation _animation4;
-            public Animation Animation4
-            {
-                get
-                {
-                    if (f_animation4)
-                        return _animation4;
-                    long _pos = m_io.Pos;
-                    m_io.Seek(Animation4Ptr);
-                    _animation4 = new Animation(m_io, this, m_root);
-                    m_io.Seek(_pos);
-                    f_animation4 = true;
-                    return _animation4;
-                }
-            }
-            private uint _size;
-            private string _name;
-            private byte[] _unknown1;
-            private uint _animation1Ptr;
-            private uint _animation2Ptr;
-            private uint _animation3Ptr;
-            private uint _animation4Ptr;
+            private uint _animationPtr;
             private CtrCharacter m_root;
             private CtrCharacter m_parent;
-            public uint Size { get { return _size; } }
-            public string Name { get { return _name; } }
-            public byte[] Unknown1 { get { return _unknown1; } }
-            public uint Animation1Ptr { get { return _animation1Ptr; } }
-            public uint Animation2Ptr { get { return _animation2Ptr; } }
-            public uint Animation3Ptr { get { return _animation3Ptr; } }
-            public uint Animation4Ptr { get { return _animation4Ptr; } }
+            public uint AnimationPtr { get { return _animationPtr; } }
             public CtrCharacter M_Root { get { return m_root; } }
             public CtrCharacter M_Parent { get { return m_parent; } }
         }
-        private Header _header;
+        private bool f_animationsIndex;
+        private List<AnimationEntry> _animationsIndex;
+        public List<AnimationEntry> AnimationsIndex
+        {
+            get
+            {
+                if (f_animationsIndex)
+                    return _animationsIndex;
+                long _pos = m_io.Pos;
+                m_io.Seek((AnimationsTablePtr + 4));
+                _animationsIndex = new List<AnimationEntry>((int) (AnimationsCount));
+                for (var i = 0; i < AnimationsCount; i++)
+                {
+                    _animationsIndex.Add(new AnimationEntry(m_io, this, m_root));
+                }
+                m_io.Seek(_pos);
+                f_animationsIndex = true;
+                return _animationsIndex;
+            }
+        }
+        private uint _size;
+        private string _name;
+        private byte[] _unknown1;
+        private string _name2;
+        private byte[] _magic1;
+        private byte[] _unknown2;
+        private uint _animationsCount;
+        private uint _animationsTablePtr;
+        private byte[] _unknown3;
         private CtrCharacter m_root;
         private KaitaiStruct m_parent;
-        public Header Header { get { return _header; } }
+        public uint Size { get { return _size; } }
+        public string Name { get { return _name; } }
+        public byte[] Unknown1 { get { return _unknown1; } }
+        public string Name2 { get { return _name2; } }
+        public byte[] Magic1 { get { return _magic1; } }
+        public byte[] Unknown2 { get { return _unknown2; } }
+        public uint AnimationsCount { get { return _animationsCount; } }
+        public uint AnimationsTablePtr { get { return _animationsTablePtr; } }
+        public byte[] Unknown3 { get { return _unknown3; } }
         public CtrCharacter M_Root { get { return m_root; } }
         public KaitaiStruct M_Parent { get { return m_parent; } }
     }

@@ -7,57 +7,50 @@ digraph {
 
 		ctr_character__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-			<TR><TD PORT="header_pos">0</TD><TD PORT="header_size">172</TD><TD>Header</TD><TD PORT="header_type">header</TD></TR>
+			<TR><TD PORT="size_pos">0</TD><TD PORT="size_size">4</TD><TD>u4le</TD><TD PORT="size_type">size</TD></TR>
+			<TR><TD PORT="name_pos">4</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
+			<TR><TD PORT="unknown1_pos">20</TD><TD PORT="unknown1_size">8</TD><TD></TD><TD PORT="unknown1_type">unknown1</TD></TR>
+			<TR><TD PORT="name2_pos">28</TD><TD PORT="name2_size">16</TD><TD>str(ASCII)</TD><TD PORT="name2_type">name2</TD></TR>
+			<TR><TD PORT="magic1_pos">44</TD><TD PORT="magic1_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic1_type">magic1</TD></TR>
+			<TR><TD PORT="unknown2_pos">48</TD><TD PORT="unknown2_size">32</TD><TD></TD><TD PORT="unknown2_type">unknown2</TD></TR>
+			<TR><TD PORT="animations_count_pos">80</TD><TD PORT="animations_count_size">4</TD><TD>u4le</TD><TD PORT="animations_count_type">animations_count</TD></TR>
+			<TR><TD PORT="animations_table_ptr_pos">84</TD><TD PORT="animations_table_ptr_size">4</TD><TD>u4le</TD><TD PORT="animations_table_ptr_type">animations_table_ptr</TD></TR>
+			<TR><TD PORT="unknown3_pos">88</TD><TD PORT="unknown3_size">52</TD><TD></TD><TD PORT="unknown3_type">unknown3</TD></TR>
 		</TABLE>>];
-		subgraph cluster__header {
-			label="CtrCharacter::Header";
+		ctr_character__inst__animations_index [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="animations_index_pos">(animations_table_ptr + 4)</TD><TD PORT="animations_index_size">4</TD><TD>AnimationEntry</TD><TD PORT="animations_index_type">animations_index</TD></TR>
+			<TR><TD COLSPAN="4" PORT="animations_index__repeat">repeat animations_count times</TD></TR>
+		</TABLE>>];
+		subgraph cluster__animation_entry {
+			label="CtrCharacter::AnimationEntry";
 			graph[style=dotted];
 
-			header__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			animation_entry__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="size_pos">0</TD><TD PORT="size_size">4</TD><TD>u4le</TD><TD PORT="size_type">size</TD></TR>
-				<TR><TD PORT="name_pos">4</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
-				<TR><TD PORT="unknown1_pos">20</TD><TD PORT="unknown1_size">136</TD><TD></TD><TD PORT="unknown1_type">unknown1</TD></TR>
-				<TR><TD PORT="animation1_ptr_pos">156</TD><TD PORT="animation1_ptr_size">4</TD><TD>u4le</TD><TD PORT="animation1_ptr_type">animation1_ptr</TD></TR>
-				<TR><TD PORT="animation2_ptr_pos">160</TD><TD PORT="animation2_ptr_size">4</TD><TD>u4le</TD><TD PORT="animation2_ptr_type">animation2_ptr</TD></TR>
-				<TR><TD PORT="animation3_ptr_pos">164</TD><TD PORT="animation3_ptr_size">4</TD><TD>u4le</TD><TD PORT="animation3_ptr_type">animation3_ptr</TD></TR>
-				<TR><TD PORT="animation4_ptr_pos">168</TD><TD PORT="animation4_ptr_size">4</TD><TD>u4le</TD><TD PORT="animation4_ptr_type">animation4_ptr</TD></TR>
+				<TR><TD PORT="animation_ptr_pos">0</TD><TD PORT="animation_ptr_size">4</TD><TD>u4le</TD><TD PORT="animation_ptr_type">animation_ptr</TD></TR>
 			</TABLE>>];
-			header__inst__animation1 [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			animation_entry__inst__animation [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="animation1_pos">animation1_ptr</TD><TD PORT="animation1_size">20</TD><TD>Animation</TD><TD PORT="animation1_type">animation1</TD></TR>
+				<TR><TD PORT="animation_pos">animation_ptr</TD><TD PORT="animation_size">28</TD><TD>Anim</TD><TD PORT="animation_type">animation</TD></TR>
 			</TABLE>>];
-			header__inst__animation2 [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="animation2_pos">animation2_ptr</TD><TD PORT="animation2_size">20</TD><TD>Animation</TD><TD PORT="animation2_type">animation2</TD></TR>
-			</TABLE>>];
-			header__inst__animation3 [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="animation3_pos">animation3_ptr</TD><TD PORT="animation3_size">20</TD><TD>Animation</TD><TD PORT="animation3_type">animation3</TD></TR>
-			</TABLE>>];
-			header__inst__animation4 [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="animation4_pos">animation4_ptr</TD><TD PORT="animation4_size">20</TD><TD>Animation</TD><TD PORT="animation4_type">animation4</TD></TR>
-			</TABLE>>];
-			subgraph cluster__animation {
-				label="CtrCharacter::Header::Animation";
+			subgraph cluster__anim {
+				label="CtrCharacter::AnimationEntry::Anim";
 				graph[style=dotted];
 
-				animation__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				anim__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 					<TR><TD PORT="unknown1_pos">0</TD><TD PORT="unknown1_size">4</TD><TD>u4le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
-					<TR><TD PORT="name_pos">4</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
+					<TR><TD PORT="animation_name_pos">4</TD><TD PORT="animation_name_size">16</TD><TD>str(ASCII)</TD><TD PORT="animation_name_type">animation_name</TD></TR>
+					<TR><TD PORT="unknown2_pos">20</TD><TD PORT="unknown2_size">4</TD><TD>u4le</TD><TD PORT="unknown2_type">unknown2</TD></TR>
+					<TR><TD PORT="unknown3_pos">24</TD><TD PORT="unknown3_size">4</TD><TD>u4le</TD><TD PORT="unknown3_type">unknown3</TD></TR>
 				</TABLE>>];
 			}
 		}
 	}
-	ctr_character__seq:header_type -> header__seq [style=bold];
-	header__seq:animation1_ptr_type -> header__inst__animation1:animation1_pos [color="#404040"];
-	header__inst__animation1:animation1_type -> animation__seq [style=bold];
-	header__seq:animation2_ptr_type -> header__inst__animation2:animation2_pos [color="#404040"];
-	header__inst__animation2:animation2_type -> animation__seq [style=bold];
-	header__seq:animation3_ptr_type -> header__inst__animation3:animation3_pos [color="#404040"];
-	header__inst__animation3:animation3_type -> animation__seq [style=bold];
-	header__seq:animation4_ptr_type -> header__inst__animation4:animation4_pos [color="#404040"];
-	header__inst__animation4:animation4_type -> animation__seq [style=bold];
+	ctr_character__seq:animations_table_ptr_type -> ctr_character__inst__animations_index:animations_index_pos [color="#404040"];
+	ctr_character__inst__animations_index:animations_index_type -> animation_entry__seq [style=bold];
+	ctr_character__seq:animations_count_type -> ctr_character__inst__animations_index:animations_index__repeat [color="#404040"];
+	animation_entry__seq:animation_ptr_type -> animation_entry__inst__animation:animation_pos [color="#404040"];
+	animation_entry__inst__animation:animation_type -> anim__seq [style=bold];
 }
