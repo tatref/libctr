@@ -94,6 +94,11 @@ class CtrLevel(KaitaiStruct):
                         self.unknown3 = self._io.read_u4le()
                         self.name2 = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
                         self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00")
+                        self.unknown4 = self._io.read_bytes(12)
+                        self.wx8_ptr = self._io.read_u4le()
+                        self.unknown_ptr1 = self._io.read_u4le()
+                        self.unknown_ptr2 = self._io.read_u4le()
+                        self.unknown_ptr3 = self._io.read_u4le()
 
 
                 @property

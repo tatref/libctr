@@ -133,6 +133,11 @@ namespace ctr
                             _unknown3 = m_io.ReadU4le();
                             _name2 = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
                             _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
+                            _unknown4 = m_io.ReadBytes(12);
+                            _wx8Ptr = m_io.ReadU4le();
+                            _unknownPtr1 = m_io.ReadU4le();
+                            _unknownPtr2 = m_io.ReadU4le();
+                            _unknownPtr3 = m_io.ReadU4le();
                         }
                         private uint _unknown1;
                         private string _name;
@@ -140,6 +145,11 @@ namespace ctr
                         private uint _unknown3;
                         private string _name2;
                         private byte[] _magic1;
+                        private byte[] _unknown4;
+                        private uint _wx8Ptr;
+                        private uint _unknownPtr1;
+                        private uint _unknownPtr2;
+                        private uint _unknownPtr3;
                         private CtrLevel m_root;
                         private CtrLevel.Header.ObjectEntry.ObjectInstance m_parent;
                         public uint Unknown1 { get { return _unknown1; } }
@@ -148,6 +158,11 @@ namespace ctr
                         public uint Unknown3 { get { return _unknown3; } }
                         public string Name2 { get { return _name2; } }
                         public byte[] Magic1 { get { return _magic1; } }
+                        public byte[] Unknown4 { get { return _unknown4; } }
+                        public uint Wx8Ptr { get { return _wx8Ptr; } }
+                        public uint UnknownPtr1 { get { return _unknownPtr1; } }
+                        public uint UnknownPtr2 { get { return _unknownPtr2; } }
+                        public uint UnknownPtr3 { get { return _unknownPtr3; } }
                         public CtrLevel M_Root { get { return m_root; } }
                         public CtrLevel.Header.ObjectEntry.ObjectInstance M_Parent { get { return m_parent; } }
                     }

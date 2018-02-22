@@ -133,7 +133,16 @@ types:
                     terminator: 0
                   - id: magic1
                     contents: [0x00, 0x00, 0x00, 0x00]
-
+                  - id: unknown4
+                    size: 12
+                  - id: wx8_ptr
+                    type: u4
+                  - id: unknown_ptr1
+                    type: u4
+                  - id: unknown_ptr2
+                    type: u4
+                  - id: unknown_ptr3
+                    type: u4
 
 
 
