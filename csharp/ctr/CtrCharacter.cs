@@ -7,7 +7,7 @@ namespace ctr
 {
 
     /// <summary>
-    /// Parser for the CTR characters (low, med, hi) and animations (dance, loose)
+    /// Parser for the CTR characters (low, med, hi) and animations (dance, lose)
     /// version 0.1
     /// </summary>
     public partial class CtrCharacter : KaitaiStruct
@@ -31,12 +31,15 @@ namespace ctr
             _unknown1 = m_io.ReadBytes(8);
             _name2 = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
             _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
-            _unknown2 = m_io.ReadBytes(20);
-            _wx8End = m_io.ReadU4le();
-            _unknown3 = m_io.ReadBytes(8);
+            _unknown2 = m_io.ReadBytes(12);
+            _wx8Ptr = m_io.ReadU4le();
+            _magic2 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
+            _unknownPtr1 = m_io.ReadU4le();
+            _unknownPtr2 = m_io.ReadU4le();
+            _magic3 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
             _animationsCount = m_io.ReadU4le();
             _animationsTablePtr = m_io.ReadU4le();
-            _unknown4 = m_io.ReadBytes(52);
+            _magic4 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
         }
         public partial class AnimationEntry : KaitaiStruct
         {
@@ -138,11 +141,14 @@ namespace ctr
         private string _name2;
         private byte[] _magic1;
         private byte[] _unknown2;
-        private uint _wx8End;
-        private byte[] _unknown3;
+        private uint _wx8Ptr;
+        private byte[] _magic2;
+        private uint _unknownPtr1;
+        private uint _unknownPtr2;
+        private byte[] _magic3;
         private uint _animationsCount;
         private uint _animationsTablePtr;
-        private byte[] _unknown4;
+        private byte[] _magic4;
         private CtrCharacter m_root;
         private KaitaiStruct m_parent;
         public uint Size { get { return _size; } }
@@ -151,11 +157,14 @@ namespace ctr
         public string Name2 { get { return _name2; } }
         public byte[] Magic1 { get { return _magic1; } }
         public byte[] Unknown2 { get { return _unknown2; } }
-        public uint Wx8End { get { return _wx8End; } }
-        public byte[] Unknown3 { get { return _unknown3; } }
+        public uint Wx8Ptr { get { return _wx8Ptr; } }
+        public byte[] Magic2 { get { return _magic2; } }
+        public uint UnknownPtr1 { get { return _unknownPtr1; } }
+        public uint UnknownPtr2 { get { return _unknownPtr2; } }
+        public byte[] Magic3 { get { return _magic3; } }
         public uint AnimationsCount { get { return _animationsCount; } }
         public uint AnimationsTablePtr { get { return _animationsTablePtr; } }
-        public byte[] Unknown4 { get { return _unknown4; } }
+        public byte[] Magic4 { get { return _magic4; } }
         public CtrCharacter M_Root { get { return m_root; } }
         public KaitaiStruct M_Parent { get { return m_parent; } }
     }
