@@ -3,7 +3,7 @@ meta:
   file-extension: chr
   endian: le
 doc: |
-  Parser for the CTR characters
+  Parser for the CTR characters (low, med, hi) and animations (dance, loose)
   version 0
 
 
@@ -25,14 +25,17 @@ seq:
   - id: magic1
     contents: [0x00, 0x00, 0x00, 0x00]
   - id: unknown2
-    size: 32
-    
+    size: 20
+  - id: wx8_end
+    type: u4
+  - id: unknown3
+    size: 8    
   - id: animations_count
     type: u4
   - id: animations_table_ptr
     type: u4
 
-  - id: unknown3
+  - id: unknown4
     size: 52
 
 
