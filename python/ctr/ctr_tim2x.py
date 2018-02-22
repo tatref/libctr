@@ -10,7 +10,7 @@ if parse_version(ks_version) < parse_version('0.7'):
 from ctr.psx_tim import PsxTim
 class CtrTim2x(KaitaiStruct):
     """tim2x contains 2 TIMs in a row
-    version 0
+    version 0.1
     """
     def __init__(self, _io, _parent=None, _root=None):
         self._io = _io

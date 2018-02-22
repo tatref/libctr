@@ -8,8 +8,8 @@ if parse_version(ks_version) < parse_version('0.7'):
     raise Exception("Incompatible Kaitai Struct Python API: 0.7 or later is required, but you have %s" % (ks_version))
 
 class CtrCharacter(KaitaiStruct):
-    """Parser for the CTR characters
-    version 0
+    """Parser for the CTR characters (low, med, hi) and animations (dance, loose)
+    version 0.1
     """
     def __init__(self, _io, _parent=None, _root=None):
         self._io = _io
@@ -23,10 +23,12 @@ class CtrCharacter(KaitaiStruct):
         self.unknown1 = self._io.read_bytes(8)
         self.name2 = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
         self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00")
-        self.unknown2 = self._io.read_bytes(32)
+        self.unknown2 = self._io.read_bytes(20)
+        self.wx8_end = self._io.read_u4le()
+        self.unknown3 = self._io.read_bytes(8)
         self.animations_count = self._io.read_u4le()
         self.animations_table_ptr = self._io.read_u4le()
-        self.unknown3 = self._io.read_bytes(52)
+        self.unknown4 = self._io.read_bytes(52)
 
     class AnimationEntry(KaitaiStruct):
         def __init__(self, _io, _parent=None, _root=None):

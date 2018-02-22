@@ -8,8 +8,8 @@ namespace ctr
 
     /// <summary>
     /// Parser for the CTR levels
-    /// version 0
     /// Original code https://github.com/DCxDemo/CTR-tools
+    /// version 0.1
     /// </summary>
     public partial class CtrLevel : KaitaiStruct
     {

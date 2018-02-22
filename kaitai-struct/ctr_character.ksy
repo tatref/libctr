@@ -4,7 +4,7 @@ meta:
   endian: le
 doc: |
   Parser for the CTR characters (low, med, hi) and animations (dance, loose)
-  version 0
+  version 0.1
 
 
 seq:

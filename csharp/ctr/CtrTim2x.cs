@@ -7,7 +7,7 @@ namespace ctr
 
     /// <summary>
     /// tim2x contains 2 TIMs in a row
-    /// version 0
+    /// version 0.1
     /// </summary>
     public partial class CtrTim2x : KaitaiStruct
     {

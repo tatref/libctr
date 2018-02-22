@@ -7,7 +7,8 @@ meta:
     - psx_tim
 doc: |
   tim2x contains 2 TIMs in a row
-  version 0
+  version 0.1
+
 
 seq:
   - id: magic

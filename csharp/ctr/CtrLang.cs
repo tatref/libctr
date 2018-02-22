@@ -8,7 +8,7 @@ namespace ctr
 
     /// <summary>
     /// Parser for the lang files
-    /// version 0
+    /// version 0.1
     /// </summary>
     public partial class CtrLang : KaitaiStruct
     {

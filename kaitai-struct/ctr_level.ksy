@@ -4,8 +4,9 @@ meta:
   endian: le
 doc: |
   Parser for the CTR levels
-  version 0
   Original code https://github.com/DCxDemo/CTR-tools
+  version 0.1
+
 
 seq:
   - id: header

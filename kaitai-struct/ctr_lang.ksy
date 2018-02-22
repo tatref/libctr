@@ -8,7 +8,8 @@ meta:
   encoding: ascii
 doc: |
   Parser for the lang files
-  version 0
+  version 0.1
+
 
 seq:
   - id: strings_count

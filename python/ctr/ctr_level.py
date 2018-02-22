@@ -9,8 +9,8 @@ if parse_version(ks_version) < parse_version('0.7'):
 
 class CtrLevel(KaitaiStruct):
     """Parser for the CTR levels
-    version 0
     Original code https://github.com/DCxDemo/CTR-tools
+    version 0.1
     """
     def __init__(self, _io, _parent=None, _root=None):
         self._io = _io

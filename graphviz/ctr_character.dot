@@ -12,10 +12,12 @@ digraph {
 			<TR><TD PORT="unknown1_pos">20</TD><TD PORT="unknown1_size">8</TD><TD></TD><TD PORT="unknown1_type">unknown1</TD></TR>
 			<TR><TD PORT="name2_pos">28</TD><TD PORT="name2_size">16</TD><TD>str(ASCII)</TD><TD PORT="name2_type">name2</TD></TR>
 			<TR><TD PORT="magic1_pos">44</TD><TD PORT="magic1_size">4</TD><TD>00 00 00 00</TD><TD PORT="magic1_type">magic1</TD></TR>
-			<TR><TD PORT="unknown2_pos">48</TD><TD PORT="unknown2_size">32</TD><TD></TD><TD PORT="unknown2_type">unknown2</TD></TR>
+			<TR><TD PORT="unknown2_pos">48</TD><TD PORT="unknown2_size">20</TD><TD></TD><TD PORT="unknown2_type">unknown2</TD></TR>
+			<TR><TD PORT="wx8_end_pos">68</TD><TD PORT="wx8_end_size">4</TD><TD>u4le</TD><TD PORT="wx8_end_type">wx8_end</TD></TR>
+			<TR><TD PORT="unknown3_pos">72</TD><TD PORT="unknown3_size">8</TD><TD></TD><TD PORT="unknown3_type">unknown3</TD></TR>
 			<TR><TD PORT="animations_count_pos">80</TD><TD PORT="animations_count_size">4</TD><TD>u4le</TD><TD PORT="animations_count_type">animations_count</TD></TR>
 			<TR><TD PORT="animations_table_ptr_pos">84</TD><TD PORT="animations_table_ptr_size">4</TD><TD>u4le</TD><TD PORT="animations_table_ptr_type">animations_table_ptr</TD></TR>
-			<TR><TD PORT="unknown3_pos">88</TD><TD PORT="unknown3_size">52</TD><TD></TD><TD PORT="unknown3_type">unknown3</TD></TR>
+			<TR><TD PORT="unknown4_pos">88</TD><TD PORT="unknown4_size">52</TD><TD></TD><TD PORT="unknown4_type">unknown4</TD></TR>
 		</TABLE>>];
 		ctr_character__inst__animations_index [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
