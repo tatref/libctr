@@ -168,7 +168,7 @@ types:
           type: s4
       instances:
         vertices:
-          pos: ptr_vert_array
+          pos: ptr_vert_array + 4
           type: vertex
           repeat: expr
           repeat-expr: vertex_num

@@ -119,7 +119,7 @@ digraph {
 			</TABLE>>];
 			info_header__inst__vertices [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="vertices_pos">ptr_vert_array</TD><TD PORT="vertices_size">16</TD><TD>Vertex</TD><TD PORT="vertices_type">vertices</TD></TR>
+				<TR><TD PORT="vertices_pos">(ptr_vert_array + 4)</TD><TD PORT="vertices_size">16</TD><TD>Vertex</TD><TD PORT="vertices_type">vertices</TD></TR>
 				<TR><TD COLSPAN="4" PORT="vertices__repeat">repeat vertex_num times</TD></TR>
 			</TABLE>>];
 			subgraph cluster__vertex {

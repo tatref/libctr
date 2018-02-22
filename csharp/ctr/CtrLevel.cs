@@ -432,7 +432,7 @@ namespace ctr
                     if (f_vertices)
                         return _vertices;
                     long _pos = m_io.Pos;
-                    m_io.Seek(PtrVertArray);
+                    m_io.Seek((PtrVertArray + 4));
                     _vertices = new List<Vertex>((int) (VertexNum));
                     for (var i = 0; i < VertexNum; i++)
                     {

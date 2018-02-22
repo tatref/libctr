@@ -205,7 +205,7 @@ class CtrLevel(KaitaiStruct):
                 return self._m_vertices if hasattr(self, '_m_vertices') else None
 
             _pos = self._io.pos()
-            self._io.seek(self.ptr_vert_array)
+            self._io.seek((self.ptr_vert_array + 4))
             self._m_vertices = [None] * (self.vertex_num)
             for i in range(self.vertex_num):
                 self._m_vertices[i] = self._root.InfoHeader.Vertex(self._io, self, self._root)
