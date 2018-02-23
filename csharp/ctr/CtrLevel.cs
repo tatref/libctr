@@ -309,6 +309,7 @@ namespace ctr
                 m_parent = p__parent;
                 m_root = p__root;
                 f_vertices = false;
+                f_ngons = false;
                 _read();
             }
             private void _read()
@@ -342,72 +343,6 @@ namespace ctr
                     _color1 = new Vector4u1(m_io, this, m_root);
                     _color2 = new Vector4u1(m_io, this, m_root);
                 }
-                public partial class Vector4u2 : KaitaiStruct
-                {
-                    public static Vector4u2 FromFile(string fileName)
-                    {
-                        return new Vector4u2(new KaitaiStream(fileName));
-                    }
-
-                    public Vector4u2(KaitaiStream p__io, CtrLevel.InfoHeader.Vertex p__parent = null, CtrLevel p__root = null) : base(p__io)
-                    {
-                        m_parent = p__parent;
-                        m_root = p__root;
-                        _read();
-                    }
-                    private void _read()
-                    {
-                        _x = m_io.ReadU2le();
-                        _y = m_io.ReadU2le();
-                        _z = m_io.ReadU2le();
-                        _w = m_io.ReadU2le();
-                    }
-                    private ushort _x;
-                    private ushort _y;
-                    private ushort _z;
-                    private ushort _w;
-                    private CtrLevel m_root;
-                    private CtrLevel.InfoHeader.Vertex m_parent;
-                    public ushort X { get { return _x; } }
-                    public ushort Y { get { return _y; } }
-                    public ushort Z { get { return _z; } }
-                    public ushort W { get { return _w; } }
-                    public CtrLevel M_Root { get { return m_root; } }
-                    public CtrLevel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
-                }
-                public partial class Vector4u1 : KaitaiStruct
-                {
-                    public static Vector4u1 FromFile(string fileName)
-                    {
-                        return new Vector4u1(new KaitaiStream(fileName));
-                    }
-
-                    public Vector4u1(KaitaiStream p__io, CtrLevel.InfoHeader.Vertex p__parent = null, CtrLevel p__root = null) : base(p__io)
-                    {
-                        m_parent = p__parent;
-                        m_root = p__root;
-                        _read();
-                    }
-                    private void _read()
-                    {
-                        _x = m_io.ReadU1();
-                        _y = m_io.ReadU1();
-                        _z = m_io.ReadU1();
-                        _w = m_io.ReadU1();
-                    }
-                    private byte _x;
-                    private byte _y;
-                    private byte _z;
-                    private byte _w;
-                    private CtrLevel m_root;
-                    private CtrLevel.InfoHeader.Vertex m_parent;
-                    public byte X { get { return _x; } }
-                    public byte Y { get { return _y; } }
-                    public byte Z { get { return _z; } }
-                    public byte W { get { return _w; } }
-                    public CtrLevel M_Root { get { return m_root; } }
-                    public CtrLevel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
-                }
                 private Vector4u2 _coordinates;
                 private Vector4u1 _color1;
                 private Vector4u1 _color2;
@@ -415,13 +350,106 @@ namespace ctr
                 private CtrLevel.InfoHeader m_parent;
                 public Vector4u2 Coordinates { get { return _coordinates; } }
                 public Vector4u1 Color1 { get { return _color1; } }
-
-                /// <summary>
-                /// ???
-                /// </summary>
                 public Vector4u1 Color2 { get { return _color2; } }
                 public CtrLevel M_Root { get { return m_root; } }
                 public CtrLevel.InfoHeader M_Parent { get { return m_parent; } }
+            }
+            public partial class Ngon : KaitaiStruct
+            {
+                public static Ngon FromFile(string fileName)
+                {
+                    return new Ngon(new KaitaiStream(fileName));
+                }
+
+                public Ngon(KaitaiStream p__io, CtrLevel.InfoHeader p__parent = null, CtrLevel p__root = null) : base(p__io)
+                {
+                    m_parent = p__parent;
+                    m_root = p__root;
+                    _read();
+                }
+                private void _read()
+                {
+                    _faceIndices = new List<short>((int) (9));
+                    for (var i = 0; i < 9; i++)
+                    {
+                        _faceIndices.Add(m_io.ReadS2le());
+                    }
+                    _data = m_io.ReadBytes(74);
+                }
+                private List<short> _faceIndices;
+                private byte[] _data;
+                private CtrLevel m_root;
+                private CtrLevel.InfoHeader m_parent;
+                public List<short> FaceIndices { get { return _faceIndices; } }
+                public byte[] Data { get { return _data; } }
+                public CtrLevel M_Root { get { return m_root; } }
+                public CtrLevel.InfoHeader M_Parent { get { return m_parent; } }
+            }
+            public partial class Vector4u2 : KaitaiStruct
+            {
+                public static Vector4u2 FromFile(string fileName)
+                {
+                    return new Vector4u2(new KaitaiStream(fileName));
+                }
+
+                public Vector4u2(KaitaiStream p__io, CtrLevel.InfoHeader.Vertex p__parent = null, CtrLevel p__root = null) : base(p__io)
+                {
+                    m_parent = p__parent;
+                    m_root = p__root;
+                    _read();
+                }
+                private void _read()
+                {
+                    _x = m_io.ReadU2le();
+                    _y = m_io.ReadU2le();
+                    _z = m_io.ReadU2le();
+                    _w = m_io.ReadU2le();
+                }
+                private ushort _x;
+                private ushort _y;
+                private ushort _z;
+                private ushort _w;
+                private CtrLevel m_root;
+                private CtrLevel.InfoHeader.Vertex m_parent;
+                public ushort X { get { return _x; } }
+                public ushort Y { get { return _y; } }
+                public ushort Z { get { return _z; } }
+                public ushort W { get { return _w; } }
+                public CtrLevel M_Root { get { return m_root; } }
+                public CtrLevel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
+            }
+            public partial class Vector4u1 : KaitaiStruct
+            {
+                public static Vector4u1 FromFile(string fileName)
+                {
+                    return new Vector4u1(new KaitaiStream(fileName));
+                }
+
+                public Vector4u1(KaitaiStream p__io, CtrLevel.InfoHeader.Vertex p__parent = null, CtrLevel p__root = null) : base(p__io)
+                {
+                    m_parent = p__parent;
+                    m_root = p__root;
+                    _read();
+                }
+                private void _read()
+                {
+                    _x = m_io.ReadU1();
+                    _y = m_io.ReadU1();
+                    _z = m_io.ReadU1();
+                    _w = m_io.ReadU1();
+                }
+                private byte _x;
+                private byte _y;
+                private byte _z;
+                private byte _w;
+                private CtrLevel m_root;
+                private CtrLevel.InfoHeader.Vertex m_parent;
+                public byte X { get { return _x; } }
+                public byte Y { get { return _y; } }
+                public byte Z { get { return _z; } }
+                public byte W { get { return _w; } }
+                public CtrLevel M_Root { get { return m_root; } }
+                public CtrLevel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
             }
             private bool f_vertices;
             private List<Vertex> _vertices;
@@ -441,6 +469,26 @@ namespace ctr
                     m_io.Seek(_pos);
                     f_vertices = true;
                     return _vertices;
+                }
+            }
+            private bool f_ngons;
+            private List<Ngon> _ngons;
+            public List<Ngon> Ngons
+            {
+                get
+                {
+                    if (f_ngons)
+                        return _ngons;
+                    long _pos = m_io.Pos;
+                    m_io.Seek((PtrNgonArray + 4));
+                    _ngons = new List<Ngon>((int) (FacesNum));
+                    for (var i = 0; i < FacesNum; i++)
+                    {
+                        _ngons.Add(new Ngon(m_io, this, m_root));
+                    }
+                    m_io.Seek(_pos);
+                    f_ngons = true;
+                    return _ngons;
                 }
             }
             private uint _unknown1;

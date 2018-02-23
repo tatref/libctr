@@ -56,6 +56,7 @@ types:
         type: object_entry
         repeat: expr
         repeat-expr: num_pickup_headers
+        
     types:
       object_entry:
         seq:
@@ -108,10 +109,12 @@ types:
                 type: s2
               - id: unknown5
                 type: u4
+                
             instances:
               object_mesh:
                 pos: mesh_ptr
                 type: object_mesh
+                
             types:
               object_mesh:
                 seq:
@@ -166,12 +169,19 @@ types:
           type: u4
         - id: face_num
           type: s4
+          
       instances:
         vertices:
           pos: ptr_vert_array + 4
           type: vertex
           repeat: expr
           repeat-expr: vertex_num
+        ngons:
+          pos: ptr_ngon_array + 4
+          type: ngon
+          repeat: expr
+          repeat-expr: faces_num
+          
       types:
         vertex:
           seq:
@@ -181,28 +191,38 @@ types:
               type: vector4u1
             - id: color2
               type: vector4u1
-              doc: |
-                ???
-          types:
-            vector4u2:
-              seq:
-                - id: x
-                  type: u2
-                - id: y
-                  type: u2
-                - id: z
-                  type: u2
-                - id: w
-                  type: u2
-            vector4u1:
-              seq:
-                - id: x
-                  type: u1
-                - id: y
-                  type: u1
-                - id: z
-                  type: u1
-                - id: w
-                  type: u1
+
+        ngon:
+          seq:
+            - id: face_indices
+              type: s2
+              repeat: expr
+              repeat-expr: 9
+            - id: data
+              #size: 0x2A + 0x20 
+              size: 74
+
+
+        vector4u2:
+          seq:
+            - id: x
+              type: u2
+            - id: y
+              type: u2
+            - id: z
+              type: u2
+            - id: w
+              type: u2
+              
+        vector4u1:
+          seq:
+            - id: x
+              type: u1
+            - id: y
+              type: u1
+            - id: z
+              type: u1
+            - id: w
+              type: u1
 
 

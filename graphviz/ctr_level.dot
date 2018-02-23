@@ -122,6 +122,11 @@ digraph {
 				<TR><TD PORT="vertices_pos">(ptr_vert_array + 4)</TD><TD PORT="vertices_size">16</TD><TD>Vertex</TD><TD PORT="vertices_type">vertices</TD></TR>
 				<TR><TD COLSPAN="4" PORT="vertices__repeat">repeat vertex_num times</TD></TR>
 			</TABLE>>];
+			info_header__inst__ngons [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+				<TR><TD PORT="ngons_pos">(ptr_ngon_array + 4)</TD><TD PORT="ngons_size">92</TD><TD>Ngon</TD><TD PORT="ngons_type">ngons</TD></TR>
+				<TR><TD COLSPAN="4" PORT="ngons__repeat">repeat faces_num times</TD></TR>
+			</TABLE>>];
 			subgraph cluster__vertex {
 				label="CtrLevel::InfoHeader::Vertex";
 				graph[style=dotted];
@@ -132,30 +137,41 @@ digraph {
 					<TR><TD PORT="color1_pos">8</TD><TD PORT="color1_size">4</TD><TD>Vector4u1</TD><TD PORT="color1_type">color1</TD></TR>
 					<TR><TD PORT="color2_pos">12</TD><TD PORT="color2_size">4</TD><TD>Vector4u1</TD><TD PORT="color2_type">color2</TD></TR>
 				</TABLE>>];
-				subgraph cluster__vector4u2 {
-					label="CtrLevel::InfoHeader::Vertex::Vector4u2";
-					graph[style=dotted];
+			}
+			subgraph cluster__ngon {
+				label="CtrLevel::InfoHeader::Ngon";
+				graph[style=dotted];
 
-					vector4u2__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-						<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">2</TD><TD>u2le</TD><TD PORT="x_type">x</TD></TR>
-						<TR><TD PORT="y_pos">2</TD><TD PORT="y_size">2</TD><TD>u2le</TD><TD PORT="y_type">y</TD></TR>
-						<TR><TD PORT="z_pos">4</TD><TD PORT="z_size">2</TD><TD>u2le</TD><TD PORT="z_type">z</TD></TR>
-						<TR><TD PORT="w_pos">6</TD><TD PORT="w_size">2</TD><TD>u2le</TD><TD PORT="w_type">w</TD></TR>
-					</TABLE>>];
-				}
-				subgraph cluster__vector4u1 {
-					label="CtrLevel::InfoHeader::Vertex::Vector4u1";
-					graph[style=dotted];
+				ngon__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+					<TR><TD PORT="face_indices_pos">0</TD><TD PORT="face_indices_size">2</TD><TD>s2le</TD><TD PORT="face_indices_type">face_indices</TD></TR>
+					<TR><TD COLSPAN="4" PORT="face_indices__repeat">repeat 9 times</TD></TR>
+					<TR><TD PORT="data_pos">18</TD><TD PORT="data_size">74</TD><TD></TD><TD PORT="data_type">data</TD></TR>
+				</TABLE>>];
+			}
+			subgraph cluster__vector4u2 {
+				label="CtrLevel::InfoHeader::Vector4u2";
+				graph[style=dotted];
 
-					vector4u1__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
-						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-						<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">1</TD><TD>u1</TD><TD PORT="x_type">x</TD></TR>
-						<TR><TD PORT="y_pos">1</TD><TD PORT="y_size">1</TD><TD>u1</TD><TD PORT="y_type">y</TD></TR>
-						<TR><TD PORT="z_pos">2</TD><TD PORT="z_size">1</TD><TD>u1</TD><TD PORT="z_type">z</TD></TR>
-						<TR><TD PORT="w_pos">3</TD><TD PORT="w_size">1</TD><TD>u1</TD><TD PORT="w_type">w</TD></TR>
-					</TABLE>>];
-				}
+				vector4u2__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+					<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">2</TD><TD>u2le</TD><TD PORT="x_type">x</TD></TR>
+					<TR><TD PORT="y_pos">2</TD><TD PORT="y_size">2</TD><TD>u2le</TD><TD PORT="y_type">y</TD></TR>
+					<TR><TD PORT="z_pos">4</TD><TD PORT="z_size">2</TD><TD>u2le</TD><TD PORT="z_type">z</TD></TR>
+					<TR><TD PORT="w_pos">6</TD><TD PORT="w_size">2</TD><TD>u2le</TD><TD PORT="w_type">w</TD></TR>
+				</TABLE>>];
+			}
+			subgraph cluster__vector4u1 {
+				label="CtrLevel::InfoHeader::Vector4u1";
+				graph[style=dotted];
+
+				vector4u1__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+					<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">1</TD><TD>u1</TD><TD PORT="x_type">x</TD></TR>
+					<TR><TD PORT="y_pos">1</TD><TD PORT="y_size">1</TD><TD>u1</TD><TD PORT="y_type">y</TD></TR>
+					<TR><TD PORT="z_pos">2</TD><TD PORT="z_size">1</TD><TD>u1</TD><TD PORT="z_type">z</TD></TR>
+					<TR><TD PORT="w_pos">3</TD><TD PORT="w_size">1</TD><TD>u1</TD><TD PORT="w_type">w</TD></TR>
+				</TABLE>>];
 			}
 		}
 	}
@@ -172,6 +188,9 @@ digraph {
 	info_header__seq:ptr_vert_array_type -> info_header__inst__vertices:vertices_pos [color="#404040"];
 	info_header__inst__vertices:vertices_type -> vertex__seq [style=bold];
 	info_header__seq:vertex_num_type -> info_header__inst__vertices:vertices__repeat [color="#404040"];
+	info_header__seq:ptr_ngon_array_type -> info_header__inst__ngons:ngons_pos [color="#404040"];
+	info_header__inst__ngons:ngons_type -> ngon__seq [style=bold];
+	info_header__seq:faces_num_type -> info_header__inst__ngons:ngons__repeat [color="#404040"];
 	vertex__seq:coordinates_type -> vector4u2__seq [style=bold];
 	vertex__seq:color1_type -> vector4u1__seq [style=bold];
 	vertex__seq:color2_type -> vector4u1__seq [style=bold];

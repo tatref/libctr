@@ -166,37 +166,52 @@ class CtrLevel(KaitaiStruct):
                 self._read()
 
             def _read(self):
-                self.coordinates = self._root.InfoHeader.Vertex.Vector4u2(self._io, self, self._root)
-                self.color1 = self._root.InfoHeader.Vertex.Vector4u1(self._io, self, self._root)
-                self.color2 = self._root.InfoHeader.Vertex.Vector4u1(self._io, self, self._root)
-
-            class Vector4u2(KaitaiStruct):
-                def __init__(self, _io, _parent=None, _root=None):
-                    self._io = _io
-                    self._parent = _parent
-                    self._root = _root if _root else self
-                    self._read()
-
-                def _read(self):
-                    self.x = self._io.read_u2le()
-                    self.y = self._io.read_u2le()
-                    self.z = self._io.read_u2le()
-                    self.w = self._io.read_u2le()
+                self.coordinates = self._root.InfoHeader.Vector4u2(self._io, self, self._root)
+                self.color1 = self._root.InfoHeader.Vector4u1(self._io, self, self._root)
+                self.color2 = self._root.InfoHeader.Vector4u1(self._io, self, self._root)
 
 
-            class Vector4u1(KaitaiStruct):
-                def __init__(self, _io, _parent=None, _root=None):
-                    self._io = _io
-                    self._parent = _parent
-                    self._root = _root if _root else self
-                    self._read()
+        class Ngon(KaitaiStruct):
+            def __init__(self, _io, _parent=None, _root=None):
+                self._io = _io
+                self._parent = _parent
+                self._root = _root if _root else self
+                self._read()
 
-                def _read(self):
-                    self.x = self._io.read_u1()
-                    self.y = self._io.read_u1()
-                    self.z = self._io.read_u1()
-                    self.w = self._io.read_u1()
+            def _read(self):
+                self.face_indices = [None] * (9)
+                for i in range(9):
+                    self.face_indices[i] = self._io.read_s2le()
 
+                self.data = self._io.read_bytes(74)
+
+
+        class Vector4u2(KaitaiStruct):
+            def __init__(self, _io, _parent=None, _root=None):
+                self._io = _io
+                self._parent = _parent
+                self._root = _root if _root else self
+                self._read()
+
+            def _read(self):
+                self.x = self._io.read_u2le()
+                self.y = self._io.read_u2le()
+                self.z = self._io.read_u2le()
+                self.w = self._io.read_u2le()
+
+
+        class Vector4u1(KaitaiStruct):
+            def __init__(self, _io, _parent=None, _root=None):
+                self._io = _io
+                self._parent = _parent
+                self._root = _root if _root else self
+                self._read()
+
+            def _read(self):
+                self.x = self._io.read_u1()
+                self.y = self._io.read_u1()
+                self.z = self._io.read_u1()
+                self.w = self._io.read_u1()
 
 
         @property
@@ -212,6 +227,20 @@ class CtrLevel(KaitaiStruct):
 
             self._io.seek(_pos)
             return self._m_vertices if hasattr(self, '_m_vertices') else None
+
+        @property
+        def ngons(self):
+            if hasattr(self, '_m_ngons'):
+                return self._m_ngons if hasattr(self, '_m_ngons') else None
+
+            _pos = self._io.pos()
+            self._io.seek((self.ptr_ngon_array + 4))
+            self._m_ngons = [None] * (self.faces_num)
+            for i in range(self.faces_num):
+                self._m_ngons[i] = self._root.InfoHeader.Ngon(self._io, self, self._root)
+
+            self._io.seek(_pos)
+            return self._m_ngons if hasattr(self, '_m_ngons') else None
 
 
     @property
