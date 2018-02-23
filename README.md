@@ -4,9 +4,9 @@ This a library to parse CTR data files
 
 # Status
 ## Done or mostly done
-* ![BIGFILE.BIG](./kaitai-struct/ctr_bigfile.ksy "ctr_bigfile.ksy")
-* ![TIM files](./kaitai-struct/psx_tim.ksy "psx_tim.ksy")
-* ![lang](./kaitai-struct/ctr_lang.ksy "ctr_lang.ksy")
+* [BIGFILE.BIG](./kaitai-struct/ctr_bigfile.ksy)
+* [TIM files](./kaitai-struct/psx_tim.ksy)
+* [lang](./kaitai-struct/ctr_lang.ksy)
 
 
 
