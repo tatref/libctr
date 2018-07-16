@@ -3,10 +3,18 @@
 set -eu
 
 
+
 if ! type ksc > /dev/null 2>&1
 then
-  echo "ksc not found, install kaitai-struct first"
-  exit 1
+  if [ -e ./kaitai-struct-compiler-0.8/bin/kaitai-struct-compiler ]
+  then
+    KSC=./kaitai-struct-compiler-0.8/bin/kaitai-struct-compiler
+  else
+    echo "ksc not found, install kaitai-struct first"
+    exit 1
+  fi
+else
+  KSC=ksc
 fi
 
 
@@ -17,7 +25,7 @@ mkdir -p graphviz
 rm -rf graphviz/*
 for ksy in kaitai-struct/*.ksy
 do
-  ksc $ksy \
+  $KSC $ksy \
     --target graphviz \
     --import-path kaitai-struct/ \
     --outdir graphviz
@@ -41,7 +49,7 @@ rm -rf csharp/ctr/*
 
 for ksy in kaitai-struct/*.ksy
 do
-  ksc $ksy \
+  $KSC $ksy \
 	  --target csharp \
 	  --import-path kaitai-struct/ \
 	  --outdir csharp/ctr \
@@ -58,7 +66,7 @@ touch python/ctr/__init__.py
 
 for ksy in kaitai-struct/*.ksy
 do
-  ksc $ksy \
+  $KSC $ksy \
 	  --target python \
 	  --import-path kaitai-struct/ \
 	  --outdir python/ctr \
