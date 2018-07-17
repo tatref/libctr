@@ -7,7 +7,7 @@ This a library to parse CTR data files
 * [TIM files](./kaitai-struct/psx_tim.ksy)
 * [lang](./kaitai-struct/ctr_lang.ksy)
 
-# Usage
+# Building
 ## Requirements
 * clone this repo
 
@@ -32,6 +32,9 @@ The source for each file format is at `./kaitai-struct`. To build, the Python/Ja
 ```
 ./create_libs.sh
 ```
+
+# Usage
+TODO
 
 
 # Gallery
