@@ -39,7 +39,10 @@ The source for each file format is at `./kaitai-struct`. To build, the Python/Ja
 ![CTR Bigfile](./graphviz/ctr_bigfile.png "CTR Bigfile")
 
 ## Web IDE (https://ide.kaitai.io/)
-![CTR Level](./web_ide_ctr_level.png "CTR Level")
+Level
+![CTR Level](./gallery/web_ide_ctr_level.png "CTR Level")
 
+Character
+![CTR Character](./gallery/web_ide_ctr_character.png "CTR Character")
 
 
