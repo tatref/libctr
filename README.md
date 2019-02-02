@@ -42,6 +42,8 @@ See [examples](./examples)
 ![CTR Bigfile](./graphviz/ctr_bigfile.png "CTR Bigfile")
 
 ## Web IDE (https://ide.kaitai.io/)
+For a tutorial, see [Kaitaistruct_WebIDE_Tutorial](Kaitaistruct_WebIDE_Tutorial.md)
+
 Level
 ![CTR Level](./gallery/web_ide_ctr_level.png "CTR Level")
 
