@@ -34,7 +34,7 @@ The source for each file format is at `./kaitai-struct`. To build, the Python/Ja
 ```
 
 # Usage
-TODO
+See [examples](./examples)
 
 
 # Gallery
