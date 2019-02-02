@@ -22,6 +22,7 @@ try:
     import kaitaistruct
 except Exception as e:
     print('kaitaistruct not found')
+    print(e)
     sys.exit(1)
 try:
     from ctr.ctr_bigfile import CtrBigfile
@@ -37,6 +38,14 @@ if len(sys.argv) != 3:
 
 bigfile = sys.argv[1]
 dump_path = sys.argv[2]
+filenames_path = os.path.dirname(os.path.abspath(__file__)) + "/filenames.txt"
+
+filenames = {}
+for line in open(filenames_path).readlines():
+    line = line.strip()
+    num = line.split('=')[0]
+    name = line.split('=')[1]
+    filenames[num] = name
 
 try:
     os.mkdir(dump_path)
@@ -53,13 +62,18 @@ print('BIGFILE contains {} entries'.format(ctr.files_count))
 
 # actual dump
 for idx, entry in enumerate(ctr.index):
+    idx = '{:03d}'.format(idx)
     print(idx)
 
     content = entry.file_content
 
-    output_filename = dump_path + os.path.sep + '{:03d}'.format(idx)
-    destination = open(output_filename, 'wb')
-    destination.write(content)
+    if idx in filenames:
+        output_filename = dump_path + os.path.sep + idx + '_' + filenames.get(idx, idx)
+    else:
+        output_filename = dump_path + os.path.sep + idx
+
+    writer = open(output_filename, 'wb')
+    writer.write(content)
 
 
 print('\nDone')
