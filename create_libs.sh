@@ -25,6 +25,7 @@ mkdir -p graphviz
 rm -rf graphviz/*
 for ksy in kaitai-struct/*.ksy
 do
+  echo $ksy
   $KSC $ksy \
     --target graphviz \
     --import-path kaitai-struct/ \
@@ -34,6 +35,7 @@ if type dot > /dev/null 2>&1
 then
   for dot in graphviz/*.dot
   do
+    echo $dot
     dot -Tpng $dot -o ${dot%%.dot}.png
   done
 else
@@ -49,6 +51,7 @@ rm -rf csharp/ctr/*
 
 for ksy in kaitai-struct/*.ksy
 do
+  echo $ksy
   $KSC $ksy \
 	  --target csharp \
 	  --import-path kaitai-struct/ \
@@ -66,6 +69,7 @@ touch python/ctr/__init__.py
 
 for ksy in kaitai-struct/*.ksy
 do
+  echo $ksy
   $KSC $ksy \
 	  --target python \
 	  --import-path kaitai-struct/ \
