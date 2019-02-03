@@ -127,8 +127,10 @@ types:
                     terminator: 0
                   - id: unknown2
                     type: u4
-                  - id: unknown3
+                  - id: name2_ptr
                     type: u4
+                    doc: |
+                      ptr to name2 + 4
                   - id: name2
                     type: str
                     size: 16
@@ -142,10 +144,24 @@ types:
                     type: u4
                   - id: unknown_ptr1
                     type: u4
-                  - id: unknown_ptr2
+                  - id: unknown_table_ptr
+                    doc: |
+                      pointer to a table of pointers of variable size, see table_ptr instances
                     type: u4
                   - id: unknown_ptr3
                     type: u4
+                instances:
+                  table_ptr_end:
+                    pos: unknown_table_ptr + 4
+                    type: u4
+                  table_ptr:
+                    doc: |
+                      this can contain a lot of pointers (70 for "c" mesh), or very few (8 for "cactus_short"
+                      fixme: does not work for "cowskull" (out of bounds)
+                    pos: unknown_table_ptr + 4
+                    type: u4
+                    repeat: until
+                    repeat-until: _io.pos > table_ptr_end
 
 
 

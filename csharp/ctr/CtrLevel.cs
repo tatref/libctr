@@ -123,6 +123,8 @@ namespace ctr
                         {
                             m_parent = p__parent;
                             m_root = p__root;
+                            f_tablePtrEnd = false;
+                            f_tablePtr = false;
                             _read();
                         }
                         private void _read()
@@ -130,38 +132,92 @@ namespace ctr
                             _unknown1 = m_io.ReadU4le();
                             _name = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
                             _unknown2 = m_io.ReadU4le();
-                            _unknown3 = m_io.ReadU4le();
+                            _name2Ptr = m_io.ReadU4le();
                             _name2 = System.Text.Encoding.GetEncoding("ASCII").GetString(KaitaiStream.BytesTerminate(m_io.ReadBytes(16), 0, false));
                             _magic1 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0 });
                             _unknown4 = m_io.ReadBytes(12);
                             _wx8Ptr = m_io.ReadU4le();
                             _unknownPtr1 = m_io.ReadU4le();
-                            _unknownPtr2 = m_io.ReadU4le();
+                            _unknownTablePtr = m_io.ReadU4le();
                             _unknownPtr3 = m_io.ReadU4le();
+                        }
+                        private bool f_tablePtrEnd;
+                        private uint _tablePtrEnd;
+                        public uint TablePtrEnd
+                        {
+                            get
+                            {
+                                if (f_tablePtrEnd)
+                                    return _tablePtrEnd;
+                                long _pos = m_io.Pos;
+                                m_io.Seek((UnknownTablePtr + 4));
+                                _tablePtrEnd = m_io.ReadU4le();
+                                m_io.Seek(_pos);
+                                f_tablePtrEnd = true;
+                                return _tablePtrEnd;
+                            }
+                        }
+                        private bool f_tablePtr;
+                        private List<uint> _tablePtr;
+
+                        /// <summary>
+                        /// this can contain a lot of pointers (70 for &quot;c&quot; mesh), or very few (8 for &quot;cactus_short&quot;
+                        /// fixme: does not work for &quot;cowskull&quot; (out of bounds)
+                        /// </summary>
+                        public List<uint> TablePtr
+                        {
+                            get
+                            {
+                                if (f_tablePtr)
+                                    return _tablePtr;
+                                long _pos = m_io.Pos;
+                                m_io.Seek((UnknownTablePtr + 4));
+                                _tablePtr = new List<uint>();
+                                {
+                                    var i = 0;
+                                    uint M_;
+                                    do {
+                                        M_ = m_io.ReadU4le();
+                                        _tablePtr.Add(M_);
+                                        i++;
+                                    } while (!(M_Io.Pos > TablePtrEnd));
+                                }
+                                m_io.Seek(_pos);
+                                f_tablePtr = true;
+                                return _tablePtr;
+                            }
                         }
                         private uint _unknown1;
                         private string _name;
                         private uint _unknown2;
-                        private uint _unknown3;
+                        private uint _name2Ptr;
                         private string _name2;
                         private byte[] _magic1;
                         private byte[] _unknown4;
                         private uint _wx8Ptr;
                         private uint _unknownPtr1;
-                        private uint _unknownPtr2;
+                        private uint _unknownTablePtr;
                         private uint _unknownPtr3;
                         private CtrLevel m_root;
                         private CtrLevel.Header.ObjectEntry.ObjectInstance m_parent;
                         public uint Unknown1 { get { return _unknown1; } }
                         public string Name { get { return _name; } }
                         public uint Unknown2 { get { return _unknown2; } }
-                        public uint Unknown3 { get { return _unknown3; } }
+
+                        /// <summary>
+                        /// ptr to name2 + 4
+                        /// </summary>
+                        public uint Name2Ptr { get { return _name2Ptr; } }
                         public string Name2 { get { return _name2; } }
                         public byte[] Magic1 { get { return _magic1; } }
                         public byte[] Unknown4 { get { return _unknown4; } }
                         public uint Wx8Ptr { get { return _wx8Ptr; } }
                         public uint UnknownPtr1 { get { return _unknownPtr1; } }
-                        public uint UnknownPtr2 { get { return _unknownPtr2; } }
+
+                        /// <summary>
+                        /// pointer to a table of pointers of variable size, see table_ptr instances
+                        /// </summary>
+                        public uint UnknownTablePtr { get { return _unknownTablePtr; } }
                         public uint UnknownPtr3 { get { return _unknownPtr3; } }
                         public CtrLevel M_Root { get { return m_root; } }
                         public CtrLevel.Header.ObjectEntry.ObjectInstance M_Parent { get { return m_parent; } }

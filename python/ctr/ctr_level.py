@@ -91,14 +91,46 @@ class CtrLevel(KaitaiStruct):
                         self.unknown1 = self._io.read_u4le()
                         self.name = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
                         self.unknown2 = self._io.read_u4le()
-                        self.unknown3 = self._io.read_u4le()
+                        self.name2_ptr = self._io.read_u4le()
                         self.name2 = (KaitaiStream.bytes_terminate(self._io.read_bytes(16), 0, False)).decode(u"ASCII")
                         self.magic1 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00")
                         self.unknown4 = self._io.read_bytes(12)
                         self.wx8_ptr = self._io.read_u4le()
                         self.unknown_ptr1 = self._io.read_u4le()
-                        self.unknown_ptr2 = self._io.read_u4le()
+                        self.unknown_table_ptr = self._io.read_u4le()
                         self.unknown_ptr3 = self._io.read_u4le()
+
+                    @property
+                    def table_ptr_end(self):
+                        if hasattr(self, '_m_table_ptr_end'):
+                            return self._m_table_ptr_end if hasattr(self, '_m_table_ptr_end') else None
+
+                        _pos = self._io.pos()
+                        self._io.seek((self.unknown_table_ptr + 4))
+                        self._m_table_ptr_end = self._io.read_u4le()
+                        self._io.seek(_pos)
+                        return self._m_table_ptr_end if hasattr(self, '_m_table_ptr_end') else None
+
+                    @property
+                    def table_ptr(self):
+                        """this can contain a lot of pointers (70 for "c" mesh), or very few (8 for "cactus_short"
+                        fixme: does not work for "cowskull" (out of bounds)
+                        """
+                        if hasattr(self, '_m_table_ptr'):
+                            return self._m_table_ptr if hasattr(self, '_m_table_ptr') else None
+
+                        _pos = self._io.pos()
+                        self._io.seek((self.unknown_table_ptr + 4))
+                        self._m_table_ptr = []
+                        i = 0
+                        while True:
+                            _ = self._io.read_u4le()
+                            self._m_table_ptr.append(_)
+                            if self._io.pos() > self.table_ptr_end:
+                                break
+                            i += 1
+                        self._io.seek(_pos)
+                        return self._m_table_ptr if hasattr(self, '_m_table_ptr') else None
 
 
                 @property
