@@ -5,6 +5,7 @@ meta:
   endian: le
   imports:
     - psx_tim
+  ks-version: 0.8
 doc: |
   tim2x contains 2 TIMs in a row
   version 0.1

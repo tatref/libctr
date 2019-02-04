@@ -2,6 +2,7 @@ meta:
   id: ctr_character
   file-extension: chr
   endian: le
+  ks-version: 0.8
 doc: |
   Parser for the CTR characters (low, med, hi) and animations (dance, lose)
   version 0.1

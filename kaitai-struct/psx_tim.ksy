@@ -1,12 +1,14 @@
 # http://fileformats.archiveteam.org/wiki/TIM_(PlayStation_graphics)
 # http://mrclick.zophar.net/TilEd/download/timgfx.txt
 # http://www.romhacking.net/documents/31/
+# sourcefile at https://github.com/kaitai-io/kaitai_struct_formats
 meta:
   id: psx_tim
   application: Sony PlayStation (PSX) typical image format
   file-extension: tim
   license: CC0-1.0
   endian: le
+  ks-version: 0.8
 seq:
   - id: magic
     contents: [0x10, 0, 0, 0]

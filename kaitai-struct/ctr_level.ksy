@@ -2,6 +2,7 @@ meta:
   id: ctr_level
   file-extension: lev
   endian: le
+  ks-version: 0.8
 doc: |
   Parser for the CTR levels
   Original code https://github.com/DCxDemo/CTR-tools
