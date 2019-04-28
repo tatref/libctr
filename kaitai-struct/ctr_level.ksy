@@ -223,13 +223,13 @@ types:
         vector4u2:
           seq:
             - id: x
-              type: u2
+              type: s2
             - id: y
-              type: u2
+              type: s2
             - id: z
-              type: u2
+              type: s2
             - id: w
-              type: u2
+              type: s2
               
         vector4u1:
           seq:
