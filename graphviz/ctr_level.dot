@@ -164,10 +164,10 @@ digraph {
 
 				vector4u2__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-					<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">2</TD><TD>u2le</TD><TD PORT="x_type">x</TD></TR>
-					<TR><TD PORT="y_pos">2</TD><TD PORT="y_size">2</TD><TD>u2le</TD><TD PORT="y_type">y</TD></TR>
-					<TR><TD PORT="z_pos">4</TD><TD PORT="z_size">2</TD><TD>u2le</TD><TD PORT="z_type">z</TD></TR>
-					<TR><TD PORT="w_pos">6</TD><TD PORT="w_size">2</TD><TD>u2le</TD><TD PORT="w_type">w</TD></TR>
+					<TR><TD PORT="x_pos">0</TD><TD PORT="x_size">2</TD><TD>s2le</TD><TD PORT="x_type">x</TD></TR>
+					<TR><TD PORT="y_pos">2</TD><TD PORT="y_size">2</TD><TD>s2le</TD><TD PORT="y_type">y</TD></TR>
+					<TR><TD PORT="z_pos">4</TD><TD PORT="z_size">2</TD><TD>s2le</TD><TD PORT="z_type">z</TD></TR>
+					<TR><TD PORT="w_pos">6</TD><TD PORT="w_size">2</TD><TD>s2le</TD><TD PORT="w_type">w</TD></TR>
 				</TABLE>>];
 			}
 			subgraph cluster__vector4u1 {

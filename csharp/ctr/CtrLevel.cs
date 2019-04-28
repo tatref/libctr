@@ -456,21 +456,21 @@ namespace ctr
                 }
                 private void _read()
                 {
-                    _x = m_io.ReadU2le();
-                    _y = m_io.ReadU2le();
-                    _z = m_io.ReadU2le();
-                    _w = m_io.ReadU2le();
+                    _x = m_io.ReadS2le();
+                    _y = m_io.ReadS2le();
+                    _z = m_io.ReadS2le();
+                    _w = m_io.ReadS2le();
                 }
-                private ushort _x;
-                private ushort _y;
-                private ushort _z;
-                private ushort _w;
+                private short _x;
+                private short _y;
+                private short _z;
+                private short _w;
                 private CtrLevel m_root;
                 private CtrLevel.InfoHeader.Vertex m_parent;
-                public ushort X { get { return _x; } }
-                public ushort Y { get { return _y; } }
-                public ushort Z { get { return _z; } }
-                public ushort W { get { return _w; } }
+                public short X { get { return _x; } }
+                public short Y { get { return _y; } }
+                public short Z { get { return _z; } }
+                public short W { get { return _w; } }
                 public CtrLevel M_Root { get { return m_root; } }
                 public CtrLevel.InfoHeader.Vertex M_Parent { get { return m_parent; } }
             }

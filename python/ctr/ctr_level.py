@@ -226,10 +226,10 @@ class CtrLevel(KaitaiStruct):
                 self._read()
 
             def _read(self):
-                self.x = self._io.read_u2le()
-                self.y = self._io.read_u2le()
-                self.z = self._io.read_u2le()
-                self.w = self._io.read_u2le()
+                self.x = self._io.read_s2le()
+                self.y = self._io.read_s2le()
+                self.z = self._io.read_s2le()
+                self.w = self._io.read_s2le()
 
 
         class Vector4u1(KaitaiStruct):
