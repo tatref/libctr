@@ -73,17 +73,17 @@ digraph {
 						<TR><TD PORT="bx_pos">54</TD><TD PORT="bx_size">2</TD><TD>s2le</TD><TD PORT="bx_type">bx</TD></TR>
 						<TR><TD PORT="by_pos">56</TD><TD PORT="by_size">2</TD><TD>s2le</TD><TD PORT="by_type">by</TD></TR>
 						<TR><TD PORT="bz_pos">58</TD><TD PORT="bz_size">2</TD><TD>s2le</TD><TD PORT="bz_type">bz</TD></TR>
-						<TR><TD PORT="unknown5_pos">60</TD><TD PORT="unknown5_size">4</TD><TD>u4le</TD><TD PORT="unknown5_type">unknown5</TD></TR>
+						<TR><TD PORT="event_type_pos">60</TD><TD PORT="event_type_size">4</TD><TD>u4le</TD><TD PORT="event_type_type">event_type</TD></TR>
 					</TABLE>>];
 					object_instance__inst__object_mesh [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-						<TR><TD PORT="object_mesh_pos">mesh_ptr</TD><TD PORT="object_mesh_size">76</TD><TD>ObjectMesh</TD><TD PORT="object_mesh_type">object_mesh</TD></TR>
+						<TR><TD PORT="object_mesh_pos">mesh_ptr</TD><TD PORT="object_mesh_size">92</TD><TD>Mesh</TD><TD PORT="object_mesh_type">object_mesh</TD></TR>
 					</TABLE>>];
-					subgraph cluster__object_mesh {
-						label="CtrLevel::Header::ObjectEntry::ObjectInstance::ObjectMesh";
+					subgraph cluster__mesh {
+						label="CtrLevel::Header::ObjectEntry::ObjectInstance::Mesh";
 						graph[style=dotted];
 
-						object_mesh__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						mesh__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 							<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 							<TR><TD PORT="unknown1_pos">0</TD><TD PORT="unknown1_size">4</TD><TD>u4le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
 							<TR><TD PORT="name_pos">4</TD><TD PORT="name_size">16</TD><TD>str(ASCII)</TD><TD PORT="name_type">name</TD></TR>
@@ -96,12 +96,13 @@ digraph {
 							<TR><TD PORT="unknown_ptr1_pos">64</TD><TD PORT="unknown_ptr1_size">4</TD><TD>u4le</TD><TD PORT="unknown_ptr1_type">unknown_ptr1</TD></TR>
 							<TR><TD PORT="unknown_table_ptr_pos">68</TD><TD PORT="unknown_table_ptr_size">4</TD><TD>u4le</TD><TD PORT="unknown_table_ptr_type">unknown_table_ptr</TD></TR>
 							<TR><TD PORT="unknown_ptr3_pos">72</TD><TD PORT="unknown_ptr3_size">4</TD><TD>u4le</TD><TD PORT="unknown_ptr3_type">unknown_ptr3</TD></TR>
+							<TR><TD PORT="magic2_pos">76</TD><TD PORT="magic2_size">16</TD><TD>00 00 00 00 00 00 00 00 00 00 00 00 00 00 00 00</TD><TD PORT="magic2_type">magic2</TD></TR>
 						</TABLE>>];
-						object_mesh__inst__table_ptr_end [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						mesh__inst__table_ptr_end [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 							<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 							<TR><TD PORT="table_ptr_end_pos">(unknown_table_ptr + 4)</TD><TD PORT="table_ptr_end_size">4</TD><TD>u4le</TD><TD PORT="table_ptr_end_type">table_ptr_end</TD></TR>
 						</TABLE>>];
-						object_mesh__inst__table_ptr [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						mesh__inst__table_ptr [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 							<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 							<TR><TD PORT="table_ptr_pos">(unknown_table_ptr + 4)</TD><TD PORT="table_ptr_size">4</TD><TD>u4le</TD><TD PORT="table_ptr_type">table_ptr</TD></TR>
 							<TR><TD COLSPAN="4" PORT="table_ptr__repeat">repeat until _io.pos &gt; table_ptr_end</TD></TR>
@@ -193,10 +194,10 @@ digraph {
 	object_entry__seq:object_instance_ptr_type -> object_entry__inst__object_instance:object_instance_pos [color="#404040"];
 	object_entry__inst__object_instance:object_instance_type -> object_instance__seq [style=bold];
 	object_instance__seq:mesh_ptr_type -> object_instance__inst__object_mesh:object_mesh_pos [color="#404040"];
-	object_instance__inst__object_mesh:object_mesh_type -> object_mesh__seq [style=bold];
-	object_mesh__seq:unknown_table_ptr_type -> object_mesh__inst__table_ptr_end:table_ptr_end_pos [color="#404040"];
-	object_mesh__seq:unknown_table_ptr_type -> object_mesh__inst__table_ptr:table_ptr_pos [color="#404040"];
-	object_mesh__inst__table_ptr_end:table_ptr_end_type -> object_mesh__inst__table_ptr:table_ptr__repeat [color="#404040"];
+	object_instance__inst__object_mesh:object_mesh_type -> mesh__seq [style=bold];
+	mesh__seq:unknown_table_ptr_type -> mesh__inst__table_ptr_end:table_ptr_end_pos [color="#404040"];
+	mesh__seq:unknown_table_ptr_type -> mesh__inst__table_ptr:table_ptr_pos [color="#404040"];
+	mesh__inst__table_ptr_end:table_ptr_end_type -> mesh__inst__table_ptr:table_ptr__repeat [color="#404040"];
 	info_header__seq:vertices_array_ptr_type -> info_header__inst__vertices:vertices_pos [color="#404040"];
 	info_header__inst__vertices:vertices_type -> vertex__seq [style=bold];
 	info_header__seq:vertices_count_type -> info_header__inst__vertices:vertices__repeat [color="#404040"];

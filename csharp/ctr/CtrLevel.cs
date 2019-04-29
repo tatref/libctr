@@ -7,7 +7,7 @@ namespace ctr
 {
 
     /// <summary>
-    /// Parser for the CTR levels
+    /// Parser for CTR levels
     /// Original code https://github.com/DCxDemo/CTR-tools
     /// version 0.1
     /// </summary>
@@ -110,16 +110,16 @@ namespace ctr
                         _bx = m_io.ReadS2le();
                         _by = m_io.ReadS2le();
                         _bz = m_io.ReadS2le();
-                        _unknown5 = m_io.ReadU4le();
+                        _eventType = m_io.ReadU4le();
                     }
-                    public partial class ObjectMesh : KaitaiStruct
+                    public partial class Mesh : KaitaiStruct
                     {
-                        public static ObjectMesh FromFile(string fileName)
+                        public static Mesh FromFile(string fileName)
                         {
-                            return new ObjectMesh(new KaitaiStream(fileName));
+                            return new Mesh(new KaitaiStream(fileName));
                         }
 
-                        public ObjectMesh(KaitaiStream p__io, CtrLevel.Header.ObjectEntry.ObjectInstance p__parent = null, CtrLevel p__root = null) : base(p__io)
+                        public Mesh(KaitaiStream p__io, CtrLevel.Header.ObjectEntry.ObjectInstance p__parent = null, CtrLevel p__root = null) : base(p__io)
                         {
                             m_parent = p__parent;
                             m_root = p__root;
@@ -140,6 +140,7 @@ namespace ctr
                             _unknownPtr1 = m_io.ReadU4le();
                             _unknownTablePtr = m_io.ReadU4le();
                             _unknownPtr3 = m_io.ReadU4le();
+                            _magic2 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
                         }
                         private bool f_tablePtrEnd;
                         private uint _tablePtrEnd;
@@ -198,10 +199,15 @@ namespace ctr
                         private uint _unknownPtr1;
                         private uint _unknownTablePtr;
                         private uint _unknownPtr3;
+                        private byte[] _magic2;
                         private CtrLevel m_root;
                         private CtrLevel.Header.ObjectEntry.ObjectInstance m_parent;
                         public uint Unknown1 { get { return _unknown1; } }
                         public string Name { get { return _name; } }
+
+                        /// <summary>
+                        /// always the same for a given type of object
+                        /// </summary>
                         public uint Unknown2 { get { return _unknown2; } }
 
                         /// <summary>
@@ -211,6 +217,10 @@ namespace ctr
                         public string Name2 { get { return _name2; } }
                         public byte[] Magic1 { get { return _magic1; } }
                         public byte[] Unknown4 { get { return _unknown4; } }
+
+                        /// <summary>
+                        /// always the same for a given type of object
+                        /// </summary>
                         public uint Wx8Ptr { get { return _wx8Ptr; } }
                         public uint UnknownPtr1 { get { return _unknownPtr1; } }
 
@@ -219,12 +229,13 @@ namespace ctr
                         /// </summary>
                         public uint UnknownTablePtr { get { return _unknownTablePtr; } }
                         public uint UnknownPtr3 { get { return _unknownPtr3; } }
+                        public byte[] Magic2 { get { return _magic2; } }
                         public CtrLevel M_Root { get { return m_root; } }
                         public CtrLevel.Header.ObjectEntry.ObjectInstance M_Parent { get { return m_parent; } }
                     }
                     private bool f_objectMesh;
-                    private ObjectMesh _objectMesh;
-                    public ObjectMesh ObjectMesh
+                    private Mesh _objectMesh;
+                    public Mesh ObjectMesh
                     {
                         get
                         {
@@ -232,7 +243,7 @@ namespace ctr
                                 return _objectMesh;
                             long _pos = m_io.Pos;
                             m_io.Seek(MeshPtr);
-                            _objectMesh = new ObjectMesh(m_io, this, m_root);
+                            _objectMesh = new Mesh(m_io, this, m_root);
                             m_io.Seek(_pos);
                             f_objectMesh = true;
                             return _objectMesh;
@@ -255,7 +266,7 @@ namespace ctr
                     private short _bx;
                     private short _by;
                     private short _bz;
-                    private uint _unknown5;
+                    private uint _eventType;
                     private CtrLevel m_root;
                     private CtrLevel.Header.ObjectEntry m_parent;
                     public string Name { get { return _name; } }
@@ -275,7 +286,11 @@ namespace ctr
                     public short Bx { get { return _bx; } }
                     public short By { get { return _by; } }
                     public short Bz { get { return _bz; } }
-                    public uint Unknown5 { get { return _unknown5; } }
+
+                    /// <summary>
+                    /// https://github.com/DCxDemo/CTR-tools/blob/master/formats/formats.txt
+                    /// </summary>
+                    public uint EventType { get { return _eventType; } }
                     public CtrLevel M_Root { get { return m_root; } }
                     public CtrLevel.Header.ObjectEntry M_Parent { get { return m_parent; } }
                 }

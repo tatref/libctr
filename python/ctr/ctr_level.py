@@ -8,7 +8,7 @@ if parse_version(ks_version) < parse_version('0.7'):
     raise Exception("Incompatible Kaitai Struct Python API: 0.7 or later is required, but you have %s" % (ks_version))
 
 class CtrLevel(KaitaiStruct):
-    """Parser for the CTR levels
+    """Parser for CTR levels
     Original code https://github.com/DCxDemo/CTR-tools
     version 0.1
     """
@@ -78,9 +78,9 @@ class CtrLevel(KaitaiStruct):
                     self.bx = self._io.read_s2le()
                     self.by = self._io.read_s2le()
                     self.bz = self._io.read_s2le()
-                    self.unknown5 = self._io.read_u4le()
+                    self.event_type = self._io.read_u4le()
 
-                class ObjectMesh(KaitaiStruct):
+                class Mesh(KaitaiStruct):
                     def __init__(self, _io, _parent=None, _root=None):
                         self._io = _io
                         self._parent = _parent
@@ -99,6 +99,7 @@ class CtrLevel(KaitaiStruct):
                         self.unknown_ptr1 = self._io.read_u4le()
                         self.unknown_table_ptr = self._io.read_u4le()
                         self.unknown_ptr3 = self._io.read_u4le()
+                        self.magic2 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00")
 
                     @property
                     def table_ptr_end(self):
@@ -140,7 +141,7 @@ class CtrLevel(KaitaiStruct):
 
                     _pos = self._io.pos()
                     self._io.seek(self.mesh_ptr)
-                    self._m_object_mesh = self._root.Header.ObjectEntry.ObjectInstance.ObjectMesh(self._io, self, self._root)
+                    self._m_object_mesh = self._root.Header.ObjectEntry.ObjectInstance.Mesh(self._io, self, self._root)
                     self._io.seek(_pos)
                     return self._m_object_mesh if hasattr(self, '_m_object_mesh') else None
 

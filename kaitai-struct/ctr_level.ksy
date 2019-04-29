@@ -1,10 +1,11 @@
 meta:
   id: ctr_level
+  application: CTR (Crash Team Racing)
   file-extension: lev
   endian: le
   ks-version: 0.8
 doc: |
-  Parser for the CTR levels
+  Parser for CTR levels
   Original code https://github.com/DCxDemo/CTR-tools
   version 0.1
 
@@ -108,16 +109,18 @@ types:
                 type: s2
               - id: bz
                 type: s2
-              - id: unknown5
+              - id: event_type
                 type: u4
+                doc: |
+                  https://github.com/DCxDemo/CTR-tools/blob/master/formats/formats.txt
                 
             instances:
               object_mesh:
                 pos: mesh_ptr
-                type: object_mesh
+                type: mesh
                 
             types:
-              object_mesh:
+              mesh:
                 seq:
                   - id: unknown1
                     type: u4
@@ -128,6 +131,8 @@ types:
                     terminator: 0
                   - id: unknown2
                     type: u4
+                    doc: |
+                      always the same for a given type of object
                   - id: name2_ptr
                     type: u4
                     doc: |
@@ -143,6 +148,8 @@ types:
                     size: 12
                   - id: wx8_ptr
                     type: u4
+                    doc: |
+                      always the same for a given type of object
                   - id: unknown_ptr1
                     type: u4
                   - id: unknown_table_ptr
@@ -151,6 +158,8 @@ types:
                     type: u4
                   - id: unknown_ptr3
                     type: u4
+                  - id: magic2
+                    contents: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
                 instances:
                   table_ptr_end:
                     pos: unknown_table_ptr + 4
