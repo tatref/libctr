@@ -18,17 +18,23 @@
 import sys
 import os
 
+
 try:
     import kaitaistruct
 except Exception as e:
     print('kaitaistruct not found')
     print(e)
     sys.exit(1)
+
+# try to import the kaitai libs, depending on cwd
+sys.path.append('../python')
+sys.path.append('./python')
 try:
     from ctr.ctr_bigfile import CtrBigfile
 except Exception as e:
     print('ctr not found')
     print('re-run with `PYTHONPATH=../python ./dump_big_file.py`')
+    print(e)
     sys.exit(1)
 
 

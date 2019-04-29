@@ -44,6 +44,10 @@ except Exception as e:
     print('kaitaistruct not found')
     print(e)
     sys.exit(1)
+
+# try to import the kaitai libs, depending on cwd
+sys.path.append('../python')
+sys.path.append('./python')
 try:
     from ctr.ctr_level import CtrLevel
 except Exception as e:
