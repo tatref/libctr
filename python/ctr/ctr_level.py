@@ -181,14 +181,14 @@ class CtrLevel(KaitaiStruct):
 
         def _read(self):
             self.unknown1 = self._io.read_u4le()
-            self.faces_num = self._io.read_s4le()
-            self.vertex_num = self._io.read_s4le()
+            self.faces_count = self._io.read_s4le()
+            self.vertices_count = self._io.read_s4le()
             self.unknown2 = self._io.read_u4le()
-            self.ptr_ngon_array = self._io.read_s4le()
-            self.ptr_vert_array = self._io.read_u4le()
+            self.ngon_array_ptr = self._io.read_s4le()
+            self.vertices_array_ptr = self._io.read_u4le()
             self.unknown3 = self._io.read_u4le()
-            self.ptr_face_array = self._io.read_u4le()
-            self.face_num = self._io.read_s4le()
+            self.face_array_ptr = self._io.read_u4le()
+            self.face_count_unknown = self._io.read_s4le()
 
         class Vertex(KaitaiStruct):
             def __init__(self, _io, _parent=None, _root=None):
@@ -252,9 +252,9 @@ class CtrLevel(KaitaiStruct):
                 return self._m_vertices if hasattr(self, '_m_vertices') else None
 
             _pos = self._io.pos()
-            self._io.seek((self.ptr_vert_array + 4))
-            self._m_vertices = [None] * (self.vertex_num)
-            for i in range(self.vertex_num):
+            self._io.seek((self.vertices_array_ptr + 4))
+            self._m_vertices = [None] * (self.vertices_count)
+            for i in range(self.vertices_count):
                 self._m_vertices[i] = self._root.InfoHeader.Vertex(self._io, self, self._root)
 
             self._io.seek(_pos)
@@ -266,9 +266,9 @@ class CtrLevel(KaitaiStruct):
                 return self._m_ngons if hasattr(self, '_m_ngons') else None
 
             _pos = self._io.pos()
-            self._io.seek((self.ptr_ngon_array + 4))
-            self._m_ngons = [None] * (self.faces_num)
-            for i in range(self.faces_num):
+            self._io.seek((self.ngon_array_ptr + 4))
+            self._m_ngons = [None] * (self.faces_count)
+            for i in range(self.faces_count):
                 self._m_ngons[i] = self._root.InfoHeader.Ngon(self._io, self, self._root)
 
             self._io.seek(_pos)

@@ -371,14 +371,14 @@ namespace ctr
             private void _read()
             {
                 _unknown1 = m_io.ReadU4le();
-                _facesNum = m_io.ReadS4le();
-                _vertexNum = m_io.ReadS4le();
+                _facesCount = m_io.ReadS4le();
+                _verticesCount = m_io.ReadS4le();
                 _unknown2 = m_io.ReadU4le();
-                _ptrNgonArray = m_io.ReadS4le();
-                _ptrVertArray = m_io.ReadU4le();
+                _ngonArrayPtr = m_io.ReadS4le();
+                _verticesArrayPtr = m_io.ReadU4le();
                 _unknown3 = m_io.ReadU4le();
-                _ptrFaceArray = m_io.ReadU4le();
-                _faceNum = m_io.ReadS4le();
+                _faceArrayPtr = m_io.ReadU4le();
+                _faceCountUnknown = m_io.ReadS4le();
             }
             public partial class Vertex : KaitaiStruct
             {
@@ -516,9 +516,9 @@ namespace ctr
                     if (f_vertices)
                         return _vertices;
                     long _pos = m_io.Pos;
-                    m_io.Seek((PtrVertArray + 4));
-                    _vertices = new List<Vertex>((int) (VertexNum));
-                    for (var i = 0; i < VertexNum; i++)
+                    m_io.Seek((VerticesArrayPtr + 4));
+                    _vertices = new List<Vertex>((int) (VerticesCount));
+                    for (var i = 0; i < VerticesCount; i++)
                     {
                         _vertices.Add(new Vertex(m_io, this, m_root));
                     }
@@ -536,9 +536,9 @@ namespace ctr
                     if (f_ngons)
                         return _ngons;
                     long _pos = m_io.Pos;
-                    m_io.Seek((PtrNgonArray + 4));
-                    _ngons = new List<Ngon>((int) (FacesNum));
-                    for (var i = 0; i < FacesNum; i++)
+                    m_io.Seek((NgonArrayPtr + 4));
+                    _ngons = new List<Ngon>((int) (FacesCount));
+                    for (var i = 0; i < FacesCount; i++)
                     {
                         _ngons.Add(new Ngon(m_io, this, m_root));
                     }
@@ -548,25 +548,25 @@ namespace ctr
                 }
             }
             private uint _unknown1;
-            private int _facesNum;
-            private int _vertexNum;
+            private int _facesCount;
+            private int _verticesCount;
             private uint _unknown2;
-            private int _ptrNgonArray;
-            private uint _ptrVertArray;
+            private int _ngonArrayPtr;
+            private uint _verticesArrayPtr;
             private uint _unknown3;
-            private uint _ptrFaceArray;
-            private int _faceNum;
+            private uint _faceArrayPtr;
+            private int _faceCountUnknown;
             private CtrLevel m_root;
             private CtrLevel m_parent;
             public uint Unknown1 { get { return _unknown1; } }
-            public int FacesNum { get { return _facesNum; } }
-            public int VertexNum { get { return _vertexNum; } }
+            public int FacesCount { get { return _facesCount; } }
+            public int VerticesCount { get { return _verticesCount; } }
             public uint Unknown2 { get { return _unknown2; } }
-            public int PtrNgonArray { get { return _ptrNgonArray; } }
-            public uint PtrVertArray { get { return _ptrVertArray; } }
+            public int NgonArrayPtr { get { return _ngonArrayPtr; } }
+            public uint VerticesArrayPtr { get { return _verticesArrayPtr; } }
             public uint Unknown3 { get { return _unknown3; } }
-            public uint PtrFaceArray { get { return _ptrFaceArray; } }
-            public int FaceNum { get { return _faceNum; } }
+            public uint FaceArrayPtr { get { return _faceArrayPtr; } }
+            public int FaceCountUnknown { get { return _faceCountUnknown; } }
             public CtrLevel M_Root { get { return m_root; } }
             public CtrLevel M_Parent { get { return m_parent; } }
         }

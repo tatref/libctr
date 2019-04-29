@@ -117,24 +117,24 @@ digraph {
 			info_header__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
 				<TR><TD PORT="unknown1_pos">0</TD><TD PORT="unknown1_size">4</TD><TD>u4le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
-				<TR><TD PORT="faces_num_pos">4</TD><TD PORT="faces_num_size">4</TD><TD>s4le</TD><TD PORT="faces_num_type">faces_num</TD></TR>
-				<TR><TD PORT="vertex_num_pos">8</TD><TD PORT="vertex_num_size">4</TD><TD>s4le</TD><TD PORT="vertex_num_type">vertex_num</TD></TR>
+				<TR><TD PORT="faces_count_pos">4</TD><TD PORT="faces_count_size">4</TD><TD>s4le</TD><TD PORT="faces_count_type">faces_count</TD></TR>
+				<TR><TD PORT="vertices_count_pos">8</TD><TD PORT="vertices_count_size">4</TD><TD>s4le</TD><TD PORT="vertices_count_type">vertices_count</TD></TR>
 				<TR><TD PORT="unknown2_pos">12</TD><TD PORT="unknown2_size">4</TD><TD>u4le</TD><TD PORT="unknown2_type">unknown2</TD></TR>
-				<TR><TD PORT="ptr_ngon_array_pos">16</TD><TD PORT="ptr_ngon_array_size">4</TD><TD>s4le</TD><TD PORT="ptr_ngon_array_type">ptr_ngon_array</TD></TR>
-				<TR><TD PORT="ptr_vert_array_pos">20</TD><TD PORT="ptr_vert_array_size">4</TD><TD>u4le</TD><TD PORT="ptr_vert_array_type">ptr_vert_array</TD></TR>
+				<TR><TD PORT="ngon_array_ptr_pos">16</TD><TD PORT="ngon_array_ptr_size">4</TD><TD>s4le</TD><TD PORT="ngon_array_ptr_type">ngon_array_ptr</TD></TR>
+				<TR><TD PORT="vertices_array_ptr_pos">20</TD><TD PORT="vertices_array_ptr_size">4</TD><TD>u4le</TD><TD PORT="vertices_array_ptr_type">vertices_array_ptr</TD></TR>
 				<TR><TD PORT="unknown3_pos">24</TD><TD PORT="unknown3_size">4</TD><TD>u4le</TD><TD PORT="unknown3_type">unknown3</TD></TR>
-				<TR><TD PORT="ptr_face_array_pos">28</TD><TD PORT="ptr_face_array_size">4</TD><TD>u4le</TD><TD PORT="ptr_face_array_type">ptr_face_array</TD></TR>
-				<TR><TD PORT="face_num_pos">32</TD><TD PORT="face_num_size">4</TD><TD>s4le</TD><TD PORT="face_num_type">face_num</TD></TR>
+				<TR><TD PORT="face_array_ptr_pos">28</TD><TD PORT="face_array_ptr_size">4</TD><TD>u4le</TD><TD PORT="face_array_ptr_type">face_array_ptr</TD></TR>
+				<TR><TD PORT="face_count_unknown_pos">32</TD><TD PORT="face_count_unknown_size">4</TD><TD>s4le</TD><TD PORT="face_count_unknown_type">face_count_unknown</TD></TR>
 			</TABLE>>];
 			info_header__inst__vertices [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="vertices_pos">(ptr_vert_array + 4)</TD><TD PORT="vertices_size">16</TD><TD>Vertex</TD><TD PORT="vertices_type">vertices</TD></TR>
-				<TR><TD COLSPAN="4" PORT="vertices__repeat">repeat vertex_num times</TD></TR>
+				<TR><TD PORT="vertices_pos">(vertices_array_ptr + 4)</TD><TD PORT="vertices_size">16</TD><TD>Vertex</TD><TD PORT="vertices_type">vertices</TD></TR>
+				<TR><TD COLSPAN="4" PORT="vertices__repeat">repeat vertices_count times</TD></TR>
 			</TABLE>>];
 			info_header__inst__ngons [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="ngons_pos">(ptr_ngon_array + 4)</TD><TD PORT="ngons_size">92</TD><TD>Ngon</TD><TD PORT="ngons_type">ngons</TD></TR>
-				<TR><TD COLSPAN="4" PORT="ngons__repeat">repeat faces_num times</TD></TR>
+				<TR><TD PORT="ngons_pos">(ngon_array_ptr + 4)</TD><TD PORT="ngons_size">92</TD><TD>Ngon</TD><TD PORT="ngons_type">ngons</TD></TR>
+				<TR><TD COLSPAN="4" PORT="ngons__repeat">repeat faces_count times</TD></TR>
 			</TABLE>>];
 			subgraph cluster__vertex {
 				label="CtrLevel::InfoHeader::Vertex";
@@ -197,12 +197,12 @@ digraph {
 	object_mesh__seq:unknown_table_ptr_type -> object_mesh__inst__table_ptr_end:table_ptr_end_pos [color="#404040"];
 	object_mesh__seq:unknown_table_ptr_type -> object_mesh__inst__table_ptr:table_ptr_pos [color="#404040"];
 	object_mesh__inst__table_ptr_end:table_ptr_end_type -> object_mesh__inst__table_ptr:table_ptr__repeat [color="#404040"];
-	info_header__seq:ptr_vert_array_type -> info_header__inst__vertices:vertices_pos [color="#404040"];
+	info_header__seq:vertices_array_ptr_type -> info_header__inst__vertices:vertices_pos [color="#404040"];
 	info_header__inst__vertices:vertices_type -> vertex__seq [style=bold];
-	info_header__seq:vertex_num_type -> info_header__inst__vertices:vertices__repeat [color="#404040"];
-	info_header__seq:ptr_ngon_array_type -> info_header__inst__ngons:ngons_pos [color="#404040"];
+	info_header__seq:vertices_count_type -> info_header__inst__vertices:vertices__repeat [color="#404040"];
+	info_header__seq:ngon_array_ptr_type -> info_header__inst__ngons:ngons_pos [color="#404040"];
 	info_header__inst__ngons:ngons_type -> ngon__seq [style=bold];
-	info_header__seq:faces_num_type -> info_header__inst__ngons:ngons__repeat [color="#404040"];
+	info_header__seq:faces_count_type -> info_header__inst__ngons:ngons__repeat [color="#404040"];
 	vertex__seq:coordinates_type -> vector4u2__seq [style=bold];
 	vertex__seq:color1_type -> vector4u1__seq [style=bold];
 	vertex__seq:color2_type -> vector4u1__seq [style=bold];

@@ -170,34 +170,34 @@ types:
       seq:
         - id: unknown1
           type: u4
-        - id: faces_num
+        - id: faces_count
           type: s4
-        - id: vertex_num
+        - id: vertices_count
           type: s4
         - id: unknown2
           type: u4
-        - id: ptr_ngon_array
+        - id: ngon_array_ptr
           type: s4
-        - id: ptr_vert_array
+        - id: vertices_array_ptr
           type: u4
         - id: unknown3
           type: u4
-        - id: ptr_face_array
+        - id: face_array_ptr
           type: u4
-        - id: face_num
+        - id: face_count_unknown
           type: s4
           
       instances:
         vertices:
-          pos: ptr_vert_array + 4
+          pos: vertices_array_ptr + 4
           type: vertex
           repeat: expr
-          repeat-expr: vertex_num
+          repeat-expr: vertices_count
         ngons:
-          pos: ptr_ngon_array + 4
+          pos: ngon_array_ptr + 4
           type: ngon
           repeat: expr
-          repeat-expr: faces_num
+          repeat-expr: faces_count
           
       types:
         vertex:
