@@ -73,7 +73,7 @@ digraph {
 						<TR><TD PORT="bx_pos">54</TD><TD PORT="bx_size">2</TD><TD>s2le</TD><TD PORT="bx_type">bx</TD></TR>
 						<TR><TD PORT="by_pos">56</TD><TD PORT="by_size">2</TD><TD>s2le</TD><TD PORT="by_type">by</TD></TR>
 						<TR><TD PORT="bz_pos">58</TD><TD PORT="bz_size">2</TD><TD>s2le</TD><TD PORT="bz_type">bz</TD></TR>
-						<TR><TD PORT="event_type_pos">60</TD><TD PORT="event_type_size">4</TD><TD>u4le</TD><TD PORT="event_type_type">event_type</TD></TR>
+						<TR><TD PORT="event_type_pos">60</TD><TD PORT="event_type_size">4</TD><TD>s4le→Event</TD><TD PORT="event_type_type">event_type</TD></TR>
 					</TABLE>>];
 					object_instance__inst__object_mesh [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>

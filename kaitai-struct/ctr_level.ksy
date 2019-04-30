@@ -71,6 +71,72 @@ types:
 
         types:
           object_instance:
+            enums:
+              event:
+                -1: nothing
+                2: single_fruit
+                6: crate_nitro
+                7: crate_fruit
+                8: crate_weapon
+                18: state_burned
+                19: state_eaten
+                33: state_squished
+                34: state_squished_ball
+                36: state_rotated_armadillo
+                37: state_killed_blades
+                39: crate_tnt
+                76: pass_seal
+                78: state_squished_barrel
+                81: state_turle_jump
+                82: state_rotated_spider
+                84: state_burned_in_air
+                85: labs_drum
+                87: pipe
+                89: vent
+                91: state_castle_sign
+                92: crate_relic1
+                96: crystal
+                100: crate_relic2
+                101: crate_relic3
+                108: warp_pad
+                112: teeth
+                114: save_screen
+                115: garage_pin
+                116: garage_papu
+                117: garage_roo
+                118: garage_joe
+                119: garage_oxide
+                122: door_unknown
+                139: penguin_lose
+                147: letter_c
+                148: letter_t
+                149: letter_r
+                150: crashsleep
+                151: intro_coco
+                152: intro_cortex
+                153: intro_tiny
+                154: intro_polar
+                155: intro_dingo
+                157: xx_intro_beam_glow
+                158: intro_tiny_kart
+                159: intro_dingo_kart
+                160: xx_intro_1
+                161: xx_intro_2
+                165: introoxidebody
+                166: finish_lap
+                204: intro_flash
+                206: crash_select
+                207: cortex_select
+                208: tiny_select
+                209: coco_select
+                210: ngin_select
+                211: dingo_select
+                212: polar_select
+                213: pura_select
+                223: oxide_speaker
+                224: intro_sparks
+                225: hub_door
+                
             seq:
               - id: name
                 type: str
@@ -110,9 +176,11 @@ types:
               - id: bz
                 type: s2
               - id: event_type
-                type: u4
+                type: s4
                 doc: |
                   https://github.com/DCxDemo/CTR-tools/blob/master/formats/formats.txt
+                  https://github.com/DCxDemo/CTR-tools/blob/fab0fbd5802d01e9897a5455f78a2de7ed6356be/ctr-tools/levTool/CTR/PickupHeader.cs
+                enum: event
                 
             instances:
               object_mesh:

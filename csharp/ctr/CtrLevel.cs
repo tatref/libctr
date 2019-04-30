@@ -84,6 +84,73 @@ namespace ctr
                         return new ObjectInstance(new KaitaiStream(fileName));
                     }
 
+
+                    public enum Event
+                    {
+                        Nothing = -1,
+                        SingleFruit = 2,
+                        CrateNitro = 6,
+                        CrateFruit = 7,
+                        CrateWeapon = 8,
+                        StateBurned = 18,
+                        StateEaten = 19,
+                        StateSquished = 33,
+                        StateSquishedBall = 34,
+                        StateRotatedArmadillo = 36,
+                        StateKilledBlades = 37,
+                        CrateTnt = 39,
+                        PassSeal = 76,
+                        StateSquishedBarrel = 78,
+                        StateTurleJump = 81,
+                        StateRotatedSpider = 82,
+                        StateBurnedInAir = 84,
+                        LabsDrum = 85,
+                        Pipe = 87,
+                        Vent = 89,
+                        StateCastleSign = 91,
+                        CrateRelic1 = 92,
+                        Crystal = 96,
+                        CrateRelic2 = 100,
+                        CrateRelic3 = 101,
+                        WarpPad = 108,
+                        Teeth = 112,
+                        SaveScreen = 114,
+                        GaragePin = 115,
+                        GaragePapu = 116,
+                        GarageRoo = 117,
+                        GarageJoe = 118,
+                        GarageOxide = 119,
+                        DoorUnknown = 122,
+                        PenguinLose = 139,
+                        LetterC = 147,
+                        LetterT = 148,
+                        LetterR = 149,
+                        Crashsleep = 150,
+                        IntroCoco = 151,
+                        IntroCortex = 152,
+                        IntroTiny = 153,
+                        IntroPolar = 154,
+                        IntroDingo = 155,
+                        XxIntroBeamGlow = 157,
+                        IntroTinyKart = 158,
+                        IntroDingoKart = 159,
+                        XxIntro1 = 160,
+                        XxIntro2 = 161,
+                        Introoxidebody = 165,
+                        FinishLap = 166,
+                        IntroFlash = 204,
+                        CrashSelect = 206,
+                        CortexSelect = 207,
+                        TinySelect = 208,
+                        CocoSelect = 209,
+                        NginSelect = 210,
+                        DingoSelect = 211,
+                        PolarSelect = 212,
+                        PuraSelect = 213,
+                        OxideSpeaker = 223,
+                        IntroSparks = 224,
+                        HubDoor = 225,
+                    }
                     public ObjectInstance(KaitaiStream p__io, CtrLevel.Header.ObjectEntry p__parent = null, CtrLevel p__root = null) : base(p__io)
                     {
                         m_parent = p__parent;
@@ -110,7 +177,7 @@ namespace ctr
                         _bx = m_io.ReadS2le();
                         _by = m_io.ReadS2le();
                         _bz = m_io.ReadS2le();
-                        _eventType = m_io.ReadU4le();
+                        _eventType = ((Event) m_io.ReadS4le());
                     }
                     public partial class Mesh : KaitaiStruct
                     {
@@ -263,7 +330,7 @@ namespace ctr
                     private short _bx;
                     private short _by;
                     private short _bz;
-                    private uint _eventType;
+                    private Event _eventType;
                     private CtrLevel m_root;
                     private CtrLevel.Header.ObjectEntry m_parent;
                     public string Name { get { return _name; } }
@@ -286,8 +353,9 @@ namespace ctr
 
                     /// <summary>
                     /// https://github.com/DCxDemo/CTR-tools/blob/master/formats/formats.txt
+                    /// https://github.com/DCxDemo/CTR-tools/blob/fab0fbd5802d01e9897a5455f78a2de7ed6356be/ctr-tools/levTool/CTR/PickupHeader.cs
                     /// </summary>
-                    public uint EventType { get { return _eventType; } }
+                    public Event EventType { get { return _eventType; } }
                     public CtrLevel M_Root { get { return m_root; } }
                     public CtrLevel.Header.ObjectEntry M_Parent { get { return m_parent; } }
                 }

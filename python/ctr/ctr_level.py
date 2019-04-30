@@ -2,6 +2,7 @@
 
 from pkg_resources import parse_version
 from kaitaistruct import __version__ as ks_version, KaitaiStruct, KaitaiStream, BytesIO
+from enum import Enum
 
 
 if parse_version(ks_version) < parse_version('0.7'):
@@ -54,6 +55,71 @@ class CtrLevel(KaitaiStruct):
                 self.object_instance_ptr = self._io.read_u4le()
 
             class ObjectInstance(KaitaiStruct):
+
+                class Event(Enum):
+                    nothing = -1
+                    single_fruit = 2
+                    crate_nitro = 6
+                    crate_fruit = 7
+                    crate_weapon = 8
+                    state_burned = 18
+                    state_eaten = 19
+                    state_squished = 33
+                    state_squished_ball = 34
+                    state_rotated_armadillo = 36
+                    state_killed_blades = 37
+                    crate_tnt = 39
+                    pass_seal = 76
+                    state_squished_barrel = 78
+                    state_turle_jump = 81
+                    state_rotated_spider = 82
+                    state_burned_in_air = 84
+                    labs_drum = 85
+                    pipe = 87
+                    vent = 89
+                    state_castle_sign = 91
+                    crate_relic1 = 92
+                    crystal = 96
+                    crate_relic2 = 100
+                    crate_relic3 = 101
+                    warp_pad = 108
+                    teeth = 112
+                    save_screen = 114
+                    garage_pin = 115
+                    garage_papu = 116
+                    garage_roo = 117
+                    garage_joe = 118
+                    garage_oxide = 119
+                    door_unknown = 122
+                    penguin_lose = 139
+                    letter_c = 147
+                    letter_t = 148
+                    letter_r = 149
+                    crashsleep = 150
+                    intro_coco = 151
+                    intro_cortex = 152
+                    intro_tiny = 153
+                    intro_polar = 154
+                    intro_dingo = 155
+                    xx_intro_beam_glow = 157
+                    intro_tiny_kart = 158
+                    intro_dingo_kart = 159
+                    xx_intro_1 = 160
+                    xx_intro_2 = 161
+                    introoxidebody = 165
+                    finish_lap = 166
+                    intro_flash = 204
+                    crash_select = 206
+                    cortex_select = 207
+                    tiny_select = 208
+                    coco_select = 209
+                    ngin_select = 210
+                    dingo_select = 211
+                    polar_select = 212
+                    pura_select = 213
+                    oxide_speaker = 223
+                    intro_sparks = 224
+                    hub_door = 225
                 def __init__(self, _io, _parent=None, _root=None):
                     self._io = _io
                     self._parent = _parent
@@ -78,7 +144,7 @@ class CtrLevel(KaitaiStruct):
                     self.bx = self._io.read_s2le()
                     self.by = self._io.read_s2le()
                     self.bz = self._io.read_s2le()
-                    self.event_type = self._io.read_u4le()
+                    self.event_type = self._root.Header.ObjectEntry.ObjectInstance.Event(self._io.read_s4le())
 
                 class Mesh(KaitaiStruct):
                     def __init__(self, _io, _parent=None, _root=None):
