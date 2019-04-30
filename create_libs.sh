@@ -1,4 +1,7 @@
 #!/bin/bash
+#
+# Use this script to convert *.ksy to python, C#,...
+#
 
 set -eu
 
