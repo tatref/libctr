@@ -99,7 +99,6 @@ class CtrLevel(KaitaiStruct):
                         self.unknown_ptr1 = self._io.read_u4le()
                         self.unknown_table_ptr = self._io.read_u4le()
                         self.unknown_ptr3 = self._io.read_u4le()
-                        self.magic2 = self._io.ensure_fixed_contents(b"\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00\x00")
 
                     @property
                     def table_ptr_end(self):

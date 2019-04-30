@@ -158,8 +158,6 @@ types:
                     type: u4
                   - id: unknown_ptr3
                     type: u4
-                  - id: magic2
-                    contents: [0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00]
                 instances:
                   table_ptr_end:
                     pos: unknown_table_ptr + 4

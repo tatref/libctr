@@ -140,7 +140,6 @@ namespace ctr
                             _unknownPtr1 = m_io.ReadU4le();
                             _unknownTablePtr = m_io.ReadU4le();
                             _unknownPtr3 = m_io.ReadU4le();
-                            _magic2 = m_io.EnsureFixedContents(new byte[] { 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
                         }
                         private bool f_tablePtrEnd;
                         private uint _tablePtrEnd;
@@ -199,7 +198,6 @@ namespace ctr
                         private uint _unknownPtr1;
                         private uint _unknownTablePtr;
                         private uint _unknownPtr3;
-                        private byte[] _magic2;
                         private CtrLevel m_root;
                         private CtrLevel.Header.ObjectEntry.ObjectInstance m_parent;
                         public uint Unknown1 { get { return _unknown1; } }
@@ -229,7 +227,6 @@ namespace ctr
                         /// </summary>
                         public uint UnknownTablePtr { get { return _unknownTablePtr; } }
                         public uint UnknownPtr3 { get { return _unknownPtr3; } }
-                        public byte[] Magic2 { get { return _magic2; } }
                         public CtrLevel M_Root { get { return m_root; } }
                         public CtrLevel.Header.ObjectEntry.ObjectInstance M_Parent { get { return m_parent; } }
                     }
