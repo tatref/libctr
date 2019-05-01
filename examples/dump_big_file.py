@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 #
-# BIGFILE.BIG dumper
+# CTR BIGFILE.BIG dumper
 #
 # Example usage:
 #  * install kaitai-struct for python
@@ -15,8 +15,12 @@
 #
 
 
-import sys
+from pprint import pprint
+import hashlib
+import json
 import os
+import sys
+from pathlib import Path
 
 
 try:
@@ -43,19 +47,35 @@ if len(sys.argv) != 3:
     sys.exit(1)
 
 bigfile = sys.argv[1]
-dump_path = sys.argv[2]
-filenames_path = os.path.dirname(os.path.abspath(__file__)) + "/filenames.txt"
+dump_path = Path(sys.argv[2])
+
+bigfiles = {
+        '03a005e2abc6022fd1e1e7405300ad77': 'SCES-02105',
+        'c43eba5a20f0b4fc69a00c8d61a8ec10': 'SCUS-94426',
+        }
+
+
+with open(bigfile, 'rb') as bigfile_reader:
+    h = hashlib.md5()
+    h.update(bigfile_reader.read())
+    md5sum = h.hexdigest()
+    bigfile_version = bigfiles[md5sum]
+
+
+filenames_path = os.path.dirname(os.path.abspath(__file__)) + '/filenames_' + bigfile_version + '.txt'
+
 
 filenames = {}
 for line in open(filenames_path).readlines():
     line = line.strip()
-    num = line.split('=')[0]
+    num = int(line.split('=')[0])
     name = line.split('=')[1]
-    filenames[num] = name
+    filenames[num] = { 'name': name }
 
 try:
-    os.mkdir(dump_path)
+    os.mkdir(str(dump_path))
 except:
+    print('Unable to create path ' + str(dump_path))
     pass
 
 # parse the file
@@ -66,20 +86,31 @@ ctr = CtrBigfile.from_file(bigfile)
 print('BIGFILE contains {} entries'.format(ctr.files_count))
 
 
+print('md5 idx filename')
 # actual dump
 for idx, entry in enumerate(ctr.index):
-    idx = '{:03d}'.format(idx)
-    print(idx)
-
     content = entry.file_content
 
     if idx in filenames:
-        output_filename = dump_path + os.path.sep + idx + '_' + filenames.get(idx, idx)
+        output_filename = dump_path / Path('{:03d}'.format(idx) + '_' + filenames[idx]['name'])
     else:
-        output_filename = dump_path + os.path.sep + idx
+        output_filename = dump_path / '{:03d}'.format(idx)
+        filenames[idx] = {}
 
-    writer = open(output_filename, 'wb')
-    writer.write(content)
+    with output_filename.open('wb') as bigfile_writer:
+        bigfile_writer.write(content)
+
+    # compute md5
+    h = hashlib.md5()
+    h.update(content)
+    md5sum = h.hexdigest()
+
+    filenames[idx]['md5'] = md5sum
+    print(md5sum, idx, output_filename)
+
+
+with (dump_path / Path('../bigfile_' + bigfile_version + '.json')).open('w') as filenames_writer:
+    json.dump(filenames, filenames_writer, sort_keys=True, indent=4)
 
 
 print('\nDone')
