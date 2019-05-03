@@ -1,6 +1,8 @@
 # Introduction
 This a library to parse CTR data files
 
+See the [reversing guide](./REVERSING_WALKTHROUGH.md)
+
 # Status
 ## Done or mostly done
 * [BIGFILE.BIG](./kaitai-struct/ctr_bigfile.ksy)
