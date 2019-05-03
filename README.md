@@ -33,12 +33,21 @@ The source for each file format is at `./kaitai-struct`. To build, the Python/Ja
 ./create_libs.sh
 ```
 
+# Formats mapping
+
+|Extension|ksy|Description|
+|---|---|---|
+|.BIG|[ctr_bigfile.ksy](./kaitai-struct/ctr_bigfile.ksy)|BIGFILE.BIG|
+|.vram|[ctr_tim2x.ksy](./kaitai-struct/ctr_tim2x.ksy)|textures|
+|.ctr|[ctr_character.ksy](./kaitai-struct/ctr_character.ksy)|characters|
+|.lev|[ctr_level.ksy](./kaitai-struct/ctr_level.ksy)|levels|
+|.lng|[ctr_lang.ksy](./kaitai-struct/ctr_lang.ksy)|translations|
+
 # Usage
 See [examples](./examples)
 
-
 # Gallery
-## Block diagrams
+## [Block diagrams](./graphviz/)
 ![CTR Bigfile](./graphviz/ctr_bigfile.png "CTR Bigfile")
 
 ## Web IDE (https://ide.kaitai.io/)
