@@ -1,5 +1,5 @@
 # Introduction
-This a library to parse CTR data files
+This a library to parse CTR data files, some of it is based on [DCxDemo's work](https://github.com/DCxDemo/CTR-tools)
 
 See the [reversing guide](./REVERSING_WALKTHROUGH.md)
 
@@ -7,6 +7,7 @@ See the [reversing guide](./REVERSING_WALKTHROUGH.md)
 ## Done or mostly done
 * [BIGFILE.BIG](./kaitai-struct/ctr_bigfile.ksy)
 * [TIM files](./kaitai-struct/psx_tim.ksy)
+* [TIM2x](./kaitai-struct/ctr_tim2x.ksy)
 * [lang](./kaitai-struct/ctr_lang.ksy)
 
 # Building
