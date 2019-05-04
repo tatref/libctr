@@ -27,6 +27,10 @@ digraph {
 			<TR><TD PORT="animations_index_pos">(animations_table_ptr + 4)</TD><TD PORT="animations_index_size">4</TD><TD>AnimationEntry</TD><TD PORT="animations_index_type">animations_index</TD></TR>
 			<TR><TD COLSPAN="4" PORT="animations_index__repeat">repeat animations_count times</TD></TR>
 		</TABLE>>];
+		ctr_character__inst__wx8section [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+			<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+			<TR><TD PORT="wx8section_pos">(wx8_ptr + 4)</TD><TD PORT="wx8section_size">4</TD><TD>u4le</TD><TD PORT="wx8section_type">wx8section</TD></TR>
+		</TABLE>>];
 		subgraph cluster__animation_entry {
 			label="CtrCharacter::AnimationEntry";
 			graph[style=dotted];
@@ -37,25 +41,49 @@ digraph {
 			</TABLE>>];
 			animation_entry__inst__animation [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 				<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-				<TR><TD PORT="animation_pos">animation_ptr</TD><TD PORT="animation_size">28</TD><TD>Anim</TD><TD PORT="animation_type">animation</TD></TR>
+				<TR><TD PORT="animation_pos">(animation_ptr + 4)</TD><TD PORT="animation_size">...</TD><TD>Animation</TD><TD PORT="animation_type">animation</TD></TR>
 			</TABLE>>];
-			subgraph cluster__anim {
-				label="CtrCharacter::AnimationEntry::Anim";
+			subgraph cluster__animation {
+				label="CtrCharacter::AnimationEntry::Animation";
 				graph[style=dotted];
 
-				anim__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+				animation__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
 					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
-					<TR><TD PORT="unknown1_pos">0</TD><TD PORT="unknown1_size">4</TD><TD>u4le</TD><TD PORT="unknown1_type">unknown1</TD></TR>
-					<TR><TD PORT="animation_name_pos">4</TD><TD PORT="animation_name_size">16</TD><TD>str(ASCII)</TD><TD PORT="animation_name_type">animation_name</TD></TR>
-					<TR><TD PORT="unknown2_pos">20</TD><TD PORT="unknown2_size">4</TD><TD>u4le</TD><TD PORT="unknown2_type">unknown2</TD></TR>
+					<TR><TD PORT="animation_name_pos">0</TD><TD PORT="animation_name_size">16</TD><TD>str(ASCII)</TD><TD PORT="animation_name_type">animation_name</TD></TR>
+					<TR><TD PORT="unknown_count1_pos">16</TD><TD PORT="unknown_count1_size">1</TD><TD>u1</TD><TD PORT="unknown_count1_type">unknown_count1</TD></TR>
+					<TR><TD PORT="unknown_xx_pos">17</TD><TD PORT="unknown_xx_size">1</TD><TD>u1</TD><TD PORT="unknown_xx_type">unknown_xx</TD></TR>
+					<TR><TD PORT="unknown_size1_pos">18</TD><TD PORT="unknown_size1_size">2</TD><TD>u2le</TD><TD PORT="unknown_size1_type">unknown_size1</TD></TR>
+					<TR><TD PORT="unknown_ptr2_pos">20</TD><TD PORT="unknown_ptr2_size">4</TD><TD>u4le</TD><TD PORT="unknown_ptr2_type">unknown_ptr2</TD></TR>
 					<TR><TD PORT="unknown3_pos">24</TD><TD PORT="unknown3_size">4</TD><TD>u4le</TD><TD PORT="unknown3_type">unknown3</TD></TR>
+					<TR><TD PORT="unknown4_pos">28</TD><TD PORT="unknown4_size">4</TD><TD>u4le</TD><TD PORT="unknown4_type">unknown4</TD></TR>
+					<TR><TD PORT="unknown_data1_pos">32</TD><TD PORT="unknown_data1_size">...</TD><TD>UnknownData1</TD><TD PORT="unknown_data1_type">unknown_data1</TD></TR>
+					<TR><TD COLSPAN="4" PORT="unknown_data1__repeat">repeat unknown_count1 times</TD></TR>
 				</TABLE>>];
+				animation__inst__magic1 [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+					<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+					<TR><TD PORT="magic1_pos">(unknown_ptr2 + 4)</TD><TD PORT="magic1_size">4</TD><TD>FF 01 00 00</TD><TD PORT="magic1_type">magic1</TD></TR>
+				</TABLE>>];
+				subgraph cluster__unknown_data1 {
+					label="CtrCharacter::AnimationEntry::Animation::UnknownData1";
+					graph[style=dotted];
+
+					unknown_data1__seq [label=<<TABLE BORDER="0" CELLBORDER="1" CELLSPACING="0">
+						<TR><TD BGCOLOR="#E0FFE0">pos</TD><TD BGCOLOR="#E0FFE0">size</TD><TD BGCOLOR="#E0FFE0">type</TD><TD BGCOLOR="#E0FFE0">id</TD></TR>
+						<TR><TD PORT="magic1_pos">0</TD><TD PORT="magic1_size">(16 + 4)</TD><TD></TD><TD PORT="magic1_type">magic1</TD></TR>
+						<TR><TD PORT="data1_pos">...</TD><TD PORT="data1_size">(_parent.unknown_size1 - 20)</TD><TD></TD><TD PORT="data1_type">data1</TD></TR>
+					</TABLE>>];
+				}
 			}
 		}
 	}
 	ctr_character__seq:animations_table_ptr_type -> ctr_character__inst__animations_index:animations_index_pos [color="#404040"];
 	ctr_character__inst__animations_index:animations_index_type -> animation_entry__seq [style=bold];
 	ctr_character__seq:animations_count_type -> ctr_character__inst__animations_index:animations_index__repeat [color="#404040"];
+	ctr_character__seq:wx8_ptr_type -> ctr_character__inst__wx8section:wx8section_pos [color="#404040"];
 	animation_entry__seq:animation_ptr_type -> animation_entry__inst__animation:animation_pos [color="#404040"];
-	animation_entry__inst__animation:animation_type -> anim__seq [style=bold];
+	animation_entry__inst__animation:animation_type -> animation__seq [style=bold];
+	animation__seq:unknown_data1_type -> unknown_data1__seq [style=bold];
+	animation__seq:unknown_count1_type -> animation__seq:unknown_data1__repeat [color="#404040"];
+	animation__seq:unknown_ptr2_type -> animation__inst__magic1:magic1_pos [color="#404040"];
+	animation__seq:unknown_size1_type -> unknown_data1__seq:data1_size [color="#404040"];
 }

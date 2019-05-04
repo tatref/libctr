@@ -53,7 +53,11 @@ instances:
     type: animation_entry
     repeat: expr
     repeat-expr: animations_count
-    
+  wx8section:
+    pos: wx8_ptr + 4
+    type: u4
+    doc: |
+      ends with [0xff 0xff 0xff 0xff]
 
 
 types:
@@ -63,23 +67,49 @@ types:
         type: u4
     instances:
       animation:
-        pos: animation_ptr
-        type: anim
+        pos: animation_ptr + 4
+        type: animation
     types:
-      anim:
+      animation:
         seq:
-          - id: unknown1
-            type: u4
-            # maybe this does not belong to the animation?
+          #- id: unknown1
+          #  type: u4
+          #  # maybe this does not belong to the animation?
           - id: animation_name
             type: str
             encoding: ASCII
             size: 16
             terminator: 0
-          - id: unknown2
+          - id: unknown_count1
+            type: u1
+          - id: unknown_xx
+            type: u1
+          - id: unknown_size1
+            type: u2
+            doc: |
+              starts after bytes 0x00 * 16, 0x1c, 0x00 * 3
+          - id: unknown_ptr2
             type: u4
           - id: unknown3
             type: u4
-
+          - id: unknown4
+            type: u4
+          - id: unknown_data1
+            type: unknown_data1
+            repeat: expr
+            repeat-expr: unknown_count1
+        types:
+          unknown_data1:
+            seq:
+              - id: magic1
+              #  contents: [0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
+              #  0x1c,0x00,0x00,0x00]
+                size: 16 + 4
+              - id: data1
+                size: _parent.unknown_size1 - 20
+        instances:
+          magic1:
+            pos: unknown_ptr2 + 4
+            contents: [0xff, 0x01, 0x00, 0x00]
 
 
