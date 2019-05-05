@@ -278,7 +278,7 @@ types:
         vertex:
           seq:
             - id: coordinates
-              type: vector4u2
+              type: vector4s2
             - id: color1
               type: vector4u1
             - id: color2
@@ -295,7 +295,7 @@ types:
               size: 74
 
 
-        vector4u2:
+        vector4s2:
           seq:
             - id: x
               type: s2
