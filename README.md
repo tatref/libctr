@@ -1,7 +1,7 @@
 # Introduction
 This a library to parse Crash Team Racing data files, some of it is based on [DCxDemo's work](https://github.com/DCxDemo/CTR-tools)
 
-See the [reversing guide](./REVERSING_WALKTHROUGH.md)
+See the [reversing guide](./REVERSING_WALKTHROUGH.md), and the [modding guide](./MODDING_GUIDE.md)
 
 # Status
 ## Done or mostly done
