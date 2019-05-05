@@ -9,7 +9,7 @@ Tools
 
 Edit `SCUS-94426.patched/BIGFILE.BIG`
 
-# Updating the BIGFILE inside the bin
+# Updating the BIGFILE inside the bin
 Tools
 - psxinject
 
