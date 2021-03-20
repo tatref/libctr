@@ -6,7 +6,7 @@ Flask==1.0.2
 grip==4.5.2
 idna==2.8
 itsdangerous==1.1.0
-Jinja2==2.10
+Jinja2==2.11.3
 kaitaistruct==0.8
 Markdown==3.0.1
 MarkupSafe==1.1.0
