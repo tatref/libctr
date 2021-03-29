@@ -11,7 +11,7 @@ kaitaistruct==0.8
 Markdown==3.0.1
 MarkupSafe==1.1.0
 path-and-address==2.0.1
-Pygments==2.3.1
+Pygments==2.7.4
 requests==2.21.0
 urllib3==1.24.1
 Werkzeug==0.14.1
